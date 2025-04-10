@@ -1,6 +1,0 @@
-Tiempo Real
-Tolerante a Fallas
-S.O Virtuales
-Segun Arquitectura
-Definicion interrupciones
-Definiciones computo distribuido

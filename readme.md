@@ -2,8 +2,8 @@
 
 > Material de cursada de la materia **Sistemas Operativos**  
 > 📅 Inicio: 09/04/2025  
-> 🎓 Alumno: Tiago Pujia | 👨‍🏫 Prof: Fernando La Rosa  
-> 🕔 Comisión 4900 – Jueves (Turno noche)  
+> 🎓 Alumno: Tiago Pujia | 👨‍🏫 Prof: Alexis Villamayor  
+> 🕔 Comisión 3900 [3 = Miercoles, 9 = Turno noche]
 > ▶️ [Clases Grabadas](https://www.youtube.com/)
 
 ## Indice
@@ -22,9 +22,6 @@
     - [Segun la cantidad de procesadores que soporta](#segun-la-cantidad-de-procesadores-que-soporta)
     - [Segun la cantidad de procesos que ejecutan concurrentemente](#segun-la-cantidad-de-procesos-que-ejecutan-concurrentemente)
     - [Segun sus aplicaciones](#segun-sus-aplicaciones)
-    - [De tiempo Real](#de-tiempo-real)
-    - [Tolerantes a Fallas](#tolerantes-a-fallas)
-    - [S.O Virtuales](#so-virtuales)
     - [Segun arquitectura](#segun-arquitectura)
   - [Interrupciones](#interrupciones)
     - [Definición](#definición)
@@ -55,13 +52,13 @@ Un sistema operativo se basa en cumplir 4 caracteristicas:
 
 ![inicializacion](/imgs/clase-1/inicializador.png)
 
-Al encender una computadora, se ejecuta un **chequeo inicial**, controlado por el firmware de la placa madre, ya sea ***BIOS*** o ***UEFI***. Este proceso se encarga de inicializar y verificar el hardware esencial (como la memoria RAM, el procesador y los discos). Además, permite al usuario acceder a una interfaz de configuración, donde puede definir opciones como el orden de arranque.
+Al encender una computadora, se ejecuta un **chequeo inicial**, controlado por el firmware de la placa madre, ya sea **_BIOS_** o **_UEFI_**. Este proceso se encarga de inicializar y verificar el hardware esencial (como la memoria RAM, el procesador y los discos). Además, permite al usuario acceder a una interfaz de configuración, donde puede definir opciones como el orden de arranque.
 
-Una vez completado este chequeo, el BIOS o UEFI busca un **dispositivo de almacenamiento** que contenga un ***MBR (Master Boot Record)*** válido. Este MBR se encuentra en el **primer sector físico del disco** (sector 0). En él se almacena una pequeña parte del **código de arranque**.
+Una vez completado este chequeo, el BIOS o UEFI busca un **dispositivo de almacenamiento** que contenga un **_MBR (Master Boot Record)_** válido. Este MBR se encuentra en el **primer sector físico del disco** (sector 0). En él se almacena una pequeña parte del **código de arranque**.
 
-El BIOS transfiere el control al código ubicado en el MBR, el cual se encarga de identificar la ***partición activa***, es decir, aquella que está marcada como booteable. Desde allí, el MBR accede al sector de arranque de dicha partición, donde se encuentra un puntero que lo dirige al ***gestor de arranque*** o ***bootloader***.
+El BIOS transfiere el control al código ubicado en el MBR, el cual se encarga de identificar la **_partición activa_**, es decir, aquella que está marcada como booteable. Desde allí, el MBR accede al sector de arranque de dicha partición, donde se encuentra un puntero que lo dirige al **_gestor de arranque_** o **_bootloader_**.
 
-El ***bootloader*** es un programa almacenado dentro del sistema de archivos del disco. Su función es **cargar el núcleo del sistema operativo (kernel)** en la **memoria RAM** y dar inicio a la ejecución del sistema, dejando el entorno preparado para que el usuario comience a trabajar.
+El **_bootloader_** es un programa almacenado dentro del sistema de archivos del disco. Su función es **cargar el núcleo del sistema operativo (kernel)** en la **memoria RAM** y dar inicio a la ejecución del sistema, dejando el entorno preparado para que el usuario comience a trabajar.
 
 ### Maquina Extendida
 
@@ -111,25 +108,38 @@ Si un usuario quiere usar instrucciones de kernel entra en un trap.
 ### Segun sus aplicaciones
 
 -   Proposito general -> Propositos de amplia gama con cualquier fin
--   Proposito especial -> construccion a medida
-
-### De tiempo Real
-
-### Tolerantes a Fallas
-
-### S.O Virtuales
+-   Proposito especial -> construccion a medida para un uso especifico. Se clasifica en:
+    -   Tiempo real -> Tiempo de respuesta a eventos
+        -   Tiempo Real No Crítico -> El tiempo de respuesta es importante, pero no vital
+        -   Tiempo Real Crítico -> Requiere una respuesta inmediata
+    -   Tolerante a fallas -> Se utilizan en aplicaciones donde es fundamental mantener un servicio continuo, incluso ante fallos de hardware o software. El mismo S.O detecta y corrige errores.
+    -   Sistemas virtuales -> Los Sistemas Operativos Virtuales son capaces de administrar y gestionar otros sistemas operativos que se ejecutan de forma concurrente sobre el mismo hardware.
 
 ### Segun arquitectura
 
--   Monoliticos -> Todo el codigo esta metido en un unico programa que se carga en memoria
+Existen 2 formas principales de organización del núcleo de un sistema operativo, junto a un enfoque híbrido:
+
+-   Monoliticos
+
+Todo el sistema operativo corre como un único proceso privilegiado. Todas las funcionalidades (gestión de memoria, archivos, dispositivos, etc.) están integradas directamente en el núcleo.
+
+Ventajas: Alto rendimiento, gracias a la escasa necesidad de comunicación interna
 
 ![monolitico](imgs/clase-1/monolitico.png)
 
--   MicroKernel -> Intenta mantener el nucleo del s.o al minimo posible de funcionalidad
+-   MicroKernel
+
+El núcleo se limita a las funciones más básicas (como planificación y comunicación). Otras funciones del sistema (drivers, sistemas de archivos, etc.) se ejecutan como procesos sin privilegios.
+
+Ventajas: arquitectura más modular y segura, fácil de mantener y extender.
 
 ![microkernel](imgs/clase-1/microkernel.png)
 
--   Hibridos -> Modelo donde se mete mas cosas en el kernel pero no todo.
+-   Hibridos
+
+Combinan características de los dos anteriores: una base monolítica, pero con algunos componentes movidos a espacio de usuario.
+
+La mayoría de los S.O. modernos, como Windows, adoptan este modelo por su equilibrio entre rendimiento y flexibilidad.
 
 ![hibrido](imgs/clase-1/hibrido.png)
 
@@ -173,8 +183,8 @@ Un aviso que ocurrió algo con un periférico y puede ser o no atendido. Puede o
 
 ## Definiciones Computo Distribuido
 
-Laburar con computadoras independientes en conjunto. Los tipos mas com,unes son:
+Laburar con computadoras independientes en conjunto. Los tipos mas comunes son:
 
-- Clusters -> Se conectan maquinas en una red local donde cada maquina tiene un s.o y arriba hay un software donde administra todo la red
-- Grids -> Computadoras distintas a nivel geografico e interconectadas a una red
-- Computo en la nube -> 
+-   Clusters -> Se conectan maquinas en una red local donde cada maquina tiene un s.o y arriba hay un software donde administra todo la red
+-   Grids -> Computadoras distintas a nivel geografico e interconectadas a una red
+-   Computo en la nube ->
