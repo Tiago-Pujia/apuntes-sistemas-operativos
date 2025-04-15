@@ -12,24 +12,27 @@
   - [Indice](#indice)
 - [Clase 1](#clase-1)
   - [¿Que es un sistema operativo?](#que-es-un-sistema-operativo)
+    - [¿Por qué estudiar los sistemas operatiovs?](#por-qué-estudiar-los-sistemas-operatiovs)
   - [Funciones y Objetivos](#funciones-y-objetivos)
     - [Inicialización (proceso de arranque)](#inicialización-proceso-de-arranque)
-    - [Maquina Extendida](#maquina-extendida)
+    - [Maquina Extendida (Interfaz)](#maquina-extendida-interfaz)
     - [Administración de recursos](#administración-de-recursos)
-    - [Aislamiento y Seguridad](#aislamiento-y-seguridad)
-  - [Tipos de Sistemas Operativos](#tipos-de-sistemas-operativos)
-    - [Segun la cantidad de usuarios](#segun-la-cantidad-de-usuarios)
-    - [Segun la cantidad de procesadores que soporta](#segun-la-cantidad-de-procesadores-que-soporta)
-    - [Segun la cantidad de procesos que ejecutan concurrentemente](#segun-la-cantidad-de-procesos-que-ejecutan-concurrentemente)
-    - [Segun sus aplicaciones](#segun-sus-aplicaciones)
-    - [Segun arquitectura](#segun-arquitectura)
+    - [Aislamiento](#aislamiento)
+    - [Seguridad](#seguridad)
+  - [Clasificaciones de Sistemas Operativos](#clasificaciones-de-sistemas-operativos)
+    - [Segun la Cantidad de Usuarios](#segun-la-cantidad-de-usuarios)
+    - [Segun la Cantidad de Procesadores que Soporta](#segun-la-cantidad-de-procesadores-que-soporta)
+    - [Segun la Cantidad de Tareas que Sucesivas](#segun-la-cantidad-de-tareas-que-sucesivas)
+    - [Segun sus Aplicaciones (Usos)](#segun-sus-aplicaciones-usos)
+    - [Segun la Organización de su Arquitectura](#segun-la-organización-de-su-arquitectura)
   - [Interrupciones](#interrupciones)
     - [Definición](#definición)
     - [Clasificación](#clasificación)
       - [Segun prioridad](#segun-prioridad)
       - [Segun su origen](#segun-su-origen)
-  - [Ejecucion de la programación](#ejecucion-de-la-programación)
-  - [Consideraciones sobre Computo Paralelo](#consideraciones-sobre-computo-paralelo)
+    - [Diferencia Interrupción y Excepción](#diferencia-interrupción-y-excepción)
+    - [Funciones y Objetivos](#funciones-y-objetivos-1)
+  - [Modos de Ejecucion de los Procesos](#modos-de-ejecucion-de-los-procesos)
   - [Definiciones Computo Distribuido](#definiciones-computo-distribuido)
 
 # Clase 1
@@ -44,9 +47,13 @@ Definiciones dadas por el profesor sobre s.o:
 
 El **kernel** es el núcleo del sistema operativo. Es la parte más importante, encargada de: administrar hardware,
 
+### ¿Por qué estudiar los sistemas operatiovs?
+
+No sólo en comprender los mecanismos de los mismos. Si no, entenderlos para evitar los errores más comunes al programar o aumentar la seguridad del sistema operativo.
+
 ## Funciones y Objetivos
 
-Un sistema operativo se basa en cumplir 4 caracteristicas:
+El sistema operativo es el único programa que interactua directamente con el hardware. Sus funciones primarias son:
 
 ### Inicialización (proceso de arranque)
 
@@ -60,9 +67,15 @@ El BIOS transfiere el control al código ubicado en el MBR, el cual se encarga d
 
 El **_bootloader_** es un programa almacenado dentro del sistema de archivos del disco. Su función es **cargar el núcleo del sistema operativo (kernel)** en la **memoria RAM** y dar inicio a la ejecución del sistema, dejando el entorno preparado para que el usuario comience a trabajar.
 
-### Maquina Extendida
+### Maquina Extendida (Interfaz)
 
-Procedimiento que permite la interacciÓn del usuario con el ordenador. Existen diferentes interfaces
+Procedimiento que permite la interacción del usuario con el ordenador. Sus principales funciones:
+
+-   Facilita comunicación con el usuario
+-   Aceptar entradas de nuevos trabajos
+-   Abstracción: los programas no deben preocuparse de los detalles de acceso a hardware o de la configuración
+
+Existen diferentes clasificación en las interfaces:
 
 -   GUI (Grafica para Usuarios) -> KDE, Gnome, Aero
 -   CLI (Linea de Comandos) -> Bash, cmd, powershell
@@ -71,73 +84,87 @@ Procedimiento que permite la interacciÓn del usuario con el ordenador. Existen 
 ### Administración de recursos
 
 -   Mas del 70% del s.o esta dedicado a esta función
--   Gestiona politicas de asiognación de recursos o de uso
+-   Gestiona politicas de asignación de recursos para que los programas no compitan por los ellos
 -   Optimiza los recursos
 
-### Aislamiento y Seguridad
+### Aislamiento
+
+En un sistema multiusuario y multitarea, cada proceso y cada usuario no tendra que preocuparse por otros que esten usando el mismo sistema.
+
+### Seguridad
 
 Garantizar la integridad de los recursos y procesos como, tambien validar los usuarios del sistema. Existen 2 modos para lograrlo:
 
--   Modo dual de ejecución del procesador
+-   Modo dual de ejecución del procesador - > separa en 2 tipos de instrucciones
+    -   Modo usuario o no privilegiado
+    -   Mood kernel o privilegiado (uso exclusivo para el s.o)
 -   Juego de instrucciones diferenciadas del procesador
-
-El modo dual de operaciones separa en 2 tipos de instrucciones:
-
--   Modo usuario o no privilegiado
--   Mood kernel o privilegiado (uso exclusivo para el s.o)
 
 Si un usuario quiere usar instrucciones de kernel entra en un trap.
 
-## Tipos de Sistemas Operativos
+La seguridad se basa en 3 caracteristicas:
 
-### Segun la cantidad de usuarios
+-   **Abstracción** -> Un usuario no puede escribir directo en el disco, su acceso debe estar limitado a la interfaz
+-   **Administrar Recuersos** -> Politica de asignación de recursos
+-   **Aislamiento** -> Si el S.O ofrece separación entre los datros, procesos y recursos de distintos usuarios. Ninguno debe tener acceso a la información del projimo.
 
--   Monousuario -> Un solo usuario
--   Multiusuario -> Varios usuarios (incluyendo remeoto)
+## Clasificaciones de Sistemas Operativos
 
-### Segun la cantidad de procesadores que soporta
+### Segun la Cantidad de Usuarios
 
--   Uniprocesador -> Solo puede manejar un procesador de la computadora. Por lo que si tiene mas de un nucleo el cpu, es inutil.
--   Multiuprocesador -> Sistemas capaces de manejar mas de un procesador
+-   **Monousuario** -> Un solo usuario
+-   **Multiusuario** -> Varios usuarios (incluyendo remeto)
 
-### Segun la cantidad de procesos que ejecutan concurrentemente
+### Segun la Cantidad de Procesadores que Soporta
 
--   Monoprogramado o monotarea -> Solo se puede ejecutar un proceso a la vez Recien cuando finalize, arranca el siguiente.
--   Multiprogramado(multitarea) -> mas de un proceso ejecutando el sistema
+-   **Uniprocesador** -> Solo puede manejar un procesador de la computadora. Por lo que si tiene mas de un nucleo el cpu, es inutil.
+-   **Multiprocesador** -> Sistemas capaces de manejar mas de un procesador
 
-### Segun sus aplicaciones
+### Segun la Cantidad de Tareas que Sucesivas
 
--   Proposito general -> Propositos de amplia gama con cualquier fin
--   Proposito especial -> construccion a medida para un uso especifico. Se clasifica en:
+-   **Monoprogramado o monotarea** -> Solo se puede ejecutar un proceso a la vez recien cuando finalize uno, arranca el siguiente.
+-   **Multiprogramado(multitarea)** -> Mas de un proceso ejecutando el sistema
+
+### Segun sus Aplicaciones (Usos)
+
+-   **Proposito general** -> Propositos de amplia gama con cualquier fin
+-   **Proposito especial** -> construccion a medida para un uso especifico. Se clasifica en:
     -   Tiempo real -> Tiempo de respuesta a eventos
         -   Tiempo Real No Crítico -> El tiempo de respuesta es importante, pero no vital
         -   Tiempo Real Crítico -> Requiere una respuesta inmediata
     -   Tolerante a fallas -> Se utilizan en aplicaciones donde es fundamental mantener un servicio continuo, incluso ante fallos de hardware o software. El mismo S.O detecta y corrige errores.
     -   Sistemas virtuales -> Los Sistemas Operativos Virtuales son capaces de administrar y gestionar otros sistemas operativos que se ejecutan de forma concurrente sobre el mismo hardware.
 
-### Segun arquitectura
+### Segun la Organización de su Arquitectura
 
 Existen 2 formas principales de organización del núcleo de un sistema operativo, junto a un enfoque híbrido:
 
--   Monoliticos
+-   **Monoliticos**
 
-Todo el sistema operativo corre como un único proceso privilegiado. Todas las funcionalidades (gestión de memoria, archivos, dispositivos, etc.) están integradas directamente en el núcleo.
+Todo el sistema operativo corre como un único proceso privilegiado que opera como supervisor. Todas las funcionalidades (gestión de memoria, archivos, dispositivos, etc.) están integradas directamente en el núcleo.
 
-Ventajas: Alto rendimiento, gracias a la escasa necesidad de comunicación interna
+Ventajas:
+
+-   Simplifica gran cantidad de mecanismos -> mayor velocidad ejecución
+-   Mayor flexibilidad
 
 ![monolitico](imgs/clase-1/monolitico.png)
 
--   MicroKernel
+-   **MicroKernel**
 
-El núcleo se limita a las funciones más básicas (como planificación y comunicación). Otras funciones del sistema (drivers, sistemas de archivos, etc.) se ejecutan como procesos sin privilegios.
+El núcleo se mantiene en el minimo posible de funcionalidad, descargando en procesos especiales sin privilegios las tareas que implementan el acceso a dispositivos y las diversas politicas de uso del sistema. Se limita a las funciones más básicas (como planificación y comunicación).
 
-Ventajas: arquitectura más modular y segura, fácil de mantener y extender.
+Ventajas:
+
+-   Esquema logico mas limpio
+-   Implementaciones mas elegantes y faciles de comprender
+-   Puede auto-repararse
 
 ![microkernel](imgs/clase-1/microkernel.png)
 
--   Hibridos
+-   **Hibridos**
 
-Combinan características de los dos anteriores: una base monolítica, pero con algunos componentes movidos a espacio de usuario.
+Sistemas que son mayormente monolitocs pero que manejan algunos procesos que parecerian centrales mediante de procesos de nivel de usuario como microkernel.
 
 La mayoría de los S.O. modernos, como Windows, adoptan este modelo por su equilibrio entre rendimiento y flexibilidad.
 
@@ -147,44 +174,63 @@ La mayoría de los S.O. modernos, como Windows, adoptan este modelo por su equil
 
 ### Definición
 
-Repaso:
-
-Un aviso que ocurrió algo con un periférico y puede ser o no atendido. Puede ocurrir en cualquier momento de la ejecución de un programa.
+Cuando ocurra algún evento que requiere la atención del sistema operativo, el mismo levanta la solicitud y detiene el proceso que estaba siendo ejecutado. El S.O ejecuta su rutina de manejo de interrupciones y atiende la interrupción. Las mismas se pueden organizar por orden de prioridad y hay un numero limitado.
 
 ### Clasificación
 
 #### Segun prioridad
 
--   No enmascarable -> Debe ser atentido si o si en el momento
--   Enmascarable -> No es urgente y se atiende cuando quiere
+-   **No Enmascarable** -> Debe ser atentido si o si en el momento
+-   **Enmascarable** -> No es urgente y se atiende cuando quiere
 
 #### Segun su origen
 
--   software -> llamadas del sistema (syscalls)
--   Harware -> llamadas por un componente fisico. Se subdivide en:
+-   **Software** -> llamadas del sistema (syscalls)
+-   **Harware** -> llamadas por un componente fisico. Se subdivide en:
     -   Interno -> Dentro del procesador
     -   Externo -> Fuera del procesador
 
-## Ejecucion de la programación
+### Diferencia Interrupción y Excepción
 
--   Procesos Secuenciales -> Caada proceso se ejecuta a continuación del otro
--   Multiprogramación -> varios programas residen en la memoria al mismo tiempo y el procesador va cambiando entre ellos rápidamente. Da la ilusión de que se ejecutan al mismo tiempo, aunque en realidad se ejecutan uno por vez, compartiendo el procesador.
--   Multiprocesasmiento -> Procesos independientes, son paralelos
--   Multiprogramación y Multiprocesamiento -> Se combinan. Las mayorias de PC funcionan asi
+-   **Interrupción** -> Causas externas a la computadora
+-   **Excepción** -> Causado por un proceso interno
+
+### Funciones y Objetivos
+
+-   **Administrar el hawrdawre manejando interrupciones**
+-   **Abstraer las Interrupciones** -> Oculta al programa de usuario que ocurren interrupociones de hardware. Pero, avisa al usuario mediante mensajes, señales o deteniendo el proceso.
+-   **Atender Excepciones y Fallas** -> Durante la ejecución de un programa, ocurre situaciones anómales
+-   **Punto de entrada al Sistema Operativo** -> Medio por el cual un proceso realiza una llamada al sistema (ecall de Assembly). Estas llamadas sirven para:
+    -   **Control de Procesos** -> crear o finalizar proceso, asignar o liberar memoria, etc...
+    -   **Manipular Archivos** -> Crear, borrar o renombrar un archivo
+    -   **Manipulación de Dispositivos** -> Solicitar o liberar un dispositiovo
+    -   **Manipular Información** -> Obtener o modificar la hora del sistema, pedir detalles acerca de procesos o archivos
+    -   **Comunicaciones** -> Establecer una comunicación con determinado proceso (local o remoto)
+    -   **Protección** -> Consultar o modificar la información relativa al acceso de objetos en el disco o sesión del usuario.
+
+Las llamadas al sistema son expuestas al programador mediante las *interfaces de apliacación al programador*(API).
+
+## Modos de Ejecucion de los Procesos
 
 ![](/imgs/clase-1/ejecucion-programacion.png)
 
-## Consideraciones sobre Computo Paralelo
-
--   Multiprocesamiento simetrico(smp) -> 2 procesadores iguales dentro del sistema
-    -   Unifrm Memory Access(UMA) -> ambos procesadores comparten la memoria, utilizan un BUS compartido
-    -   Non-Uniform Memory Access(NUMA) -> cada procesador tiene bancos de memoria. Da como ventajas que es mas rapido.
--   Multiprocesamiento asimetrico -> Varioss procesadores con objetos y arquitecturas diferentes
+-   **Procesos Secuenciales** -> Cada proceso se ejecuta a continuación del otro
+-   **Multiprogramación** -> Ilusion que se ejecutan varios procesos al mismo tiempo, pero en realidad esta alternando entre los diversos procesos que compiten por su atención. Por lo que, atiende simultaneamente diversos procesos.
+-   **Multiprocesamiento** -> Entorno donde hay mas de un procesador (CPU). Por lo que diferentes procesos independientes se ejecutan en paralelo.
+    -   **Asimétrico** -> Procesadores con arquitecturas distintas. Tambien se pueden llamar como coprocesaodres o procesadores coadyuvantes.
+    -   **Simétrico** -> Todos los CPU son iguales y pueden realizar en el mismo tiempo las operaciones
+        -   Unifrm Memory Access(UMA) -> Ambos procesadores comparten la memoria, utilizan un BUS compartido
+        -   Non-Uniform Memory Access(NUMA) -> Cada procesador tiene bancos de memoria. Da como ventajas que es mas rapido.
+-   **Hibrido** -> Multiprogramación y Multiprocesamiento se combinan. Las mayorias de PC funcionan asi.
 
 ## Definiciones Computo Distribuido
 
-Laburar con computadoras independientes en conjunto. Los tipos mas comunes son:
+Proceso de cómputo realizado entre computadoras independientes, o tambien dicho, entre procesadores que no comparten memoria. Hay diferentes implementaciones:
 
--   Clusters -> Se conectan maquinas en una red local donde cada maquina tiene un s.o y arriba hay un software donde administra todo la red
--   Grids -> Computadoras distintas a nivel geografico e interconectadas a una red
--   Computo en la nube ->
+-   **Cúmulos(Clusters)** -> Computadoras conectadas por una red local. La red es administrado por un software.
+-   **Mallas (Grids)** -> Computadoras distribuidas a nivel geografico e interconectadas a una red.
+-   **Cómputo En la Nube** -> Tercerización de servicios; la implementación de servicios deja de ser relevante. Se aplica conceptos como:
+    -   Servicios Web
+    -   Software como Servicio
+    -   Plataforma como Servicio
+    -   Infraestructura como Servicio
