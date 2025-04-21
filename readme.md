@@ -67,11 +67,26 @@
         - [Hilos a Nivel de Kernel](#hilos-a-nivel-de-kernel)
       - [Estado de los Hilos](#estado-de-los-hilos)
       - [Estructuras de Uso de los Hilos](#estructuras-de-uso-de-los-hilos)
+    - [Fibra](#fibra)
+      - [Definición](#definición-2)
+      - [Caracteristicas](#caracteristicas)
+      - [Ventajas](#ventajas)
   - [Modulo 3: Planificación de Procesos](#modulo-3-planificación-de-procesos)
-    - [Concepto de Planificación](#concepto-de-planificación)
+    - [Definición](#definición-3)
     - [Objetivos](#objetivos)
-    - [Tipos](#tipos)
+    - [Tipos de Planificación](#tipos-de-planificación)
+    - [Relación entre Tipos Planificadores y Estados de los Procesos](#relación-entre-tipos-planificadores-y-estados-de-los-procesos)
     - [Tipos de procesos](#tipos-de-procesos)
+    - [Mediendo las respuestas](#mediendo-las-respuestas)
+      - [Unidades de Medición](#unidades-de-medición)
+      - [Métricas Utilizadas](#métricas-utilizadas)
+    - [Clasificación Algoritmos de Planificación](#clasificación-algoritmos-de-planificación)
+      - [Primero en Llegar, Primero Servido (FCFS) (Procesos Secuenciales)](#primero-en-llegar-primero-servido-fcfs-procesos-secuenciales)
+      - [Round Robin (multiprogramación)](#round-robin-multiprogramación)
+      - [El Proceso más Corto a Continuación (SPN, Shortest Process Next)](#el-proceso-más-corto-a-continuación-spn-shortest-process-next)
+      - [El más Penalizado a Continuación (HPRN, Highest Penality Ratio Next)](#el-más-penalizado-a-continuación-hprn-highest-penality-ratio-next)
+      - [Ronda Egoista (SRR)](#ronda-egoista-srr)
+      - [Algoritmos con Múltiples Colas de Listos](#algoritmos-con-múltiples-colas-de-listos)
 
 # Clase 1 y 2 - Modulo 1: Introducción a los Sistemas Operativos
 
@@ -537,7 +552,7 @@ Los hilos pueden **crear hilos hijos**, y **cooperan** entre sí compartiendo:
     -   El algoritmo de planificación puede ser adapto sin molestar la planificación del Sistema operativo
 -   **Desventajas**
     -   la mayoría de las llamadas a sistema son bloqueantes. Cuando un hilo ejecuta un llamadas a sistema no sólo se bloquea ese hilo, sino que también se bloquean todos los hilos del proceso.
-    -   Una aplicación multi-hilo no puede tomar ventaja del multiprocesamiento; un kernel asigna un proceso a sólo un procesador por vez.
+    -   Una aplicación multi-hilo no puede tomar ventaja del multiprocesamiento; un kernel asigna un proceso a sólo un procesador por vez. Se puede utilizar Jacketing para solucionarlo, pero demora las operaciones del S.O. Jacketing conviertes las llamadas bloqueante en no bloqueante.
 
 ##### Hilos a Nivel de Kernel
 
@@ -586,30 +601,197 @@ Este modelo se asocia con el concepto de **Pipelining**, debido a la similitud e
 
 ![](/imgs/clase-2/Hilos%20Estructura%20Entubamiento.png)
 
+### Fibra
+
+#### Definición
+
+Una **fibra** es una unidad de ejecución que debe ser **agendada manualmente** (`scheduler`) por la propia **aplicación**.
+
+-   Las fibras se ejecutan dentro del contexto de un hilo
+-   Un mismo hilo puede agendar y administrar **varias fibras** simultáneamente.
+
+#### Caracteristicas
+
+-   Las fibras no son planificadas por el sistema operativo, sino que su **cambio de contexto es controlado por la aplicación**.
+-   Una fibra **no posee su propio hilo**: se ejecuta usando el hilo que la agenda.
+
+#### Ventajas
+
+-   En general, **una fibra no presenta ventajas** sobre una aplicación multi-hilo bien diseñada.
+-   El uso de fibras puede **hacer más flexible** a aplicaciones que fueron pensadas para **agendar sus propios hilos** de ejecución.
+
 ## Modulo 3: Planificación de Procesos
 
-### Concepto de Planificación
+### Definición
 
-> Orden en que ira cediendo el uso del procesador a los processo que lo vayan solicitando, y a las politicas que empleara para que el uso que den a dicho tiempo no sea excesivo respecto al uso esperado del sistema
+Orden en que ira cediendo el uso del procesador a los processo que lo vayan solicitando, y a las politicas que empleara para que el uso que den a dicho tiempo no sea excesivo respecto al uso esperado del sistema
 
 ### Objetivos
 
 -   **Ser justo:** Debe tratarse de igual manera a todos los procesos que compartan las mismas características, y nunca postergar indefinidamente uno de ellos (inanición o starvation)
--   **Maximizar el rendimiento:** Dar servicio a la mayor parte de procesos por unidad de tiempo
+-   **Maximizar el rendimiento:** Dar servicio a la mayor parte de procesos por unidad de tiempo.
 -   **Ser predecible:** Un mismo trabajo debe tomar aproximadamente la misma cantidad de tiempo en completarse independientemente de la carga del sistema
--   **Minimizar la sobrecarga:** El tiempo que el algoritmo pierda en burocracia (overhead) debe mantenerse al mínimo, dado que éste es tiempo de procesamiento útil perdido
+-   **Minimizar la sobrecarga:** El tiempo que el algoritmo pierda en burocracia (`overhead`) debe mantenerse al mínimo, dado que éste es tiempo de procesamiento útil perdido
 -   **Equilibrar el uso de recursos:** Favorecer a los procesos que empleen recursos subutilizados, penalizar a los que peleen por un recurso sobreutilizado causando contención en el sistema
--   **Evitar la postergación indefinida (starvation):** Aumentar la prioridad de los procesos más viejos, para favorecer que alcancen a obtener algún recurso por el cual estén esperando
+-   **Evitar la postergación indefinida (`starvation`):** Aumentar la prioridad de los procesos más viejos, para favorecer que alcancen a obtener algún recurso por el cual estén esperando
+-   **Favorecer el uso esperado del sistema:** En un sistema con usuarios interactivos, darle prioridad a los procesos que sirvan a solicitudes iniciadas por los usuarios(aun a cambio de penalizar a los procesos de sistema).
+-   **Dar Preferencia a los procesos que podrain causar bloqueo:** El proceso que esta ejecutando que puede causar un bloqueo, no los sacamos de encima rapido.
+-   **Favorecer a los procesos con un comportamiento deseable:** Si un proceso causa mucha demora, se lo puede penalizar porque degrada el rendimiento del sistema
+-   **Degradarse suavemente:** Tratar que no impacte la carga del proceso cuando este cerca del 100%; tratar de bajar la performance del sistema para que no afecte
 
-### Tipos
+### Tipos de Planificación
 
--   **A Largo Plazo**
-    -   Generacion de nuevos procesos
--   **Mediano Plazo**
+-   **Largo Plazo:** Generacion de nuevos procesos largos
+    -   Se ejecuta periódicamente una vez cada varios segundos, minutos u horas
+    -   Decide que procesos seran iniciados
+    -   Modelo en deshuso
+-   **Mediano Plazo (scheduler):**
+    -   Decide que procesos suspender y activar
+    -   Esto ocurre debido a que los procesos típicamente se bloquean por escasez de algún recurso
+-   **Corto Plazo (dispatcher):**
+    -   Decide cómo compartir momento a momento la CPU entre los procesos que la requieren
+    -   Se ejecuta decenas de veces por segundo
+    -   Se encarga de hacer el cambio de contexto
 -   **Extra largo plazo**
+    -   El administrador decide que tarea realizar
+    -   Modelo en deshuso
+
+### Relación entre Tipos Planificadores y Estados de los Procesos
+
+Los tipos de planificación incluyen los estados de procesos que van a trabajar:
+
+-   **Largo Plazo:** Generación nuevos procesos(nuevos), listo y terminado
+-   **Mediano Plazo:** listo/suspendido y bloqueado/suspendido
+-   **Corto Plazo:** listo, ejecución y bloqueado. Ejemplo:
+    -   Ejecutando -> bloqueado => Llamada al sistema operativo
+    -   Ejecutando -> listos => Interrupción por quantum (tema proximo)
+    -   Bloqueado -> listos => Interrupción de finalización de E/S
+    -   Ejecutado -> Terminado => Exit()
 
 ### Tipos de procesos
 
--   CPU Bound -> operaciones que hacen uso del cpu
--   I/O Bounj -> hacen mas uso de entras y salidas que del cpu
--   Procesos cortos .> Tipo I/O
+-   **CPU Bound:** Orientado al uso del CPU; operaciones que hacen uso del CPU
+-   **I/O Bound:** Procesos que realizan mas usos de entradas y salidas que del CPU
+-   **Procesos Cortos:** Aquellos I/O Bound pero cada tanto hace uso del CPU y estar bloqueados esperando que se libera I/O
+-   **Procesos Largos:** Aquellos que por mucho tiempo han estado en listos o en ejecución.
+
+En los procesos cortos se busca una planificación a dar un tratamiento preferente a los procesos cortos. Porque no los sacamos rapido de encima.
+
+### Mediendo las respuestas
+
+#### Unidades de Medición
+
+Se laburan con 2 unidades para saber cuanto van a tardar:
+
+-   **Tick:**
+    -   Fracción de tiempo en donde se puede realizar trabajo útil (sin interrupciones).
+    -   Su duración lo determina el timer del sistema. En linux el tick es de 1 milisegundo y en windows entre 10 y 15ms
+-   **Quantum:**
+    -   Tiempo minimo que se le permite a un proceso el uso del procesador
+    -   En linux el quantum varia entre 10 y 200 ticks (10 y 200 ms) y en windows entre 2 y 12 ticks (10 y 180ms)
+
+#### Métricas Utilizadas
+
+Para un proceso _p_ que requiere de un tiempo _t_ de ejecución:
+
+-   **Tiempo de respuesta(T):** Tiempo total desde que empieza hasta que termina su ejecución. Pero no esta en la cola de procesos, osea apartir desde que se le da el CPU.
+-   **Tiempo Espera(E = T - t):** Tiempo total menos tiempo perdido; cuánto tiempo _p_ está listo y esperando ejecutar.
+-   **Proporción de Penalización(P = T/t):** Tiempo total sobre tiempop de espera. Proporción tiempo de respuesta en relación al tiempo de uso del procesador.
+-   **Proporción de Respuesta(R = t/T):** Inverso de P; fracción del tiempo de respuesta durante la cual _p_ pudo ejecutarse.
+-   **Tiempo Núcleo o Kernel:** Tiempo que pasa el sistema en espacio de nucleo
+-   **Tiempo de Sistema:** Espacio que pasa en una llamada al sistema
+-   **Tiempo de Usuario:** Proceso en modo suario; ejecutando instrucciones que forman parte explícita y directamente del programa
+-   **Tiempo de uso del Procesador:** Tiempo durante el cual el procesador ejecuto instrucciones por cuenta de un proceso(modo usuario o kernel).
+-   **Tiempo desocupado (idle):** Tiempo en que la cola de procesos listos está vacía y no puede realizarse ningún trabajo
+-   **Utilización CPU:** Porcentaje del tiempo en que el CPU realiza trabajo útil
+-   **Valor Saturación** Formula en función de frecuencias de llegada al proceso(α) y el tiempo de servicio requerido para resolverlo(β). Se define por la división *p* = α/β si:
+    -   *p* = 0 => Nunca lelgan procesos nuevos (sistema desocupado)
+    -   0 < *p* < 1 =>
+    -   *p* = 1 => Los procesos se despachan al ritmo que van llegando
+    -   *p* > 1 => El sistema esta saturado
+
+### Clasificación Algoritmos de Planificación
+
+- **Sistemas Expropiativo, Cooperativo o Non-Non-Preemptive,(desusho):** El sistema operativo no interrumpue el proceso en ejecución. Algunos de ellos son:
+  - Primero en llegar, primero servido (FCFS)
+  - HPRN
+- **Sistema Apropiativos, No Cooperativo o Preemptive:** Son aquellos donde el reloj del sistema interrumpe periodicamente al proceso en ejecución para devolver el control al sistema operativo para decididir quien es el siguiente. Algunos ejemplos:
+- Round Robin
+- SPN
+- SRR
+
+#### Primero en Llegar, Primero Servido (FCFS) (Procesos Secuenciales)
+
+Funciona como una cola de procesos; el primero en llegar, es el primero que atiendo. Es el algoritmo mas simple. Presenta caracteristicas:
+- Reduce al minimo la sobrecarga administrativa (overhead)
+- Si hay procesos largos, se vera afectado el rendimiento
+- Este algoritmo da salida a todos los procesos siempre que ρ ≤ 1. Si ρ > 1 la demora en iniciar a los nuevos procesos aumentará cada vez produciéndose inanición 
+
+Ejemplo:
+
+![](/imgs/clase-2/Algoritmo%20FCFS.png)
+
+#### Round Robin (multiprogramación)
+
+Es como una combinación al concepto de multiprogramación y FCFS; Tiene tambien un mismo sistema de colas, la diferencia radica en que cada tantos *t* tiks de un proceso, alterna por otro proceso. Caracteristicas:
+- Reduce al minimo la sobrecarga administrativa (overhead)
+- Busca dar una relación de respuesta buena para los procesos largos y cortos
+- Si un proceso no ha concluido dentro de su quantum se lo expulsará y será puesto al final en la cola de listos donde deberá esperar su turno nuevamente
+- Los procesos que son despertados de estado de suspensión son también puestos al final de la cola de listos
+
+![](/imgs/clase-2/Algoritmo%20Round%20Robin(1).png)
+
+![](/imgs/clase-2/Algoritmo%20Round%20Robin(2).png)
+
+#### El Proceso más Corto a Continuación (SPN, Shortest Process Next)
+
+Se ordenada la cola de listos de acuerdo. Llega a ser mas justo que FCFS. El problema que tiene es saber la duración del proceso, entonces lo que se haces es analizar ejecuciones anteriores. Presenta las caracteristicas:
+- Favorece a los procesos cortos
+- Un proceso largo puede esperar mucho para su ejecución
+
+![](/imgs/clase-2/SPN.png)
+
+#### El más Penalizado a Continuación (HPRN, Highest Penality Ratio Next)
+
+Intenta situarse a un punto intermedio entre el FCFS (que favorece a los procesos largos) y SPN (que favorece a los cortos). Calcula un índice de penalización P para cada proceso que está en la cola:
+
+~~~
+P = (w+t)/t
+~~~
+
+Donde:
+- `w` = tiempo de espera del proceso 
+- `t`  tiempo de CPU requerido
+
+Elige el proceso con el mayor valor de P (el más "penalizado" por el tiempo que lleva esperando).
+
+Presenta las caracteristicas:
+- Cuando hay muchos procesos en cola, calcular P para todos puede generar overhead.
+- Ayuda a  evitar inanicisión *p* < 1
+- Más justo que SPN y FCFS.
+
+#### Ronda Egoista (SRR)
+
+Es una variante del Round Robin que introduce una distinción entre procesos nuevos y procesos aceptados.
+
+Los procesos nuevos entra en una cola especial de nuevos. Solo se atienden primero a los procesos en la cola de aceptados. Un proceso nuevo se promoueve a aceptado si su prioridad sube lo suficiente. Parámetros de SRR:
+- `a` = cómo sube la prioridad de los procesos nuevos.
+- `b` = cómo sube la prioridad de los procesos aceptados.
+
+Apartir del resultado dado por division b/a, se puede llegar a las siguientes conclusiones:
+- b/a = 0 => Se comporta como un Round Robin
+- b/a < 1 => Los procesos nuevos eventualmente alcanzan los aceptados
+- b/a >= 1 => Su comportamiento tiende a FCFS
+
+Presenta las siguientes caracteristicas:
+- Favorece a procesos que ya llevan tiempo ejecutándose antes de aceptar procesos nuevos.
+
+![](/imgs/clase-2/SRR.png)
+
+#### Algoritmos con Múltiples Colas de Listos
+
+Para poder entender el próximo algoritmo (multilevel feedback), primero se analiza cómo funciona típicamente un sistema con múltiples colas de listos.
+
+![](/imgs/clase-2/multiples%20colas.png)
+
+Se definen múltiples colas, cada una con una prioridad. Se atienden sólo los procesos de la cola de más prioridad hasta que ésta se vacía. Luego se pasa a ejecutar los procesos de la cola siguiente.
