@@ -61,15 +61,16 @@
       - [Finalizar de un proceso](#finalizar-de-un-proceso)
     - [Hilos](#hilos)
       - [Definición](#definición-1)
+      - [Caracteristicas](#caracteristicas)
       - [Ventajas respecto a los Procesos](#ventajas-respecto-a-los-procesos)
       - [Implementación de Hilos](#implementación-de-hilos)
         - [Hilos a Nivel de Usuario (ULT)](#hilos-a-nivel-de-usuario-ult)
-        - [Hilos a Nivel de Kernel](#hilos-a-nivel-de-kernel)
+        - [Hilos a Nivel de Kernel (KLT)](#hilos-a-nivel-de-kernel-klt)
       - [Estado de los Hilos](#estado-de-los-hilos)
-      - [Estructuras de Uso de los Hilos](#estructuras-de-uso-de-los-hilos)
+      - [Patrones de Trabajo con Hilos](#patrones-de-trabajo-con-hilos)
     - [Fibra](#fibra)
       - [Definición](#definición-2)
-      - [Caracteristicas](#caracteristicas)
+      - [Caracteristicas](#caracteristicas-1)
       - [Ventajas](#ventajas)
   - [Modulo 3: Planificación de Procesos](#modulo-3-planificación-de-procesos)
     - [Definición](#definición-3)
@@ -306,15 +307,19 @@ Proceso de cómputo realizado entre computadoras independientes, o tambien dicho
 
 > Porcion de un programa cargando en memoria central al cual se le asocia su contexto de ejecucion (run time environment) mediante una estructura de datos llamada vector de estado o **Bloque de Control del Proceso (PCB)**
 
+Esa es la definición dada por los docentes, la que esta en el libro se define como:
+
+> Un _proceso_ es la imagen en memoria de un programa, junto con la información relacionada con el estado de su ejecución
+
 ### Entidad Pasiva y Activa
 
 -   **Entidad Pasiva**
 
-No cambia por si mismo, no tiene actividad propia, solo es un conjunto de instrucciones a ser esperado. Ejemplo: Un programa almacenado en disco o memoria.
+No cambia por si mismo, no tiene actividad propia, solo es un conjunto de instrucciones a ser esperado. Ejemplo: Un **programa** almacenado en disco o memoria.
 
 -   **Entidad Activa**
 
-Cambia de estado mientras se ejecuta, tiene actividad propia (consume CPU, E/S y memoria). Ejemplo: Un proceso en ejecucion
+Cambia de estado mientras se ejecuta, tiene actividad propia (consume CPU, E/S y memoria). Ejemplo: Un **proceso** en ejecucion
 
 ### Compilación y Carga de un Proceso
 
@@ -395,17 +400,15 @@ Implica necesariamente hacer un cambio de contexto: primero se guarda el estado 
 
 #### Contenido del PCB
 
--   Identificación (única en el sistema)
--   Identificadores varios del proceso (identificador del dueño, padre, hijos, etc)
--   Estado (ejecutando, listo, bloqueado)
--   Program Counter
--   Registros de CPU
--   Información para planificación (p.ej., prioridad)
--   Información para administración de memoria (p.ej., registros base y límite)
--   Información de I/O: dispositivos y recursos asignados al proceso, archivos abiertos en uso, etc.
--   Estadísticas y otros: tiempo real y tiempo de CPU usado, etc.
--   Privilegios.
--   Otros objetos vinculados al proceso.
+-   **Estado Actual del Proceso**
+-   **Contador de Programa**: Cuál es la siguiente instrucción a ser ejecutada por el proceso
+-   **Registros del CPU**: Debe ser respaldada y restaurada cuando se registra un cambio de estado
+-   **Información de Planificación(scheduling)**: Prioridad del proceso, cola que tiene agendada
+-   **Información de Administración de Memoria**: Información de mapeo de memoria
+-   **Información de Contabilidad**: Información de la utilización de recursos que ha tenido este proceso
+-   **Estado de E/S**: Listado de dispositivos y archivos asignados que el proceso tiene abiertos en un momento dado
+
+Muchos de estos temas seran vistos a futuro.
 
 ### Transición de Estados de un Proceso
 
@@ -413,21 +416,23 @@ Implica necesariamente hacer un cambio de contexto: primero se guarda el estado 
 
 Un proceso puede transitar por varios estados a lo largo de su vida dentro del sistema operativo:
 
--   **Nuevo (New):** Se solicitó al sistema operativo la creación de un proceso, y sus recursos y estructuras están siendo creadas.
+-   **Nuevo (New):** Se solicitó al sistema operativo la creación de un proceso, y sus recursos y estructuras están siendo creadas (PCB). Ejemplo: Se abre un programa
 
--   **Listo (Ready):** El proceso ya está preparado para ejecutarse, pero todavía no se le ha asignado un procesador. Permanece en espera en la cola de procesos listos.
+-   **Listo (Ready):** El proceso ya está preparado para ejecutarse, pero todavía no se le ha asignado un procesador. Permanece en espera en la cola de procesos listos. Ejemplo: El programa ya esta cargado en memoria
 
--   **En Ejecución (Running):** El proceso está siendo ejecutado en este momento.
+-   **En Ejecución (Running):** El proceso está siendo ejecutado en este momento. El programa se empieza a ejecutar y se puede utilizar. Ejemplo: El programa empieza a ejecutarse y el usuario puede utilizarlo.
 
--   **Bloqueado (Blocked):** El proceso no puede avanzar porque está esperando a que ocurra algún evento (como la finalización de una operación de entrada/salida). Aunque haya un procesador disponible.
+-   **Bloqueado (Blocked):** El proceso no puede avanzar porque está esperando a que ocurra algún evento (como la finalización de una operación de entrada/salida). Aunque haya un procesador disponible. El programa espera que el disco duro termine de abrir un archivo. Ejemplo: el programa espera que el disco duro termine de abrir un archivo.
 
--   **Zombie:** El proceso ha finalizado su ejecución, pero el sistema operativo debe realizar ciertas operaciones de limpieza para poder eliminarlo de la lista.
+-   **Zombie:** El proceso ha finalizado su ejecución, pero el sistema operativo debe realizar ciertas operaciones de limpieza para poder eliminarlo de la lista. Ejemplo: El programa terminó su ejecución, pero su información aún debe ser recolectada por el sistema operativo.
 
--   **Terminado (Exit):** El proceso terminó de ejecutarse; sus estructuras están a la espera de ser limpiadas por el sistema operativo.
+-   **Terminado (Exit):** El proceso terminó de ejecutarse; sus estructuras están a la espera de ser limpiadas por el sistema operativo. Ejemplo: Finalmente, el sistema elimina toda la memoria, PCB, y otros recursos asociados al programa.
 
 #### Diagrama de Proceso
 
-Un proceso puede pasar varias etapas diferentes en el sistema operativo, y el modelo depende del mismo. Hay varios modelos
+Un proceso puede pasar varias etapas diferentes en el sistema operativo, y el modelo depende del mismo. Hay varios modelos, pero el mas generico es el siguiente:
+
+![](/imgs/clase-2/Modelo%20Generico%20Estados.png)
 
 ##### Modelo 7 Estados
 
@@ -509,27 +514,30 @@ La **Terminación en cascada** es cuando un proceso termina (muere) tambien debe
 
 #### Definición
 
-El concepto de **hilo** ya fue mencionado anteriormente, pero realizamos un repaso:
+La simple transferencia de de memoria a el procesador con toda su planificación, podría llevara un desperdicio burocratico (tiempo que se pierde en asuntos administrativos) de recursos, una respuesta este problema son los hilos.El concepto de **hilo** (también llamados _threads_ o _procesos livianos_) ya fue mencionado anteriormente, pero realizamos un repaso:
 
 > Dentro de un proceso pueden existir **secciones independientes** (hilos), cada una con su propio espacio de registros, pila y contador de programa. Sin embargo, **comparten el espacio de memoria** con los demás hilos del mismo proceso.
 
-Hilos, threads o Proceso Liviano debido a que mantiene la estructura de un proceso con su PCB. Pero, dispone de estructuras,as pequeñas llamadas TCB (Thread Control Block, similar a PCB) que manejan menos información del PCB.
+#### Caracteristicas
 
-Cada hilo posee:
+Cada hilo posee una estructura propia llamada **TCB** (_Thread Control Block_), que es similar al PCB de un proceso, pero contiene **menos información**, ya que muchos recursos son compartidos con los demás hilos del mismo proceso.
 
--   TID (Thread Identifier)
--   program counter (PC)
--   registros de CPU
--   Pila.
+Cada hilo incluye:
 
-Cada hilo se ejecuta de forma **secuencial**, aunque en **multiprocesadores** pueden ejecutarse **en paralelo**.
+-   Un **TID** (Thread Identifier)
+-   Un **program counter (PC)**
+-   Un conjunto de **registros de CPU**
+-   Una **pila** propia
 
-Los hilos pueden **crear hilos hijos**, y **cooperan** entre sí compartiendo:
+Cada hilo se ejecuta de forma **secuencial**, aunque en sistemas **multiprocesadores** pueden ejecutarse **en paralelo**.
 
--   Espacio de Memoria
--   Archivos Abiertos
--   Relojes
--   Otros recursos
+Todos los hilos de un mismo proceso comparten:
+
+-   Un único **espacio de direccionamiento en memoria**
+-   Los **archivos y dispositivos abiertos**
+-   El uso de **relojes y otros recursos del sistema operativo**
+
+Además, los hilos pueden **crear hilos hijos**, y están diseñados para **cooperar entre sí** compartiendo los recursos mencionados.
 
 #### Ventajas respecto a los Procesos
 
@@ -540,33 +548,45 @@ Los hilos pueden **crear hilos hijos**, y **cooperan** entre sí compartiendo:
 
 ##### Hilos a Nivel de Usuario (ULT)
 
--   **Caracteristicas**
-    -   Los administra el usuario mediante una aplicacion
-    -   Cualquier aplicación puede ser programada para ser multi-hilo mediante el uso de librerias de hilos
-    -   Se crean en **tiempo de compilación** y **no requieren intervención del kernel**.
-    -   El kernel **no sabe** de la existencia de los hilos; ve al proceso como una sola entidad.
--   **Ventajas**
-    -   El cambio de hilo no requiere modo kernel
-    -   El proceso no cambia a modo kernel para manejar el hilo
-    -   Puede correr en cualquier sistema operativo
-    -   El algoritmo de planificación puede ser adapto sin molestar la planificación del Sistema operativo
--   **Desventajas**
-    -   la mayoría de las llamadas a sistema son bloqueantes. Cuando un hilo ejecuta un llamadas a sistema no sólo se bloquea ese hilo, sino que también se bloquean todos los hilos del proceso.
-    -   Una aplicación multi-hilo no puede tomar ventaja del multiprocesamiento; un kernel asigna un proceso a sólo un procesador por vez. Se puede utilizar Jacketing para solucionarlo, pero demora las operaciones del S.O. Jacketing conviertes las llamadas bloqueante en no bloqueante.
+**Características:**
 
-##### Hilos a Nivel de Kernel
+-   Administrados completamente por el **usuario** mediante una librería en la aplicación.
+-   Se crean en **tiempo de compilación**.
+-   El sistema operativo **no tiene conocimiento** de su existencia.
+-   Todo el proceso se ve como una sola unidad para el sistema operativo.
 
--   **Caracteristicas**
-    -   El manejo de hilos es administrado por el kernel
-    -   Cualquier aplicación puede ser programada para ser multi-hilo
-    -   No hay código de manejo de hilo en el área de aplicación
--   **Ventajas**
-    -   Las rutinas mismas del kernel pueden ser multi-hilo
-    -   Si un hilo se bloquea, el kernel planifica otro hilo del mismo proceso
-    -   Simultáneamente, el kernel, puede planificar múltiples hilos del mismo proceso en múltiples procesadores
--   **Desventajas**
-    -   La transferencia de control de un hilo a otro dentro del mismo proceso le requiere al kernel un cambio de modo.
-    -   **Mayor costo** en términos de tiempo y recursos del sistema operativo.
+**Ventajas:**
+
+-   El cambio entre hilos es **rápido** y no requiere cambiar a modo kernel.
+-   Compatible con **cualquier sistema operativo**
+-   El algoritmo de planificación puede ser **definido libremente** por el programador sin interferir con el planificador del sistema.
+-   Se comparten memoria sin establecer mecanismos de comunicación, por lo que es más rapido
+
+**Desventajas:**
+
+-   No aprovecha **multiprocesamiento real**: el kernel solo ejecuta un hilo del proceso a la vez.
+-   Las **llamadas bloqueantes** afectan a **todos los hilos del proceso**.
+-   Se puede usar una técnica llamada **Jacketing** para transformar llamadas bloqueantes en no bloqueantes, pero esto **agrega sobrecarga** al sistema.
+
+##### Hilos a Nivel de Kernel (KLT)
+
+**Características:**
+
+-   Administrados directamente por el **kernel del sistema operativo**.
+-   Son completamente visibles y controlables por el sistema operativo.
+
+**Ventajas:**
+
+-   Las rutinas del **kernel también pueden ser multi-hilo**.
+-   Si un hilo se bloquea, el kernel puede planificar otro hilo del mismo proceso.
+-   Se puede ejecutar **múltiples hilos del mismo proceso en distintos procesadores**, logrando **paralelismo real**.
+-   Aprovecha la comunicación con el sistema operativo tanto para solicitar recursos como para gestion de recursos en ejecucion multiprocesador
+
+**Desventajas:**
+
+-   El cambio de hilo requiere pasar a **modo kernel**, lo cual es más costoso.
+-   Tiene **mayor overhead** (sobrecarga) en tiempo y recursos del sistema operativo.
+-   Se requiere utilizar librerias para implementarlo
 
 #### Estado de los Hilos
 
@@ -579,23 +599,29 @@ Los hilos pueden seguir los mismos estados que los procesos:
 
 ![](/imgs/clase-2/Estados%20Hilos.png)
 
-#### Estructuras de Uso de los Hilos
+#### Patrones de Trabajo con Hilos
 
--   **Estructura Servidor Trabajador**
+Se puede emplear más de uno de estos patrones en diferentes áreas de cada aplicación
 
-Un hilo actúa como **servidor** que recibe solicitudes de trabajo y las asigna a **hilos trabajadores** inactivos, despertándolos para procesar las tareas.
+-   **Estructura Jefe/Trabajador**
+
+Un hilo tiene una tarea distinta de todos los demás: el hilo _jefe_ genera o recopila tareas para realizar, las separa y se las entrega a los hilos _trabajadores_
+
+Recomendado para servidores (como apache) y aplicaciones graficas (GUI).
 
 ![](/imgs/clase-2/Hilos%20Estructura%20servidor%20trabajador.png)
 
--   **Estructura en Equipo**
+-   **Estructura en Equipo de Trabajo**
 
-Todos los hilos son **equivalentes** y **procesan sus propias solicitudes** de manera autónoma.
+Se crean muchos hilos idénticos, que realizarán las mismas tareas sobre diferentes datos. Todos los hilos son **equivalentes** y **procesan sus propias solicitudes** de manera autónoma.
+
+Recomendado para calculos matematicos.
 
 ![](/imgs/clase-2/Hilos%20estructura%20en%20equipo.png)
 
--   **Estructura de Entubamiento(pipeline)**
+-   **Estructura de Entubamiento o linea de Ensablado(pipeline)**
 
-El procesamiento de datos se realiza en **etapas**; Cada hilo procesa una parte de la tarea y pasa los resultados al siguiente hilo en la cadena.
+El procesamiento de datos se realiza en **etapas**. Cada hilo puede enfocarse a hacer solo un paso y pasarlo los datos a otro hilo conforme vaya terminando. Todos los hilos cumplen tareas diferentes .Una de las ventajas es que ayuida a mantener rutinas simples de comprender, y permite que el procesamiento de datos continue, incluse si parte del programa está bloqueado.
 
 Este modelo se asocia con el concepto de **Pipelining**, debido a la similitud en el flujo de datos.
 
@@ -624,7 +650,7 @@ Una **fibra** es una unidad de ejecución que debe ser **agendada manualmente** 
 
 ### Definición
 
-Orden en que ira cediendo el uso del procesador a los processo que lo vayan solicitando, y a las politicas que empleara para que el uso que den a dicho tiempo no sea excesivo respecto al uso esperado del sistema
+La _planificación de procesos_ se refiere a cómo determina el sistema operativo el orden en que irá cediendo el uso del procesador a los procesos que lo vayan solicitando, y a las politicas que empleara para que el uso que den a dicho tiempo no sea excesivo respecto al usop esperado al sistema.
 
 ### Objetivos
 
@@ -645,13 +671,14 @@ Orden en que ira cediendo el uso del procesador a los processo que lo vayan soli
     -   Se ejecuta periódicamente una vez cada varios segundos, minutos u horas
     -   Decide que procesos seran iniciados
     -   Modelo en deshuso
--   **Mediano Plazo (scheduler):**
-    -   Decide que procesos suspender y activar
-    -   Esto ocurre debido a que los procesos típicamente se bloquean por escasez de algún recurso
--   **Corto Plazo (dispatcher):**
+-   **Mediano Plazo (scheduler):** Toma decisiones conforme los procesos entran y salen del estado bloqueado
+    -   Decide que procesos bloquear y activar. Esto ocurre debido a que los procesos típicamente se bloquean por escasez de algún recurso.
+-   **Corto Plazo (dispatcher):** Decide entre los procesos listos para ejecutar, cual activar
     -   Decide cómo compartir momento a momento la CPU entre los procesos que la requieren
     -   Se ejecuta decenas de veces por segundo
     -   Se encarga de hacer el cambio de contexto
+    -   Detiene aquellos que exceden su tiempo de procesador
+    -   Ske busca una planificación a dar un tratamiento preferente a los procesos cortos. Porque no los sacamos rapido de encima.
 -   **Extra largo plazo**
     -   El administrador decide que tarea realizar
     -   Modelo en deshuso
@@ -660,9 +687,9 @@ Orden en que ira cediendo el uso del procesador a los processo que lo vayan soli
 
 Los tipos de planificación incluyen los estados de procesos que van a trabajar:
 
--   **Largo Plazo:** Generación nuevos procesos(nuevos), listo y terminado
--   **Mediano Plazo:** listo/suspendido y bloqueado/suspendido
--   **Corto Plazo:** listo, ejecución y bloqueado. Ejemplo:
+-   **Largo Plazo:** Se encarga de las transiciones de nuevo a listo
+-   **Mediano Plazo:** Se encarga de las transiciones de ejecución y bloqueado, y bloqueado y listo
+-   **Corto Plazo:** Se encarga de las transiciones de listo y ejecución. Ejemplo:
     -   Ejecutando -> bloqueado => Llamada al sistema operativo
     -   Ejecutando -> listos => Interrupción por quantum (tema proximo)
     -   Bloqueado -> listos => Interrupción de finalización de E/S
@@ -670,12 +697,9 @@ Los tipos de planificación incluyen los estados de procesos que van a trabajar:
 
 ### Tipos de procesos
 
--   **CPU Bound:** Orientado al uso del CPU; operaciones que hacen uso del CPU
--   **I/O Bound:** Procesos que realizan mas usos de entradas y salidas que del CPU
--   **Procesos Cortos:** Aquellos I/O Bound pero cada tanto hace uso del CPU y estar bloqueados esperando que se libera I/O
--   **Procesos Largos:** Aquellos que por mucho tiempo han estado en listos o en ejecución.
-
-En los procesos cortos se busca una planificación a dar un tratamiento preferente a los procesos cortos. Porque no los sacamos rapido de encima.
+-   **CPU Bound:** Orientado al uso del CPU; procesos que alternan entre ráfagas y que realizan computo interno
+-   **I/O Bound:** Orientado al uso de dispositivos externos; Procesos que realizan mas usos de entradas y salidas que del CPU
+-   **Procesos Cortos:** Aquellos que son de tipo I/O Bound pero, cada tanto hace uso del CPU, y estan bloqueados esperando que se libera I/O
 
 ### Mediendo las respuestas
 
@@ -684,11 +708,25 @@ En los procesos cortos se busca una planificación a dar un tratamiento preferen
 Se laburan con 2 unidades para saber cuanto van a tardar:
 
 -   **Tick:**
-    -   Fracción de tiempo en donde se puede realizar trabajo útil (sin interrupciones).
+    -   Unidad de tiempo mínima en que el sistema operativo mide el paso del tiempo internamente.
+    -   Cada Tick corresponde a una interrupción de reloj programada por el timer del sistema.
     -   Su duración lo determina el timer del sistema. En linux el tick es de 1 milisegundo y en windows entre 10 y 15ms
 -   **Quantum:**
-    -   Tiempo minimo que se le permite a un proceso el uso del procesador
+    -   Tiempo máximo que un proceso puede usar la CPU antes de ser interrumpido.
     -   En linux el quantum varia entre 10 y 200 ticks (10 y 200 ms) y en windows entre 2 y 12 ticks (10 y 180ms)
+
+El Tick es como el "tic-tac" de un reloj muy rápido ⏱️. El Quantum es cuántos "tic-tac" seguidos puede quedarse un proceso usando el CPU antes de ser interrumpido. Ejemplo:
+
+| Proceso | Ticks | Llegada |
+| ------- | ----- | ------- |
+| A       | 7     | 0       |
+| B       | 3     | 2       |
+| C       | 12    | 6       |
+| D       | 4     | 20      |
+
+El cambio de contexto se realiza cada 2 ticks, y un Quantum es de 5 ticks con un ordenamiento de ronda. Se operan con 4 procesos:
+
+![](/imgs/clase-2/ticks%20grafico.png)
 
 #### Métricas Utilizadas
 
@@ -704,28 +742,41 @@ Para un proceso _p_ que requiere de un tiempo _t_ de ejecución:
 -   **Tiempo de uso del Procesador:** Tiempo durante el cual el procesador ejecuto instrucciones por cuenta de un proceso(modo usuario o kernel).
 -   **Tiempo desocupado (idle):** Tiempo en que la cola de procesos listos está vacía y no puede realizarse ningún trabajo
 -   **Utilización CPU:** Porcentaje del tiempo en que el CPU realiza trabajo útil
--   **Valor Saturación** Formula en función de frecuencias de llegada al proceso(α) y el tiempo de servicio requerido para resolverlo(β). Se define por la división *p* = α/β si:
-    -   *p* = 0 => Nunca lelgan procesos nuevos (sistema desocupado)
-    -   0 < *p* < 1 =>
-    -   *p* = 1 => Los procesos se despachan al ritmo que van llegando
-    -   *p* > 1 => El sistema esta saturado
+-   **Valor Saturación** Formula en función de frecuencias de llegada al proceso(α) y el tiempo de servicio requerido para resolverlo(β). Se define por la división _p_ = α/β si:
+    -   _p_ = 0 => Nunca lelgan procesos nuevos (sistema desocupado)
+    -   0 < _p_ < 1 =>
+    -   _p_ = 1 => Los procesos se despachan al ritmo que van llegando
+    -   _p_ > 1 => El sistema esta saturado
 
 ### Clasificación Algoritmos de Planificación
 
-- **Sistemas Expropiativo, Cooperativo o Non-Non-Preemptive,(desusho):** El sistema operativo no interrumpue el proceso en ejecución. Algunos de ellos son:
-  - Primero en llegar, primero servido (FCFS)
-  - HPRN
-- **Sistema Apropiativos, No Cooperativo o Preemptive:** Son aquellos donde el reloj del sistema interrumpe periodicamente al proceso en ejecución para devolver el control al sistema operativo para decididir quien es el siguiente. Algunos ejemplos:
-- Round Robin
-- SPN
-- SRR
+El planificador a corto plazo, se invoca por alguna de las 4 circustancias:
+
+-   Ejecutado a Espera
+-   Ejecutado a Listo
+-   Espera a Listo
+-   Ejecutando a Terminado
+
+Luego, los algoritmos se pueden clasificar por 2 tipos:
+
+-   **Sistemas Expropiativo, Cooperativo o Non-Non-Preemptive,(desusho):** El sistema operativo no interrumpue el proceso en ejecución. Algunos de ellos son:
+    -   FCFS
+    -   SPN
+    -   HPRN
+-   **Sistema Apropiativos, No Cooperativo o Preemptive:** Son aquellos donde el reloj del sistema interrumpe periodicamente al proceso en ejecución para devolver el control al sistema operativo para decididir quien es el siguiente. Algunos ejemplos:
+    -   Round Robin
+    -   PSPN
+    -   SRR
 
 #### Primero en Llegar, Primero Servido (FCFS) (Procesos Secuenciales)
 
 Funciona como una cola de procesos; el primero en llegar, es el primero que atiendo. Es el algoritmo mas simple. Presenta caracteristicas:
-- Reduce al minimo la sobrecarga administrativa (overhead)
-- Si hay procesos largos, se vera afectado el rendimiento
-- Este algoritmo da salida a todos los procesos siempre que ρ ≤ 1. Si ρ > 1 la demora en iniciar a los nuevos procesos aumentará cada vez produciéndose inanición 
+
+-   Reduce al minimo la sobrecarga administrativa (overhead)
+-   Si hay procesos largos, se vera afectado el rendimiento
+-   Favorece los procesos largos
+-   Este algoritmo da salida a todos los procesos siempre que ρ ≤ 1. Si ρ > 1 la demora en iniciar a los nuevos procesos aumentará cada vez produciéndose inanición
+-   No requiere hardware de apoyo
 
 Ejemplo:
 
@@ -733,58 +784,77 @@ Ejemplo:
 
 #### Round Robin (multiprogramación)
 
-Es como una combinación al concepto de multiprogramación y FCFS; Tiene tambien un mismo sistema de colas, la diferencia radica en que cada tantos *t* tiks de un proceso, alterna por otro proceso. Caracteristicas:
-- Reduce al minimo la sobrecarga administrativa (overhead)
-- Busca dar una relación de respuesta buena para los procesos largos y cortos
-- Si un proceso no ha concluido dentro de su quantum se lo expulsará y será puesto al final en la cola de listos donde deberá esperar su turno nuevamente
-- Los procesos que son despertados de estado de suspensión son también puestos al final de la cola de listos
+Es como una combinación al concepto de multiprogramación y FCFS; Tiene tambien un mismo sistema de colas, la diferencia radica en que cada tantos _t_ tiks de un proceso, alterna por otro proceso. Caracteristicas:
 
-![](/imgs/clase-2/Algoritmo%20Round%20Robin(1).png)
+-    Favorece a los procesos cortos
+-    Reduce al minimo la sobrecarga administrativa (overhead)
+-   Busca dar una relación de respuesta buena para los procesos largos y cortos
+-   Si un proceso no ha concluido dentro de su quantum se lo expulsará y será puesto al final en la cola de listos donde deberá esperar su turno nuevamente
+-   Los procesos que son despertados de estado de suspensión son también puestos al final de la cola de listos
+-   La ronda puede ser ajustada modificando la duracion de quantum. Conforme se incrementa quantum, mas se asemeja a FCFS.
 
-![](/imgs/clase-2/Algoritmo%20Round%20Robin(2).png)
+![](</imgs/clase-2/Algoritmo%20Round%20Robin(1).png>)
+
+![](</imgs/clase-2/Algoritmo%20Round%20Robin(2).png>)
 
 #### El Proceso más Corto a Continuación (SPN, Shortest Process Next)
 
-Se ordenada la cola de listos de acuerdo. Llega a ser mas justo que FCFS. El problema que tiene es saber la duración del proceso, entonces lo que se haces es analizar ejecuciones anteriores. Presenta las caracteristicas:
-- Favorece a los procesos cortos
-- Un proceso largo puede esperar mucho para su ejecución
+Se ordenada la cola de listos de acuerdo al mas corto. Llega a ser mas justo que FCFS. El problema que tiene es saber la duración del proceso, entonces lo que se haces es analizar ejecuciones anteriores. Presenta las caracteristicas:
+
+-   Favorece a los procesos cortos
+-   Mas justo que FCFS
+-   Un proceso largo puede esperar mucho para su ejecución
 
 ![](/imgs/clase-2/SPN.png)
+
+Tambien se cuenta con **PSPN** (Apropiativo SPN) que incluso favorece a los procesos largos, combina las ideas de SPN con un esquema multitarea apropiativo
 
 #### El más Penalizado a Continuación (HPRN, Highest Penality Ratio Next)
 
 Intenta situarse a un punto intermedio entre el FCFS (que favorece a los procesos largos) y SPN (que favorece a los cortos). Calcula un índice de penalización P para cada proceso que está en la cola:
 
-~~~
+```
 P = (w+t)/t
-~~~
+```
 
 Donde:
-- `w` = tiempo de espera del proceso 
-- `t`  tiempo de CPU requerido
+
+-   `w` = tiempo de espera del proceso
+-   `t` = tiempo de CPU requerido
 
 Elige el proceso con el mayor valor de P (el más "penalizado" por el tiempo que lleva esperando).
 
 Presenta las caracteristicas:
-- Cuando hay muchos procesos en cola, calcular P para todos puede generar overhead.
-- Ayuda a  evitar inanicisión *p* < 1
-- Más justo que SPN y FCFS.
+
+-   Cuando hay muchos procesos en cola, calcular P para todos puede generar overhead.
+-   Ayuda a evitar inanicisión _p_ < 1
+-   Más justo que SPN y FCFS.
+
+Inanicisión: Ocurre cuando un proceso o hilo nunca consigue acceso a un recurso porque otros procesos siempre son priorizados sobre él.  
 
 #### Ronda Egoista (SRR)
 
-Es una variante del Round Robin que introduce una distinción entre procesos nuevos y procesos aceptados.
+Es una variante del Round Robin que introduce una distinción entre 2 colas de procesos:
+- `Cola de procesos nuevos`
+- `Cola de procesos aceptados` 
 
-Los procesos nuevos entra en una cola especial de nuevos. Solo se atienden primero a los procesos en la cola de aceptados. Un proceso nuevo se promoueve a aceptado si su prioridad sube lo suficiente. Parámetros de SRR:
-- `a` = cómo sube la prioridad de los procesos nuevos.
-- `b` = cómo sube la prioridad de los procesos aceptados.
+Mientras haya procesos aceptados listos, solo ellos compiten por la CPU. Los procesos nuevos esperan en procesos nuevos. Los procesos nuevos aumentan su prioridad mientras esperan. Cuando la prioridad de un proceso nuevo crece lo suficiente, se promueve a la cola de aceptados y empieza a competir.
+
+Cuenta con los siguientes parametros:
+
+- `a`: Ritmo al que sube la prioridad de procesos nuevos.
+- `b`: Ritmo al que sube la prioridad de procesos aceptados.
 
 Apartir del resultado dado por division b/a, se puede llegar a las siguientes conclusiones:
-- b/a = 0 => Se comporta como un Round Robin
-- b/a < 1 => Los procesos nuevos eventualmente alcanzan los aceptados
-- b/a >= 1 => Su comportamiento tiende a FCFS
+
+-   b/a = 0 => Se comporta como un Round Robin (todos los procesos compiten por igual)
+-   b/a < 1 => Los procesos nuevos eventualmente seran aceptados
+-   b/a >= 1 => Su comportamiento tiende a FCFS (los procesos nuevos pueden quedarse esperando mucho más)
 
 Presenta las siguientes caracteristicas:
-- Favorece a procesos que ya llevan tiempo ejecutándose antes de aceptar procesos nuevos.
+
+-   Favorece a procesos que ya llevan tiempo ejecutándose antes de aceptar procesos nuevos.
+-   Mejora el rendimiento bajo alta carga
 
 ![](/imgs/clase-2/SRR.png)
 
