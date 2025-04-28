@@ -88,6 +88,14 @@
       - [El más Penalizado a Continuación (HPRN, Highest Penality Ratio Next)](#el-más-penalizado-a-continuación-hprn-highest-penality-ratio-next)
       - [Ronda Egoista (SRR)](#ronda-egoista-srr)
       - [Algoritmos con Múltiples Colas de Listos](#algoritmos-con-múltiples-colas-de-listos)
+      - [Retroalimentación Multinivel (FB)](#retroalimentación-multinivel-fb)
+      - [Ronda Loteria (RR)](#ronda-loteria-rr)
+      - [Algoritmos Híbridos](#algoritmos-híbridos)
+    - [Planificación de Hilos](#planificación-de-hilos)
+    - [Planificación Multiprocesador](#planificación-multiprocesador)
+      - [Afinidad a Procesador](#afinidad-a-procesador)
+      - [Balanceo de Cargas](#balanceo-de-cargas)
+- [Clase 4 - Practica](#clase-4---practica)
 
 # Clase 1 y 2 - Modulo 1: Introducción a los Sistemas Operativos
 
@@ -757,16 +765,16 @@ El planificador a corto plazo, se invoca por alguna de las 4 circustancias:
 -   Espera a Listo
 -   Ejecutando a Terminado
 
-Luego, los algoritmos se pueden clasificar por 2 tipos:
+los algoritmos vistos se podrían calificar según dos criterios:
+- Sistemas Expropiativo, Cooperativo o Non-Non-Preemptive,(desusho) = El proceso cede voluntariamente el control de la CPU al sistema operativo
+- Sistema Apropiativos, No Cooperativo o Preemptive = El sistema operativo puede interrumpir al proceso en cualquier momento
+- No considera Información Intrinseca = No es necesario el historial de procesos o información de antemano para que el algoritmo funcione
+- Considera Información Intrinseca =  Es necesario un historial de procesos como tiempo o tipo
 
--   **Sistemas Expropiativo, Cooperativo o Non-Non-Preemptive,(desusho):** El sistema operativo no interrumpue el proceso en ejecución. Algunos de ellos son:
-    -   FCFS
-    -   SPN
-    -   HPRN
--   **Sistema Apropiativos, No Cooperativo o Preemptive:** Son aquellos donde el reloj del sistema interrumpe periodicamente al proceso en ejecución para devolver el control al sistema operativo para decididir quien es el siguiente. Algunos ejemplos:
-    -   Round Robin
-    -   PSPN
-    -   SRR
+|X | No considera Información Intrinseca | Considera Información Intrinseca|
+|---|---|---|
+|Cooperativa|FSFS|SPN, HPRN|
+|Preenvite|RR|PSPN, FB, SRR|
 
 #### Primero en Llegar, Primero Servido (FCFS) (Procesos Secuenciales)
 
@@ -865,3 +873,85 @@ Para poder entender el próximo algoritmo (multilevel feedback), primero se anal
 ![](/imgs/clase-2/multiples%20colas.png)
 
 Se definen múltiples colas, cada una con una prioridad. Se atienden sólo los procesos de la cola de más prioridad hasta que ésta se vacía. Luego se pasa a ejecutar los procesos de la cola siguiente.
+
+#### Retroalimentación Multinivel (FB)
+
+Existen varias colas de listos (por ejemplo, cola 0, cola 1, cola 2...), cada una con:
+- Diferente prioridad.
+- Diferente quantum
+
+Cuando un proceso llega al sistema, entra en la cola de más alta prioridad:
+
+Presenta las siguientes caracteristicas:
+- Favorece a los procesos cortos y recien llegados
+- Penaliza a los procesos largos
+
+Cuando un proceso llega al sistema, entra en la cola de mas alta prioridad. Puede ser vuelto al final de la fila si:
+
+#### Ronda Loteria (RR)
+
+Se basa en un esquema de probabilidades (loteria con boletos) para escoger al proximo proceso a ejecutar. A cada proceso se le asigna uno o varios numeros de boletos, y cada boleto representa una oportunidad de jugar a la lotería. Cada vez que el planificador tiene que elegir el siguiente proceso a poner en ejecución, elige un número al azar, y otorga el siguiente quantum al proceso que tenga el boleto ganador.
+
+Las prioridades se representa al otorgarle a un proceso varios numeros de loterias, de esta manera, tiene mas chance de que salga como ganador.
+
+Presenta las caracteristicas:
+- A pesar de ser sencillo, es muy justo tanto para procesos cortos como largos
+- Degradación suave incluso en entornos saturados
+- Los procesos pueden cooperar entre si: Si B estuviera esperando un resultado de A, podria transferirle sus boletos para aumentar la prioridad
+
+#### Algoritmos Híbridos
+
+Los algoritmos vistos anteriormente, pueden ser combinados:
+
+- **Algoritmo por Cola dentro de FB**
+
+Al introducir varias colas, se abre la posibilidad de que cada una de ellas siga un esquema diferente. Por ejemplo: La de mayor prioridad puede ser PSPN y las de menor prioridad pueden ser SRR.
+
+### Planificación de Hilos
+
+![](/imgs/clase-2/mapeo.png)
+
+Para la planificación de hilos depende de cómo éstos son mapeados a procesos desde el punto de vista del planificador. El mapeo es la forma en que los hilos se conectan a procesos o hilos del sistema operativo. Hay 3 modelos principales de mapeo:
+
+- **Muchos a Uno(N:1)**
+    - Muchos hilos son agrupados dentro de un mismo de un sólo proceso. 
+    - Los hilos de usuarios entran en esta categoria. Por lo que, los hilos son transparentes para el sistema operativo.
+    - Los hilos no aprovechan realmente el paralelismo, y todos los hilos pueden bloquearse cuando uno solo de ellos se bloquea.
+
+- **Uno a Uno(1:1)**
+    - Cada hilo se ejecuta como un proceso ligero.
+    - La información requerida es mucho menor que la de un proceso regular y aparte es mas rapido
+    - Los hilos comparten el espacio de memoria, descriptos de archivos y demas estructuras
+    - Permite el paralelismo; puede ejecutar cada hilo en un procesador distinto
+
+- **Muchos a Muchos(N:N)**
+    - Permite hilos unidos: cada hilo corresponde a un solo proceso ligero
+    - Permite hilos no unidos: Uno o más hilos estanm mapeados a cada proceso ligero
+    - Proporciona ambas caracteristicas de N:1 y 1:1
+
+### Planificación Multiprocesador
+
+Hasta ahora, el concepto de planificación fue visto dado un solo procesador. Se manejan 2 enfoces para la planificación multiprocesador:
+- Mantener una sola lista de procesos y distribuirlos a cada nucleo
+- Mantener una lista por cada procesador
+
+Se puede optar por el esquema de una cola de procesos listos por nucleo. Sin embargo, esta en deshuso, por lo complicado de mantener la afinidad y restaria flexibilidad.
+
+#### Afinidad a Procesador
+
+Despues de que un programa se ejecuto en el CPU, tendra parte de sus datos copiados en la cache. Si el despachador decidiera lanzarlo en un CPU que no comparte la cache, estos datos tendrian que ser invalidados para mantener la coherencia. Por lo que, para solución este problema, se tiene la afinidad a procesador.
+
+La afinidad a un procesador indica la preferencia de un proceso o hilo a ejecutarse en un determinado procesador. Puede ser:
+- **Afinidad Suave:** El proceso prefiere un procesador, pero puede moverse si es necesario.
+- **Afinidad Dura:** El proceso solo puede ejecutarse en un procesador específico.
+
+La afinidad dura funciona mejor en un entornoi NUMA (Non-Uniform Memory Access, Cada procesador tiene bancos de memoria) 
+
+#### Balanceo de Cargas
+
+El balanceo de cargas consiste en distribuir equitativamente el trabajo (procesos o hilos) entre todas las colas de procesos para que ninguno esté sobrecargado mientras otros están desocupados. El objetivo es evitar que unos procesadores estén saturados de trabajo mientras otros están desocupados. Para aplicar esto, necesita que todos los nucleos compartan la misma memoria (multiprocesadores simetricos). Hay 2 estrategias para esto:
+- **Migración Activa o por Empuje**: Periódicamente se ejecuta una tarea que analiza la ocupación de los procesadores, y si la misma pasa de determinado umbral, migra el proceso de la cola de dicho procesador a la cola del procesador más desocupado.
+- **Migración Pasiva o por Jalón**: Ocurre naturalmente cuando un proceso pasa al estado de Listo y el planificador elige asignarlo a otro procesador
+
+# Clase 4 - Practica
+
