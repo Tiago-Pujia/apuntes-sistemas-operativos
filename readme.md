@@ -96,6 +96,27 @@
       - [Afinidad a Procesador](#afinidad-a-procesador)
       - [Balanceo de Cargas](#balanceo-de-cargas)
 - [Clase 4 - Practica](#clase-4---practica)
+  - [Modelo de Planificación de Procesos - Diagrama de Gantt](#modelo-de-planificación-de-procesos---diagrama-de-gantt)
+    - [Definición](#definición-4)
+    - [Utilidades del diagrama:](#utilidades-del-diagrama)
+    - [Modelo de transición de estados de procesos](#modelo-de-transición-de-estados-de-procesos)
+    - [Construcción](#construcción)
+    - [Trazas y Rafagas](#trazas-y-rafagas)
+    - [Parametros](#parametros)
+  - [Ejercicio 1](#ejercicio-1)
+    - [Consigna:](#consigna)
+    - [Solución final](#solución-final)
+  - [Ejercicio 2](#ejercicio-2)
+    - [Consigna](#consigna-1)
+    - [Solución Final](#solución-final-1)
+  - [Ejercicio 3](#ejercicio-3)
+    - [Consigna](#consigna-2)
+    - [Solución Final](#solución-final-2)
+- [Clase 5 - Modulo 4: Sincronización y Comunicación entre procesos](#clase-5---modulo-4-sincronización-y-comunicación-entre-procesos)
+  - [¿Porque?](#porque)
+  - [Problemas Concurrentes](#problemas-concurrentes)
+    - [Grafos de Precedencia](#grafos-de-precedencia)
+    - [Condiciones de Bernstein](#condiciones-de-bernstein)
 
 # Clase 1 y 2 - Modulo 1: Introducción a los Sistemas Operativos
 
@@ -249,7 +270,7 @@ Cuando ocurra algún evento que requiere la atención del sistema operativo, el 
 
 -   **Software** -> llamadas del sistema (syscalls)
 -   **Harware** -> llamadas por un componente fisico. Se subdivide en:
-    -   Interno -> Dentro del procesador. Ejemplo: divisioon por cero, acceso no autorizado a memoria.
+    -   Interno -> Dentro del procesador. Ejemplo: division por cero, acceso no autorizado a memoria.
     -   Externo -> Fuera del procesador. Ejemplo: ingreso por teclado, un pendrive co
 
 ### Diferencia Interrupción y Excepción
@@ -766,15 +787,16 @@ El planificador a corto plazo, se invoca por alguna de las 4 circustancias:
 -   Ejecutando a Terminado
 
 los algoritmos vistos se podrían calificar según dos criterios:
-- Sistemas Expropiativo, Cooperativo o Non-Non-Preemptive,(desusho) = El proceso cede voluntariamente el control de la CPU al sistema operativo
-- Sistema Apropiativos, No Cooperativo o Preemptive = El sistema operativo puede interrumpir al proceso en cualquier momento
-- No considera Información Intrinseca = No es necesario el historial de procesos o información de antemano para que el algoritmo funcione
-- Considera Información Intrinseca =  Es necesario un historial de procesos como tiempo o tipo
 
-|X | No considera Información Intrinseca | Considera Información Intrinseca|
-|---|---|---|
-|Cooperativa|FSFS|SPN, HPRN|
-|Preenvite|RR|PSPN, FB, SRR|
+-   Sistemas Expropiativo, Cooperativo o Non-Non-Preemptive,(desusho) = El proceso cede voluntariamente el control de la CPU al sistema operativo
+-   Sistema Apropiativos, No Cooperativo o Preemptive = El sistema operativo puede interrumpir al proceso en cualquier momento
+-   No considera Información Intrinseca = No es necesario el historial de procesos o información de antemano para que el algoritmo funcione
+-   Considera Información Intrinseca = Es necesario un historial de procesos como tiempo o tipo
+
+| X           | No considera Información Intrinseca | Considera Información Intrinseca |
+| ----------- | ----------------------------------- | -------------------------------- |
+| Cooperativa | FSFS                                | SPN, HPRN                        |
+| Preenvite   | RR                                  | PSPN, FB, SRR                    |
 
 #### Primero en Llegar, Primero Servido (FCFS) (Procesos Secuenciales)
 
@@ -794,8 +816,8 @@ Ejemplo:
 
 Es como una combinación al concepto de multiprogramación y FCFS; Tiene tambien un mismo sistema de colas, la diferencia radica en que cada tantos _t_ tiks de un proceso, alterna por otro proceso. Caracteristicas:
 
--    Favorece a los procesos cortos
--    Reduce al minimo la sobrecarga administrativa (overhead)
+-   Favorece a los procesos cortos
+-   Reduce al minimo la sobrecarga administrativa (overhead)
 -   Busca dar una relación de respuesta buena para los procesos largos y cortos
 -   Si un proceso no ha concluido dentro de su quantum se lo expulsará y será puesto al final en la cola de listos donde deberá esperar su turno nuevamente
 -   Los procesos que son despertados de estado de suspensión son también puestos al final de la cola de listos
@@ -838,20 +860,21 @@ Presenta las caracteristicas:
 -   Ayuda a evitar inanicisión _p_ < 1
 -   Más justo que SPN y FCFS.
 
-Inanicisión: Ocurre cuando un proceso o hilo nunca consigue acceso a un recurso porque otros procesos siempre son priorizados sobre él.  
+Inanicisión: Ocurre cuando un proceso o hilo nunca consigue acceso a un recurso porque otros procesos siempre son priorizados sobre él.
 
 #### Ronda Egoista (SRR)
 
 Es una variante del Round Robin que introduce una distinción entre 2 colas de procesos:
-- `Cola de procesos nuevos`
-- `Cola de procesos aceptados` 
+
+-   `Cola de procesos nuevos`
+-   `Cola de procesos aceptados`
 
 Mientras haya procesos aceptados listos, solo ellos compiten por la CPU. Los procesos nuevos esperan en procesos nuevos. Los procesos nuevos aumentan su prioridad mientras esperan. Cuando la prioridad de un proceso nuevo crece lo suficiente, se promueve a la cola de aceptados y empieza a competir.
 
 Cuenta con los siguientes parametros:
 
-- `a`: Ritmo al que sube la prioridad de procesos nuevos.
-- `b`: Ritmo al que sube la prioridad de procesos aceptados.
+-   `a`: Ritmo al que sube la prioridad de procesos nuevos.
+-   `b`: Ritmo al que sube la prioridad de procesos aceptados.
 
 Apartir del resultado dado por division b/a, se puede llegar a las siguientes conclusiones:
 
@@ -877,14 +900,16 @@ Se definen múltiples colas, cada una con una prioridad. Se atienden sólo los p
 #### Retroalimentación Multinivel (FB)
 
 Existen varias colas de listos (por ejemplo, cola 0, cola 1, cola 2...), cada una con:
-- Diferente prioridad.
-- Diferente quantum
+
+-   Diferente prioridad.
+-   Diferente quantum
 
 Cuando un proceso llega al sistema, entra en la cola de más alta prioridad:
 
 Presenta las siguientes caracteristicas:
-- Favorece a los procesos cortos y recien llegados
-- Penaliza a los procesos largos
+
+-   Favorece a los procesos cortos y recien llegados
+-   Penaliza a los procesos largos
 
 Cuando un proceso llega al sistema, entra en la cola de mas alta prioridad. Puede ser vuelto al final de la fila si:
 
@@ -895,15 +920,16 @@ Se basa en un esquema de probabilidades (loteria con boletos) para escoger al pr
 Las prioridades se representa al otorgarle a un proceso varios numeros de loterias, de esta manera, tiene mas chance de que salga como ganador.
 
 Presenta las caracteristicas:
-- A pesar de ser sencillo, es muy justo tanto para procesos cortos como largos
-- Degradación suave incluso en entornos saturados
-- Los procesos pueden cooperar entre si: Si B estuviera esperando un resultado de A, podria transferirle sus boletos para aumentar la prioridad
+
+-   A pesar de ser sencillo, es muy justo tanto para procesos cortos como largos
+-   Degradación suave incluso en entornos saturados
+-   Los procesos pueden cooperar entre si: Si B estuviera esperando un resultado de A, podria transferirle sus boletos para aumentar la prioridad
 
 #### Algoritmos Híbridos
 
 Los algoritmos vistos anteriormente, pueden ser combinados:
 
-- **Algoritmo por Cola dentro de FB**
+-   **Algoritmo por Cola dentro de FB**
 
 Al introducir varias colas, se abre la posibilidad de que cada una de ellas siga un esquema diferente. Por ejemplo: La de mayor prioridad puede ser PSPN y las de menor prioridad pueden ser SRR.
 
@@ -913,27 +939,30 @@ Al introducir varias colas, se abre la posibilidad de que cada una de ellas siga
 
 Para la planificación de hilos depende de cómo éstos son mapeados a procesos desde el punto de vista del planificador. El mapeo es la forma en que los hilos se conectan a procesos o hilos del sistema operativo. Hay 3 modelos principales de mapeo:
 
-- **Muchos a Uno(N:1)**
-    - Muchos hilos son agrupados dentro de un mismo de un sólo proceso. 
-    - Los hilos de usuarios entran en esta categoria. Por lo que, los hilos son transparentes para el sistema operativo.
-    - Los hilos no aprovechan realmente el paralelismo, y todos los hilos pueden bloquearse cuando uno solo de ellos se bloquea.
+-   **Muchos a Uno(N:1)**
 
-- **Uno a Uno(1:1)**
-    - Cada hilo se ejecuta como un proceso ligero.
-    - La información requerida es mucho menor que la de un proceso regular y aparte es mas rapido
-    - Los hilos comparten el espacio de memoria, descriptos de archivos y demas estructuras
-    - Permite el paralelismo; puede ejecutar cada hilo en un procesador distinto
+    -   Muchos hilos son agrupados dentro de un mismo de un sólo proceso.
+    -   Los hilos de usuarios entran en esta categoria. Por lo que, los hilos son transparentes para el sistema operativo.
+    -   Los hilos no aprovechan realmente el paralelismo, y todos los hilos pueden bloquearse cuando uno solo de ellos se bloquea.
 
-- **Muchos a Muchos(N:N)**
-    - Permite hilos unidos: cada hilo corresponde a un solo proceso ligero
-    - Permite hilos no unidos: Uno o más hilos estanm mapeados a cada proceso ligero
-    - Proporciona ambas caracteristicas de N:1 y 1:1
+-   **Uno a Uno(1:1)**
+
+    -   Cada hilo se ejecuta como un proceso ligero.
+    -   La información requerida es mucho menor que la de un proceso regular y aparte es mas rapido
+    -   Los hilos comparten el espacio de memoria, descriptos de archivos y demas estructuras
+    -   Permite el paralelismo; puede ejecutar cada hilo en un procesador distinto
+
+-   **Muchos a Muchos(N:N)**
+    -   Permite hilos unidos: cada hilo corresponde a un solo proceso ligero
+    -   Permite hilos no unidos: Uno o más hilos estanm mapeados a cada proceso ligero
+    -   Proporciona ambas caracteristicas de N:1 y 1:1
 
 ### Planificación Multiprocesador
 
 Hasta ahora, el concepto de planificación fue visto dado un solo procesador. Se manejan 2 enfoces para la planificación multiprocesador:
-- Mantener una sola lista de procesos y distribuirlos a cada nucleo
-- Mantener una lista por cada procesador
+
+-   Mantener una sola lista de procesos y distribuirlos a cada nucleo
+-   Mantener una lista por cada procesador
 
 Se puede optar por el esquema de una cola de procesos listos por nucleo. Sin embargo, esta en deshuso, por lo complicado de mantener la afinidad y restaria flexibilidad.
 
@@ -942,16 +971,234 @@ Se puede optar por el esquema de una cola de procesos listos por nucleo. Sin emb
 Despues de que un programa se ejecuto en el CPU, tendra parte de sus datos copiados en la cache. Si el despachador decidiera lanzarlo en un CPU que no comparte la cache, estos datos tendrian que ser invalidados para mantener la coherencia. Por lo que, para solución este problema, se tiene la afinidad a procesador.
 
 La afinidad a un procesador indica la preferencia de un proceso o hilo a ejecutarse en un determinado procesador. Puede ser:
-- **Afinidad Suave:** El proceso prefiere un procesador, pero puede moverse si es necesario.
-- **Afinidad Dura:** El proceso solo puede ejecutarse en un procesador específico.
 
-La afinidad dura funciona mejor en un entornoi NUMA (Non-Uniform Memory Access, Cada procesador tiene bancos de memoria) 
+-   **Afinidad Suave:** El proceso prefiere un procesador, pero puede moverse si es necesario.
+-   **Afinidad Dura:** El proceso solo puede ejecutarse en un procesador específico.
+
+La afinidad dura funciona mejor en un entornoi NUMA (Non-Uniform Memory Access, Cada procesador tiene bancos de memoria)
 
 #### Balanceo de Cargas
 
 El balanceo de cargas consiste en distribuir equitativamente el trabajo (procesos o hilos) entre todas las colas de procesos para que ninguno esté sobrecargado mientras otros están desocupados. El objetivo es evitar que unos procesadores estén saturados de trabajo mientras otros están desocupados. Para aplicar esto, necesita que todos los nucleos compartan la misma memoria (multiprocesadores simetricos). Hay 2 estrategias para esto:
-- **Migración Activa o por Empuje**: Periódicamente se ejecuta una tarea que analiza la ocupación de los procesadores, y si la misma pasa de determinado umbral, migra el proceso de la cola de dicho procesador a la cola del procesador más desocupado.
-- **Migración Pasiva o por Jalón**: Ocurre naturalmente cuando un proceso pasa al estado de Listo y el planificador elige asignarlo a otro procesador
+
+-   **Migración Activa o por Empuje**: Periódicamente se ejecuta una tarea que analiza la ocupación de los procesadores, y si la misma pasa de determinado umbral, migra el proceso de la cola de dicho procesador a la cola del procesador más desocupado.
+-   **Migración Pasiva o por Jalón**: Ocurre naturalmente cuando un proceso pasa al estado de Listo y el planificador elige asignarlo a otro procesador
 
 # Clase 4 - Practica
 
+## Modelo de Planificación de Procesos - Diagrama de Gantt
+
+### Definición
+
+Un **Diagrama de Gantt** es una representación **gráfica** que muestra cómo se distribuye el trabajo de los procesos y tareas del sistema operativo a lo largo del tiempo. Permite visualizar la interacción entre:
+
+-   El planificador del sistema operativo.
+-   Los procesos de usuario.
+-   Las operaciones de entrada/salida (E/S).
+-   Las prioridades de los procesos.
+
+### Utilidades del diagrama:
+
+-   Ver qué proceso tiene el control de la CPU en cada instante.
+-   Visualizar el orden de ejecución y los cambios de estado.
+-   Comprender el comportamiento de distintos algoritmos de planificación (FCFS, SPN, RR...).
+-   Calcular métricas como:
+    -   **Tiempo de espera**
+    -   **Tiempo de retorno**
+    -   **Tiempo de respuesta**
+
+### Modelo de transición de estados de procesos
+
+Se utiliza un grafo básico con **5 transiciones**. Cada número representa un tipo de cambio de estado del proceso. Las transiciones están numeradas.
+
+![](/imgs/clase-4/Grafo%205%20estados.png)
+
+Se asigna un **tiempo estimado** a cada transición (para la práctica se usan valores fijos). Por ejemplo:
+
+> **Operaciones: (2 a 5 son atómicas -> no se pueden interrumpir)**
+>
+> 1. Nuevos - Listos: 10u
+> 2. Listos - Ejecutando: 10u
+> 3. Ejecutando - Listos: 5u
+> 4. Ejecutando - Bloqueados E / S: 5u
+> 5. Bloqueados E / S - Listos: 5u
+> 6. Ejecutando - Terminados: 15u
+
+### Construcción
+
+![](/imgs/clase-4/grantt%20ejemplo.png)
+
+-   Cada **columna representa el tiempo**, generalmente en saltos de 5 unidades para mayor facilidad (0, 5, 10...).
+-   Se construye de **izquierda a derecha** conforme avanza el tiempo.
+-   Cada conjunto de **filas**, puede representa algo distinto:
+    1. **Estados del proceso**: Cada celda, muestra el número de transición del modelo de estados que se encuentra el proceso.
+    2. **Tiempo de procesamiento**: Aquí, es donde se ejecutando una vez que el estado de ejecutado (transición 2) se encuentra listo
+    3. **Prioridad del proceso**: número asignado (menor número = mayor prioridad).
+    4. **Unidad de tiempo**: Marca el avance de tiempo.
+    5. **Interrupciones de E/S**: Se indica el proceso que genera la solicitud de E/S (por ejemplo, A o B). Tipos comunes: E/S de video, disco, teclado, etc...
+-   **Datos Adicionales:** Debajo de las líneas de tiempo se completa información adicional respecto al evento que generó una transición:
+    -   **Interrupciones**
+        -   Clasificación:
+            -   Hardware Interno -> _Esto es debido a un error, por lo que no se marca en el diagrama. Simplemente explota la computadora._
+            -   Hardware Externo
+            -   Software
+        -   A qué están relacinados:
+            -   Solicitud E/S
+            -   Fin de E/S
+            -   Llegada de un proceso
+            -   Fin de un Proceso
+    -   **Evaluación de Prioridades:** Si la prioridad de un proceso es mayor, igual o menor que otro, Ej: P(A) > P(B). Las prioridades se evalúan con cada transición entrante a la cola de Listos. Si P(A) == P(B), desempatan por FIFO, osea, el más antiguo tiene prioridad.
+
+El sistema es un **mono-procesador**: solo un proceso puede estar ejecutándose a la vez dentro del conjunto de "Estados de Proceso".
+
+El **PCP** es un proceso a corto plazo que nos ahorra un cambio de proceso al ser interrumpido por el quantum, guardando recursos y overhead. El PCP se utiliza cuando continuamos ejecutando el mismo proceso al momento de ser interrumpido por quantum. En caso contrario, que debamos realizar un cambio de proceso, se lo llama como **process switch**.
+
+### Trazas y Rafagas
+
+Una **traza** es la secuencia ordenada de acciones que un proceso realiza durante su vida útil (desde que se crea hasta que termina). Incluye ejecutar algo, realizar interrupciones, entre otras. Un proceso siempre comienza y termina con una traza.
+
+Por ejemplo:
+
+> -   Proceso A: Ejecuta 20u, disco 20u, ejecuta 5u y termina.
+>
+> -   Proceso B: Ejecuta 5u, video 10u, ejecuta 20u, video 20u, ejecuta 10u, video 30u, ejecuta 5u y termina.
+
+Una **rafaga** es cada ejecución de la traza. Por ejemplo, del proceso A se tiene la rafaga "Ejecuta 20u" y "Ejecuta 5u", las peticiones externas no lo son.
+
+### Parametros
+
+-   Algoritmo de Planificación de Jobs (opcional)
+-   Algoritmo de Planificación de procesos a corto plazo
+    -   FIFO -> No se utiliza
+    -   Round Robin
+        -   Recibe el Quantum
+    -   SPF -> No se utiliza
+    -   Prioridades Simples
+        -   Número de prioridad
+        -   Se es con desalojo o no
+    -   Prioridad Variable
+        -   Número de prioridad inicial
+        -   Fórmula de recálca de la prioridad
+        -   Si es con desalojo o no
+    -   Variación o mezclas
+
+## Ejercicio 1
+
+### Consigna:
+
+![](/imgs/clase-4/Grafo%205%20estados.png)
+
+> Un sistema utiliza un planificador por prioridades con desalojo y tiene dos canales de E/S, conectados a video y disco.
+>
+> En un determinado momento llega un proceso A (p = 10), y a las 25 unidades de tiempo llega el proceso B (p = 5). Estos procesos tienen las siguientes **trazas** de ejecución:
+>
+> -   **Proceso A:** Ejecuta 20u, disco 20u, ejecuta 5u y termina.
+> -   **Proceso B:** Ejecuta 5u, video 10u, ejecuta 20u, video 20u, ejecuta 10u, video 30u, ejecuta 5u y termina.
+>
+> **Operaciones: (2 a 5 son atómicas)**
+>
+> 1- Propuestos - Listos: 10u
+>
+> 2- Listos - Ejecutando: 10u
+>
+> 3- Ejecutando - Listos: 5u
+>
+> 4- Ejecutando - Bloqueados E/S: 5u
+>
+> 5- Bloqueados E/S - Listos: 5u
+>
+> 6- Ejecutando - Terminados: 15u
+
+### Solución final
+
+![](/imgs/clase-4/Ejercicio1/Completo.png)
+
+## Ejercicio 2
+
+### Consigna
+
+![](/imgs/clase-4/Grafo%205%20estados.png)
+
+> Un sistema utiliza un algoritmo de planificación Round Robin con un quantum (tiempo maximo para ejecutar) de 15u y prioridades variables con desalojo del procesador. Las prioridades se calculan como la prioridad original del proceso más el tiempo de ejecución del proceso dividido por 2. Es decir (p + (te/2)). A menor valor de este cálculo, mayor prioridad. El sistema tiene un canal selector de entrada/salida conectado a un disco y una pantalla.
+>
+> En un determinado momento llega un proceso A (p = 13), y a las 25 unidades de tiempo llega el proceso B (p=20). Estos procesos tienen las siguientes **trazas** de ejecución:
+>
+> -   **Proceso A:** Ejecuta 10u, video 5u, ejecuta 10u, disco 30u, ejecuta 10u y termina.
+> -   **Proceso B:** Ejecuta 5u, disco 15u, ejecuta 5u, disco 20u, ejecuta 20u y termina.
+>
+> **Operaciones: (2 a 5 son atómicas)**
+>
+> 1. Propuestos - Listos: 10u
+> 2. Listos - Ejecutando: 10u
+> 3. Ejecutando - Listos: 5u
+> 4. Ejecutando - Bloqueados E / S: 5u
+> 5. Bloqueados E / S - Listos: 5u
+> 6. Ejecutando - Terminados: 15u
+>
+> Se pide: Realizar el diagrama temporal de procesamiento, indicando claramente los tiempos de ejecución de los procesos, de las rutinas del sistema operativo; y en la misma hoja de la grilla las interrupciones que se producen para posibilitar cada cambio (con su clasificación), los conflictos (en caso de existir) y cuál fue el criterio utilizado para su resolución.
+
+### Solución Final
+
+![](/imgs/clase-4/Ejercicio2/Completo.png)
+
+## Ejercicio 3
+
+### Consigna
+
+> Un sistema operativo tiene una planificación de largo plazo con algoritmo SJF (Shortest Job First) y una planificación de corto plazo con algoritmo Round Robin con un quantum de 15u, con reevaluación de prioridades dinámicas, las cuales se calculan como la prioridad inicial del proceso más la mitad del tiempo de la última ráfaga de ejecución del mismo: (PI + Tr/2), a menor valor de este cálculo, mayor prioridad. Además, se cuentan con 1 disco y 1 monitor conectado a un canal selector.
+>
+> En un instante 0 llegan los procesos A (Prioridad 3) y el B (Prioridad 10) con la siguiente traza de ejecución:
+>
+> -   **Proceso A:** Ejecuta 5u, lee de disco 10u, ejecuta 15u, realiza un fork (en el último instante de la ráfaga anterior, creando el proceso C con una prioridad de 4), ejecuta 5u, ejecuta un wait (esperando la finalización de su hijo), ejecuta 5u y finaliza.
+> -   **Proceso B:** Ejecuta 15u, graba en disco 10u, ejecuta 5u, muestra por pantalla 10u, ejecuta 20u y finaliza.
+> -   **Proceso C:** Ejecuta 20u, escribe en disco 25u, ejecuta 5u y finaliza, enviando una señal SIGCHLD al padre, avisando que terminó.
+>
+> **Operaciones: (2 a 5 son atómicas):**
+>
+> 1. Propuestos - Listos: 10u
+> 2. Listos - Ejecutando: 10u
+> 3. Ejecutando - Listos: 5u
+> 4. Ejecutando – Bloqueado: 5u
+> 5. Bloqueado - Listos: 5u
+> 6. Ejecutando – Finalizado: 10u
+
+### Solución Final
+
+![](/imgs/clase-4/Ejercicio3/Completo.png)
+
+# Clase 5 - Modulo 4: Sincronización y Comunicación entre procesos
+
+## ¿Porque?
+
+En los sistemas operativos, en general, los procesos que trabajan juntos comparten con frecuencia un espacio común para almacenamiento, en el que cada uno puede leer o escribir, o también comparten un recurso.
+
+El acceso a estos recursos compartidos generan problemas de uso y de comunicación entre los procesos.
+
+Para resolver estos problemas de competencia entre procesos, se utilizan dos mecanismos: la sincronización y la comunicación
+
+-   **SINCRONIZACIÓN ENTRE PROCESOS:** Ordenamiento de las operaciones en el tiempo debido a las condiciones de carrera (acceder a los diversos recursos asincrónicamente).
+
+-   **COMUNICACIÓN ENTRE PROCESOS:** Intercambio de Datos. La comunicación permite que los procesos cooperen entre sí en la ejecución de un objetivo global, mientras que la sincronización permite que un proceso continúe su ejecución después de la ocurrencia de un determinado evento.
+
+## Problemas Concurrentes
+
+La concurrencia no se refiere a dos o más eventos que ocurren a la vez sino a dos o más eventos cuyo orden es no determinista, esto es, eventos acerca de los cuales no se puede predecir el orden relativo en que ocurrirán.
+
+Si bien dos procesos (o también dos hilos) completamente independientes entre sí ejecutándose simultáneamente son concurrentes, nos ocuparemos principalmente de procesos cuya ejecución está vinculada de alguna manera.
+
+### Grafos de Precedencia
+
+Se crearon unas reglas en base a grafos de precedenbcia: Un grafo sin ciclos donde cada nodo representa una unica sentencia o un conjunto secuencial de instrucciones.
+
+![](/imgs/clase-5/grafo.jpf)
+
+### Condiciones de Bernstein
+
+-   R = Read
+-   W = WrIte
+
+1. R(Si)  W (Sj) = (ø)
+2. W(Si)  R (Sj) = (ø)
+3. W(Si)  W (Sj) = (ø)
+
+Si las tres condiciones producen conjunto vacío, podemos asegurar que no hay dependencia entre las sentencias.
