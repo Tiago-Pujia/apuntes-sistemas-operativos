@@ -10,7 +10,7 @@
 
 - [📘 Introducción](#-introducción)
   - [Indice](#indice)
-- [Clase 1 y 2 - Modulo 1: Introducción a los Sistemas Operativos](#clase-1-y-2---modulo-1-introducción-a-los-sistemas-operativos)
+- [Modulo 1: Introducción a los Sistemas Operativos](#modulo-1-introducción-a-los-sistemas-operativos)
   - [¿Que es un sistema operativo?](#que-es-un-sistema-operativo)
     - [¿Por qué estudiar los sistemas operatiovs?](#por-qué-estudiar-los-sistemas-operatiovs)
   - [Funciones y Objetivos](#funciones-y-objetivos)
@@ -34,68 +34,67 @@
     - [Funciones y Objetivos](#funciones-y-objetivos-1)
   - [Modos de Ejecucion de los Procesos](#modos-de-ejecucion-de-los-procesos)
   - [Definiciones Computo Distribuido](#definiciones-computo-distribuido)
-- [Clase 3](#clase-3)
-  - [Modulo 2: De Programas a Procesos](#modulo-2-de-programas-a-procesos)
-    - [Conceptos Basicos](#conceptos-basicos)
-    - [Entidad Pasiva y Activa](#entidad-pasiva-y-activa)
-    - [Compilación y Carga de un Proceso](#compilación-y-carga-de-un-proceso)
-    - [Procesos y Thread](#procesos-y-thread)
-    - [Administración de Procesos](#administración-de-procesos)
-      - [Estructura Memoria CPU](#estructura-memoria-cpu)
-      - [Bloque de Control (PCB)](#bloque-de-control-pcb)
-      - [Cambio de Contexto y Proceso](#cambio-de-contexto-y-proceso)
-      - [Objetivos del PCB](#objetivos-del-pcb)
-      - [Contenido del PCB](#contenido-del-pcb)
-    - [Transición de Estados de un Proceso](#transición-de-estados-de-un-proceso)
-      - [Tipos de Estados](#tipos-de-estados)
-      - [Diagrama de Proceso](#diagrama-de-proceso)
-        - [Modelo 7 Estados](#modelo-7-estados)
-        - [Modelo 5 Estados](#modelo-5-estados)
-      - [Colas](#colas)
-      - [Clasificación Estados](#clasificación-estados)
-      - [Razones de un Cambio de Estado de Proceso](#razones-de-un-cambio-de-estado-de-proceso)
-    - [Creación de Procesos](#creación-de-procesos)
-      - [Razones para crear un proceso](#razones-para-crear-un-proceso)
-      - [Tipos de Creacion de Procesos](#tipos-de-creacion-de-procesos)
-      - [Secuencia de creación de un proceso](#secuencia-de-creación-de-un-proceso)
-      - [Finalizar de un proceso](#finalizar-de-un-proceso)
-    - [Hilos](#hilos)
-      - [Definición](#definición-1)
-      - [Caracteristicas](#caracteristicas)
-      - [Ventajas respecto a los Procesos](#ventajas-respecto-a-los-procesos)
-      - [Implementación de Hilos](#implementación-de-hilos)
-        - [Hilos a Nivel de Usuario (ULT)](#hilos-a-nivel-de-usuario-ult)
-        - [Hilos a Nivel de Kernel (KLT)](#hilos-a-nivel-de-kernel-klt)
-      - [Estado de los Hilos](#estado-de-los-hilos)
-      - [Patrones de Trabajo con Hilos](#patrones-de-trabajo-con-hilos)
-    - [Fibra](#fibra)
-      - [Definición](#definición-2)
-      - [Caracteristicas](#caracteristicas-1)
-      - [Ventajas](#ventajas)
-  - [Modulo 3: Planificación de Procesos](#modulo-3-planificación-de-procesos)
-    - [Definición](#definición-3)
-    - [Objetivos](#objetivos)
-    - [Tipos de Planificación](#tipos-de-planificación)
-    - [Relación entre Tipos Planificadores y Estados de los Procesos](#relación-entre-tipos-planificadores-y-estados-de-los-procesos)
-    - [Tipos de procesos](#tipos-de-procesos)
-    - [Mediendo las respuestas](#mediendo-las-respuestas)
-      - [Unidades de Medición](#unidades-de-medición)
-      - [Métricas Utilizadas](#métricas-utilizadas)
-    - [Clasificación Algoritmos de Planificación](#clasificación-algoritmos-de-planificación)
-      - [Primero en Llegar, Primero Servido (FCFS) (Procesos Secuenciales)](#primero-en-llegar-primero-servido-fcfs-procesos-secuenciales)
-      - [Round Robin (multiprogramación)](#round-robin-multiprogramación)
-      - [El Proceso más Corto a Continuación (SPN, Shortest Process Next)](#el-proceso-más-corto-a-continuación-spn-shortest-process-next)
-      - [El más Penalizado a Continuación (HPRN, Highest Penality Ratio Next)](#el-más-penalizado-a-continuación-hprn-highest-penality-ratio-next)
-      - [Ronda Egoista (SRR)](#ronda-egoista-srr)
-      - [Algoritmos con Múltiples Colas de Listos](#algoritmos-con-múltiples-colas-de-listos)
-      - [Retroalimentación Multinivel (FB)](#retroalimentación-multinivel-fb)
-      - [Ronda Loteria (RR)](#ronda-loteria-rr)
-      - [Algoritmos Híbridos](#algoritmos-híbridos)
-    - [Planificación de Hilos](#planificación-de-hilos)
-    - [Planificación Multiprocesador](#planificación-multiprocesador)
-      - [Afinidad a Procesador](#afinidad-a-procesador)
-      - [Balanceo de Cargas](#balanceo-de-cargas)
-- [Clase 4 - Practica](#clase-4---practica)
+- [Modulo 2: De Programas a Procesos](#modulo-2-de-programas-a-procesos)
+  - [Conceptos Basicos](#conceptos-basicos)
+  - [Entidad Pasiva y Activa](#entidad-pasiva-y-activa)
+  - [Compilación y Carga de un Proceso](#compilación-y-carga-de-un-proceso)
+  - [Procesos y Thread](#procesos-y-thread)
+  - [Administración de Procesos](#administración-de-procesos)
+    - [Estructura Memoria CPU](#estructura-memoria-cpu)
+    - [Bloque de Control (PCB)](#bloque-de-control-pcb)
+    - [Cambio de Contexto y Proceso](#cambio-de-contexto-y-proceso)
+    - [Objetivos del PCB](#objetivos-del-pcb)
+    - [Contenido del PCB](#contenido-del-pcb)
+  - [Transición de Estados de un Proceso](#transición-de-estados-de-un-proceso)
+    - [Tipos de Estados](#tipos-de-estados)
+    - [Diagrama de Proceso](#diagrama-de-proceso)
+      - [Modelo 7 Estados](#modelo-7-estados)
+      - [Modelo 5 Estados](#modelo-5-estados)
+    - [Colas](#colas)
+    - [Clasificación Estados](#clasificación-estados)
+    - [Razones de un Cambio de Estado de Proceso](#razones-de-un-cambio-de-estado-de-proceso)
+  - [Creación de Procesos](#creación-de-procesos)
+    - [Razones para crear un proceso](#razones-para-crear-un-proceso)
+    - [Tipos de Creacion de Procesos](#tipos-de-creacion-de-procesos)
+    - [Secuencia de creación de un proceso](#secuencia-de-creación-de-un-proceso)
+    - [Finalizar de un proceso](#finalizar-de-un-proceso)
+  - [Hilos](#hilos)
+    - [Definición](#definición-1)
+    - [Caracteristicas](#caracteristicas)
+    - [Ventajas respecto a los Procesos](#ventajas-respecto-a-los-procesos)
+    - [Implementación de Hilos](#implementación-de-hilos)
+      - [Hilos a Nivel de Usuario (ULT)](#hilos-a-nivel-de-usuario-ult)
+      - [Hilos a Nivel de Kernel (KLT)](#hilos-a-nivel-de-kernel-klt)
+    - [Estado de los Hilos](#estado-de-los-hilos)
+    - [Patrones de Trabajo con Hilos](#patrones-de-trabajo-con-hilos)
+  - [Fibra](#fibra)
+    - [Definición](#definición-2)
+    - [Caracteristicas](#caracteristicas-1)
+    - [Ventajas](#ventajas)
+- [Modulo 3: Planificación de Procesos](#modulo-3-planificación-de-procesos)
+  - [Definición](#definición-3)
+  - [Objetivos](#objetivos)
+  - [Tipos de Planificación](#tipos-de-planificación)
+  - [Relación entre Tipos Planificadores y Estados de los Procesos](#relación-entre-tipos-planificadores-y-estados-de-los-procesos)
+  - [Tipos de procesos](#tipos-de-procesos)
+  - [Mediendo las respuestas](#mediendo-las-respuestas)
+    - [Unidades de Medición](#unidades-de-medición)
+    - [Métricas Utilizadas](#métricas-utilizadas)
+  - [Clasificación Algoritmos de Planificación](#clasificación-algoritmos-de-planificación)
+    - [Primero en Llegar, Primero Servido (FCFS) (Procesos Secuenciales)](#primero-en-llegar-primero-servido-fcfs-procesos-secuenciales)
+    - [Round Robin (multiprogramación)](#round-robin-multiprogramación)
+    - [El Proceso más Corto a Continuación (SPN, Shortest Process Next)](#el-proceso-más-corto-a-continuación-spn-shortest-process-next)
+    - [El más Penalizado a Continuación (HPRN, Highest Penality Ratio Next)](#el-más-penalizado-a-continuación-hprn-highest-penality-ratio-next)
+    - [Ronda Egoista (SRR)](#ronda-egoista-srr)
+    - [Algoritmos con Múltiples Colas de Listos](#algoritmos-con-múltiples-colas-de-listos)
+    - [Retroalimentación Multinivel (FB)](#retroalimentación-multinivel-fb)
+    - [Ronda Loteria (RR)](#ronda-loteria-rr)
+    - [Algoritmos Híbridos](#algoritmos-híbridos)
+  - [Planificación de Hilos](#planificación-de-hilos)
+  - [Planificación Multiprocesador](#planificación-multiprocesador)
+    - [Afinidad a Procesador](#afinidad-a-procesador)
+    - [Balanceo de Cargas](#balanceo-de-cargas)
+- [Practica Planificación](#practica-planificación)
   - [Modelo de Planificación de Procesos - Diagrama de Gantt](#modelo-de-planificación-de-procesos---diagrama-de-gantt)
     - [Definición](#definición-4)
     - [Utilidades del diagrama:](#utilidades-del-diagrama)
@@ -113,7 +112,7 @@
   - [Ejercicio 3](#ejercicio-3)
     - [Consigna](#consigna-2)
     - [Solución Final](#solución-final-2)
-- [Clase 5 - Modulo 4: Sincronización y Comunicación entre procesos](#clase-5---modulo-4-sincronización-y-comunicación-entre-procesos)
+- [Modulo 4: Sincronización y Comunicación entre procesos](#modulo-4-sincronización-y-comunicación-entre-procesos)
   - [¿Porque?](#porque)
   - [Problemas Concurrentes](#problemas-concurrentes)
   - [Concurrencia](#concurrencia)
@@ -150,7 +149,7 @@
       - [Prevenirlo o Evitarlo](#prevenirlo-o-evitarlo)
       - [Detectar y Recuperar](#detectar-y-recuperar)
 
-# Clase 1 y 2 - Modulo 1: Introducción a los Sistemas Operativos
+# Modulo 1: Introducción a los Sistemas Operativos
 
 ## ¿Que es un sistema operativo?
 
@@ -350,11 +349,9 @@ Proceso de cómputo realizado entre computadoras independientes, o tambien dicho
     -   Plataforma como Servicio
     -   Infraestructura como Servicio
 
-# Clase 3
+# Modulo 2: De Programas a Procesos
 
-## Modulo 2: De Programas a Procesos
-
-### Conceptos Basicos
+## Conceptos Basicos
 
 -   **¿Que es un Programa?**
 
@@ -372,7 +369,7 @@ Esa es la definición dada por los docentes, la que esta en el libro se define c
 
 > Un _proceso_ es la imagen en memoria de un programa, junto con la información relacionada con el estado de su ejecución
 
-### Entidad Pasiva y Activa
+## Entidad Pasiva y Activa
 
 -   **Entidad Pasiva**
 
@@ -382,7 +379,7 @@ No cambia por si mismo, no tiene actividad propia, solo es un conjunto de instru
 
 Cambia de estado mientras se ejecuta, tiene actividad propia (consume CPU, E/S y memoria). Ejemplo: Un **proceso** en ejecucion
 
-### Compilación y Carga de un Proceso
+## Compilación y Carga de un Proceso
 
 ![](/imgs/clase-2/Compilación%20y%20Carga%20de%20un%20Proceso.png)
 
@@ -407,7 +404,7 @@ Cambia de estado mientras se ejecuta, tiene actividad propia (consume CPU, E/S y
     3. Genera el PCB (Process Control Block); Estructura que almacenará toda la información necesaria para administrar el proceso(estado, registros, contador de programa, etc.).
 4. **Cuarto Paso: Proceso en estado de ejecutarse**
 
-### Procesos y Thread
+## Procesos y Thread
 
 -   **Procesos**
     Un proceso se define como la imagen de un programa en ejecucion; en memoria usando la CPU. A esta altura, un proceso tiene un espacio de direcciones de memoria, una pila, regitros y program counter (PC)
@@ -415,9 +412,9 @@ Cambia de estado mientras se ejecuta, tiene actividad propia (consume CPU, E/S y
 -   **Hilo(thread) o Proceso Liviano**
     Dentro de un proceso se puede tener secciones que tienen sus propios procesos, osea su propio espacio de memoria, registros, pila y program counter. Puede compartir memoria con el resto de thread que forman parte del mismo proceso.
 
-### Administración de Procesos
+## Administración de Procesos
 
-#### Estructura Memoria CPU
+### Estructura Memoria CPU
 
 ![](/imgs/clase-2/memoria-cpu.png)
 
@@ -427,13 +424,13 @@ Cambia de estado mientras se ejecuta, tiene actividad propia (consume CPU, E/S y
 4. **Literales:** Area de texto para datos constantes. Ejemplo: "Hola"
 5. **Instrucciones:** Area de texto donde guarda instrucciones del programa. Solo de lectura
 
-#### Bloque de Control (PCB)
+### Bloque de Control (PCB)
 
 Los datos de **cada** proceso se guardan en un PCB propio. Este, se almacena en la pila del procesador. Del stack se copia una imagen del proceso que se carga al CPU y se ejecuta.
 
 En el PCB se guarda para cada proceso, la información necesaria para reanurlo en caso que sea suspendido o desalojado. A esto se le llama cambio de contexto.
 
-#### Cambio de Contexto y Proceso
+### Cambio de Contexto y Proceso
 
 -   **Cambio de Contexto**
 
@@ -454,12 +451,12 @@ Implica necesariamente hacer un cambio de contexto: primero se guarda el estado 
 | **Cambio de Contexto** | Guarda el estado de un proceso y carga el de otro. | Cada vez que se cambia el proceso en ejecución.                                            |
 | **Cambio de Proceso**  | Elige otro proceso para ejecutar.                  | Cuando el sistema operativo lo decide (fin de proceso, interrupción, planificación, etc.). |
 
-#### Objetivos del PCB
+### Objetivos del PCB
 
 -   Localización de la información sobre el proceso por parte del S.O
 -   Mantener registrados los datos del proceso en caso de suspender la ejecución
 
-#### Contenido del PCB
+### Contenido del PCB
 
 -   **Estado Actual del Proceso**
 -   **Contador de Programa**: Cuál es la siguiente instrucción a ser ejecutada por el proceso
@@ -471,9 +468,9 @@ Implica necesariamente hacer un cambio de contexto: primero se guarda el estado 
 
 Muchos de estos temas seran vistos a futuro.
 
-### Transición de Estados de un Proceso
+## Transición de Estados de un Proceso
 
-#### Tipos de Estados
+### Tipos de Estados
 
 Un proceso puede transitar por varios estados a lo largo de su vida dentro del sistema operativo:
 
@@ -489,25 +486,25 @@ Un proceso puede transitar por varios estados a lo largo de su vida dentro del s
 
 -   **Terminado (Exit):** El proceso terminó de ejecutarse; sus estructuras están a la espera de ser limpiadas por el sistema operativo. Ejemplo: Finalmente, el sistema elimina toda la memoria, PCB, y otros recursos asociados al programa.
 
-#### Diagrama de Proceso
+### Diagrama de Proceso
 
 Un proceso puede pasar varias etapas diferentes en el sistema operativo, y el modelo depende del mismo. Hay varios modelos, pero el mas generico es el siguiente:
 
 ![](/imgs/clase-2/Modelo%20Generico%20Estados.png)
 
-##### Modelo 7 Estados
+#### Modelo 7 Estados
 
 ![](/imgs/clase-2/Modelo%207%20estados.png)
 
 Se crea un nuevo proceso que debe ser admitido, este se puede poner en listo o en listo/suspendido (esperando memoria). Cuando esta listo, esta esperando que el S.O le otorgue el CPU para ponerlo en ejecución. Cuando se encuentra en ejecución pueden pasar 2 cosas, finaliza o se bloquea por una interrupción
 
-##### Modelo 5 Estados
+#### Modelo 5 Estados
 
 ![](/imgs/clase-2/Modelo%205%20Estados.png)
 
 Modelo mas sencillo, no existe los estados de listo/suspendido o bloqueado/suspendido
 
-#### Colas
+### Colas
 
 Una cola es una estructura de datos donde los elementos se agregan al final y se sacan del principio. El primero que entra es el primero que sale.
 
@@ -518,7 +515,7 @@ Aplicado a procesos, una cola es donde se organizan los procesos que están espe
 
 Todos los estados son de tipo cola, excepto los de ejecución. Porque, el CPU solo puede ejecutar un proceso a la vez.
 
-#### Clasificación Estados
+### Clasificación Estados
 
 -   **Estados Activos**
 
@@ -528,16 +525,16 @@ Son aquellos que compiten por el procesador o están en condiciones de hacerlo. 
 
 Son aquellos que no pueden competir por el uso del procesador. Estos son suspendido/bloqueado y suspendido/listo.
 
-#### Razones de un Cambio de Estado de Proceso
+### Razones de un Cambio de Estado de Proceso
 
 -   Interrupciones de Hardware Externas
 -   Excepción(trap)
 -   Llamada al sistema operativo
 -   Por finalización
 
-### Creación de Procesos
+## Creación de Procesos
 
-#### Razones para crear un proceso
+### Razones para crear un proceso
 
 Todos los procesos son creados por el sistema operativo, aunque un proceso puede crear otro proceso. Hay 4 razones para crear uno:
 
@@ -546,7 +543,7 @@ Todos los procesos son creados por el sistema operativo, aunque un proceso puede
 -   La necesidad de brindar un servicio a un programa en ejecución.
 -   La creación explícita por parte de otro proceso existente.
 
-#### Tipos de Creacion de Procesos
+### Tipos de Creacion de Procesos
 
 Cuando un proceso crea a otro, el proceso creador se llama **padre** y el proceso generado se llama **hijo**. Estos procesos suelen **comunicarse** y **cooperar** entre sí.
 
@@ -555,7 +552,7 @@ Cuando un proceso crea a otro, el proceso creador se llama **padre** y el proces
     -   El padre espera que todos sus hijos hayan terminado y luego sigue él.
 -   No Jerarquica -> Se ejecutan de forma independiente
 
-#### Secuencia de creación de un proceso
+### Secuencia de creación de un proceso
 
 1. Asignar un identificador al nuevo proceso
 2. Asignar espacio memoria para el proceso
@@ -563,7 +560,7 @@ Cuando un proceso crea a otro, el proceso creador se llama **padre** y el proces
 4. Establecer enlaces apropiados con otras estructuras del sistema operativo, como archivos abiertos, referencias a procesos padres, hijos o hermanos.
 5. Ampliar o crear otra estructura de datos en caso que fuerza necesarios (archivos y de más)
 
-#### Finalizar de un proceso
+### Finalizar de un proceso
 
 -   Desaparece el PCB
 -   Liberar recursos comunes
@@ -571,15 +568,15 @@ Cuando un proceso crea a otro, el proceso creador se llama **padre** y el proces
 
 La **Terminación en cascada** es cuando un proceso termina (muere) tambien deben terminar sus hijos.
 
-### Hilos
+## Hilos
 
-#### Definición
+### Definición
 
 La simple transferencia de de memoria a el procesador con toda su planificación, podría llevara un desperdicio burocratico (tiempo que se pierde en asuntos administrativos) de recursos, una respuesta este problema son los hilos.El concepto de **hilo** (también llamados _threads_ o _procesos livianos_) ya fue mencionado anteriormente, pero realizamos un repaso:
 
 > Dentro de un proceso pueden existir **secciones independientes** (hilos), cada una con su propio espacio de registros, pila y contador de programa. Sin embargo, **comparten el espacio de memoria** con los demás hilos del mismo proceso.
 
-#### Caracteristicas
+### Caracteristicas
 
 Cada hilo posee una estructura propia llamada **TCB** (_Thread Control Block_), que es similar al PCB de un proceso, pero contiene **menos información**, ya que muchos recursos son compartidos con los demás hilos del mismo proceso.
 
@@ -600,14 +597,14 @@ Todos los hilos de un mismo proceso comparten:
 
 Además, los hilos pueden **crear hilos hijos**, y están diseñados para **cooperar entre sí** compartiendo los recursos mencionados.
 
-#### Ventajas respecto a los Procesos
+### Ventajas respecto a los Procesos
 
 -   Requiere **menos tiempo** realizar un cambio de contexto entre hilos que entre procesos.
 -   **Comparten espacio de memoria** y recursos, permitiendo una comunicación más rápida entre ellos.
 
-#### Implementación de Hilos
+### Implementación de Hilos
 
-##### Hilos a Nivel de Usuario (ULT)
+#### Hilos a Nivel de Usuario (ULT)
 
 **Características:**
 
@@ -629,7 +626,7 @@ Además, los hilos pueden **crear hilos hijos**, y están diseñados para **coop
 -   Las **llamadas bloqueantes** afectan a **todos los hilos del proceso**.
 -   Se puede usar una técnica llamada **Jacketing** para transformar llamadas bloqueantes en no bloqueantes, pero esto **agrega sobrecarga** al sistema.
 
-##### Hilos a Nivel de Kernel (KLT)
+#### Hilos a Nivel de Kernel (KLT)
 
 **Características:**
 
@@ -649,7 +646,7 @@ Además, los hilos pueden **crear hilos hijos**, y están diseñados para **coop
 -   Tiene **mayor overhead** (sobrecarga) en tiempo y recursos del sistema operativo.
 -   Se requiere utilizar librerias para implementarlo
 
-#### Estado de los Hilos
+### Estado de los Hilos
 
 Los hilos pueden seguir los mismos estados que los procesos:
 
@@ -660,7 +657,7 @@ Los hilos pueden seguir los mismos estados que los procesos:
 
 ![](/imgs/clase-2/Estados%20Hilos.png)
 
-#### Patrones de Trabajo con Hilos
+### Patrones de Trabajo con Hilos
 
 Se puede emplear más de uno de estos patrones en diferentes áreas de cada aplicación
 
@@ -688,32 +685,32 @@ Este modelo se asocia con el concepto de **Pipelining**, debido a la similitud e
 
 ![](/imgs/clase-2/Hilos%20Estructura%20Entubamiento.png)
 
-### Fibra
+## Fibra
 
-#### Definición
+### Definición
 
 Una **fibra** es una unidad de ejecución que debe ser **agendada manualmente** (`scheduler`) por la propia **aplicación**.
 
 -   Las fibras se ejecutan dentro del contexto de un hilo
 -   Un mismo hilo puede agendar y administrar **varias fibras** simultáneamente.
 
-#### Caracteristicas
+### Caracteristicas
 
 -   Las fibras no son planificadas por el sistema operativo, sino que su **cambio de contexto es controlado por la aplicación**.
 -   Una fibra **no posee su propio hilo**: se ejecuta usando el hilo que la agenda.
 
-#### Ventajas
+### Ventajas
 
 -   En general, **una fibra no presenta ventajas** sobre una aplicación multi-hilo bien diseñada.
 -   El uso de fibras puede **hacer más flexible** a aplicaciones que fueron pensadas para **agendar sus propios hilos** de ejecución.
 
-## Modulo 3: Planificación de Procesos
+# Modulo 3: Planificación de Procesos
 
-### Definición
+## Definición
 
 La _planificación de procesos_ se refiere a cómo determina el sistema operativo el orden en que irá cediendo el uso del procesador a los procesos que lo vayan solicitando, y a las politicas que empleara para que el uso que den a dicho tiempo no sea excesivo respecto al usop esperado al sistema.
 
-### Objetivos
+## Objetivos
 
 -   **Ser justo:** Debe tratarse de igual manera a todos los procesos que compartan las mismas características, y nunca postergar indefinidamente uno de ellos (inanición o starvation)
 -   **Maximizar el rendimiento:** Dar servicio a la mayor parte de procesos por unidad de tiempo.
@@ -726,7 +723,7 @@ La _planificación de procesos_ se refiere a cómo determina el sistema operativ
 -   **Favorecer a los procesos con un comportamiento deseable:** Si un proceso causa mucha demora, se lo puede penalizar porque degrada el rendimiento del sistema
 -   **Degradarse suavemente:** Tratar que no impacte la carga del proceso cuando este cerca del 100%; tratar de bajar la performance del sistema para que no afecte
 
-### Tipos de Planificación
+## Tipos de Planificación
 
 -   **Largo Plazo:** Generacion de nuevos procesos largos
     -   Se ejecuta periódicamente una vez cada varios segundos, minutos u horas
@@ -744,7 +741,7 @@ La _planificación de procesos_ se refiere a cómo determina el sistema operativ
     -   El administrador decide que tarea realizar
     -   Modelo en deshuso
 
-### Relación entre Tipos Planificadores y Estados de los Procesos
+## Relación entre Tipos Planificadores y Estados de los Procesos
 
 Los tipos de planificación incluyen los estados de procesos que van a trabajar:
 
@@ -756,15 +753,15 @@ Los tipos de planificación incluyen los estados de procesos que van a trabajar:
     -   Bloqueado -> listos => Interrupción de finalización de E/S
     -   Ejecutado -> Terminado => Exit()
 
-### Tipos de procesos
+## Tipos de procesos
 
 -   **CPU Bound:** Orientado al uso del CPU; procesos que alternan entre ráfagas y que realizan computo interno
 -   **I/O Bound:** Orientado al uso de dispositivos externos; Procesos que realizan mas usos de entradas y salidas que del CPU
 -   **Procesos Cortos:** Aquellos que son de tipo I/O Bound pero, cada tanto hace uso del CPU, y estan bloqueados esperando que se libera I/O
 
-### Mediendo las respuestas
+## Mediendo las respuestas
 
-#### Unidades de Medición
+### Unidades de Medición
 
 Se laburan con 2 unidades para saber cuanto van a tardar:
 
@@ -789,7 +786,7 @@ El cambio de contexto se realiza cada 2 ticks, y un Quantum es de 5 ticks con un
 
 ![](/imgs/clase-2/ticks%20grafico.png)
 
-#### Métricas Utilizadas
+### Métricas Utilizadas
 
 Para un proceso _p_ que requiere de un tiempo _t_ de ejecución:
 
@@ -809,7 +806,7 @@ Para un proceso _p_ que requiere de un tiempo _t_ de ejecución:
     -   _p_ = 1 => Los procesos se despachan al ritmo que van llegando
     -   _p_ > 1 => El sistema esta saturado
 
-### Clasificación Algoritmos de Planificación
+## Clasificación Algoritmos de Planificación
 
 El planificador a corto plazo, se invoca por alguna de las 4 circustancias:
 
@@ -830,7 +827,7 @@ los algoritmos vistos se podrían calificar según dos criterios:
 | Cooperativa | FSFS                                | SPN, HPRN                        |
 | Preenvite   | RR                                  | PSPN, FB, SRR                    |
 
-#### Primero en Llegar, Primero Servido (FCFS) (Procesos Secuenciales)
+### Primero en Llegar, Primero Servido (FCFS) (Procesos Secuenciales)
 
 Funciona como una cola de procesos; el primero en llegar, es el primero que atiendo. Es el algoritmo mas simple. Presenta caracteristicas:
 
@@ -844,7 +841,7 @@ Ejemplo:
 
 ![](/imgs/clase-2/Algoritmo%20FCFS.png)
 
-#### Round Robin (multiprogramación)
+### Round Robin (multiprogramación)
 
 Es como una combinación al concepto de multiprogramación y FCFS; Tiene tambien un mismo sistema de colas, la diferencia radica en que cada tantos _t_ tiks de un proceso, alterna por otro proceso. Caracteristicas:
 
@@ -859,7 +856,7 @@ Es como una combinación al concepto de multiprogramación y FCFS; Tiene tambien
 
 ![](</imgs/clase-2/Algoritmo%20Round%20Robin(2).png>)
 
-#### El Proceso más Corto a Continuación (SPN, Shortest Process Next)
+### El Proceso más Corto a Continuación (SPN, Shortest Process Next)
 
 Se ordenada la cola de listos de acuerdo al mas corto. Llega a ser mas justo que FCFS. El problema que tiene es saber la duración del proceso, entonces lo que se haces es analizar ejecuciones anteriores. Presenta las caracteristicas:
 
@@ -871,7 +868,7 @@ Se ordenada la cola de listos de acuerdo al mas corto. Llega a ser mas justo que
 
 Tambien se cuenta con **PSPN** (Apropiativo SPN) que incluso favorece a los procesos largos, combina las ideas de SPN con un esquema multitarea apropiativo
 
-#### El más Penalizado a Continuación (HPRN, Highest Penality Ratio Next)
+### El más Penalizado a Continuación (HPRN, Highest Penality Ratio Next)
 
 Intenta situarse a un punto intermedio entre el FCFS (que favorece a los procesos largos) y SPN (que favorece a los cortos). Calcula un índice de penalización P para cada proceso que está en la cola:
 
@@ -894,7 +891,7 @@ Presenta las caracteristicas:
 
 Inanicisión: Ocurre cuando un proceso o hilo nunca consigue acceso a un recurso porque otros procesos siempre son priorizados sobre él.
 
-#### Ronda Egoista (SRR)
+### Ronda Egoista (SRR)
 
 Es una variante del Round Robin que introduce una distinción entre 2 colas de procesos:
 
@@ -921,7 +918,7 @@ Presenta las siguientes caracteristicas:
 
 ![](/imgs/clase-2/SRR.png)
 
-#### Algoritmos con Múltiples Colas de Listos
+### Algoritmos con Múltiples Colas de Listos
 
 Para poder entender el próximo algoritmo (multilevel feedback), primero se analiza cómo funciona típicamente un sistema con múltiples colas de listos.
 
@@ -929,7 +926,7 @@ Para poder entender el próximo algoritmo (multilevel feedback), primero se anal
 
 Se definen múltiples colas, cada una con una prioridad. Se atienden sólo los procesos de la cola de más prioridad hasta que ésta se vacía. Luego se pasa a ejecutar los procesos de la cola siguiente.
 
-#### Retroalimentación Multinivel (FB)
+### Retroalimentación Multinivel (FB)
 
 Existen varias colas de listos (por ejemplo, cola 0, cola 1, cola 2...), cada una con:
 
@@ -945,7 +942,7 @@ Presenta las siguientes caracteristicas:
 
 Cuando un proceso llega al sistema, entra en la cola de mas alta prioridad. Puede ser vuelto al final de la fila si:
 
-#### Ronda Loteria (RR)
+### Ronda Loteria (RR)
 
 Se basa en un esquema de probabilidades (loteria con boletos) para escoger al proximo proceso a ejecutar. A cada proceso se le asigna uno o varios numeros de boletos, y cada boleto representa una oportunidad de jugar a la lotería. Cada vez que el planificador tiene que elegir el siguiente proceso a poner en ejecución, elige un número al azar, y otorga el siguiente quantum al proceso que tenga el boleto ganador.
 
@@ -957,7 +954,7 @@ Presenta las caracteristicas:
 -   Degradación suave incluso en entornos saturados
 -   Los procesos pueden cooperar entre si: Si B estuviera esperando un resultado de A, podria transferirle sus boletos para aumentar la prioridad
 
-#### Algoritmos Híbridos
+### Algoritmos Híbridos
 
 Los algoritmos vistos anteriormente, pueden ser combinados:
 
@@ -965,7 +962,7 @@ Los algoritmos vistos anteriormente, pueden ser combinados:
 
 Al introducir varias colas, se abre la posibilidad de que cada una de ellas siga un esquema diferente. Por ejemplo: La de mayor prioridad puede ser PSPN y las de menor prioridad pueden ser SRR.
 
-### Planificación de Hilos
+## Planificación de Hilos
 
 ![](/imgs/clase-2/mapeo.png)
 
@@ -989,7 +986,7 @@ Para la planificación de hilos depende de cómo éstos son mapeados a procesos 
     -   Permite hilos no unidos: Uno o más hilos estanm mapeados a cada proceso ligero
     -   Proporciona ambas caracteristicas de N:1 y 1:1
 
-### Planificación Multiprocesador
+## Planificación Multiprocesador
 
 Hasta ahora, el concepto de planificación fue visto dado un solo procesador. Se manejan 2 enfoces para la planificación multiprocesador:
 
@@ -998,7 +995,7 @@ Hasta ahora, el concepto de planificación fue visto dado un solo procesador. Se
 
 Se puede optar por el esquema de una cola de procesos listos por nucleo. Sin embargo, esta en deshuso, por lo complicado de mantener la afinidad y restaria flexibilidad.
 
-#### Afinidad a Procesador
+### Afinidad a Procesador
 
 Despues de que un programa se ejecuto en el CPU, tendra parte de sus datos copiados en la cache. Si el despachador decidiera lanzarlo en un CPU que no comparte la cache, estos datos tendrian que ser invalidados para mantener la coherencia. Por lo que, para solución este problema, se tiene la afinidad a procesador.
 
@@ -1009,14 +1006,14 @@ La afinidad a un procesador indica la preferencia de un proceso o hilo a ejecuta
 
 La afinidad dura funciona mejor en un entornoi NUMA (Non-Uniform Memory Access, Cada procesador tiene bancos de memoria)
 
-#### Balanceo de Cargas
+### Balanceo de Cargas
 
 El balanceo de cargas consiste en distribuir equitativamente el trabajo (procesos o hilos) entre todas las colas de procesos para que ninguno esté sobrecargado mientras otros están desocupados. El objetivo es evitar que unos procesadores estén saturados de trabajo mientras otros están desocupados. Para aplicar esto, necesita que todos los nucleos compartan la misma memoria (multiprocesadores simetricos). Hay 2 estrategias para esto:
 
 -   **Migración Activa o por Empuje**: Periódicamente se ejecuta una tarea que analiza la ocupación de los procesadores, y si la misma pasa de determinado umbral, migra el proceso de la cola de dicho procesador a la cola del procesador más desocupado.
 -   **Migración Pasiva o por Jalón**: Ocurre naturalmente cuando un proceso pasa al estado de Listo y el planificador elige asignarlo a otro procesador
 
-# Clase 4 - Practica
+# Practica Planificación
 
 ## Modelo de Planificación de Procesos - Diagrama de Gantt
 
@@ -1205,7 +1202,7 @@ Las prioridades se evalúan con cada transición entrante a la cola de Listos. O
 
 ![](/imgs/clase-4/Ejercicio3/Completo.png)
 
-# Clase 5 - Modulo 4: Sincronización y Comunicación entre procesos
+# Modulo 4: Sincronización y Comunicación entre procesos
 
 ## ¿Porque?
 
@@ -1708,68 +1705,73 @@ c() {
 
 ### Definición
 
-- **Deadlock**: Situación cuando dos o más procesos poseen determinados recursos, y cada uno queda detenido, a la espera de alguno de los que tiene el otro. El sistema puede seguir operando normalmente, pero ninguno de los procesos involucrados podrán avanzar. Quedando permamentemente bloqueados. Se da por lo motivos:
-  - Comunicación entre procesos
-  - Petición de Recursos
+-   **Deadlock**: Situación cuando dos o más procesos poseen determinados recursos, y cada uno queda detenido, a la espera de alguno de los que tiene el otro. El sistema puede seguir operando normalmente, pero ninguno de los procesos involucrados podrán avanzar. Quedando permamentemente bloqueados. Se da por lo motivos:
 
-- **Inanición**: Situación en que un proceso no puede avanzar en su ejecución dado que necesita recursos que están (alternativamente) asignados a otros procesos.
+    -   Comunicación entre procesos
+    -   Petición de Recursos
+
+-   **Inanición**: Situación en que un proceso no puede avanzar en su ejecución dado que necesita recursos que están (alternativamente) asignados a otros procesos.
 
 ### Grafo de Asignación de Recursos (Resource Allocation Graph )
 
 Estos grafos están formados por dos elementos:
-- P = Un conjunto de vértices formado por los procesos y los recursos del sistema
-- R = Un conjunto de arcos que representan la asignación o solicitud de recursos.
+
+-   P = Un conjunto de vértices formado por los procesos y los recursos del sistema
+-   R = Un conjunto de arcos que representan la asignación o solicitud de recursos.
 
 Se tiene el siguiente ejemplo:
 
 ![](/imgs/clase-5/deadlocks.png)
 
-Los recursos fueron representados con cuadrados y los procesos con círculos. Un arco de Pi a Rj significa que el proceso Pi solicito el recurso Rj. Un arco de Rj a Pi significa que el recurso Rj esta asignado al proceso Pi . 
+Los recursos fueron representados con cuadrados y los procesos con círculos. Un arco de Pi a Rj significa que el proceso Pi solicito el recurso Rj. Un arco de Rj a Pi significa que el recurso Rj esta asignado al proceso Pi .
 
 1. Un arco dirigido de P1 a R1 indica que P1 pidió el recurso R1 y está esperando. (Fig 4.13a)
 2. Un arco dirigido de R1 a P1 indica que P1 pidió el recurso R1 y R1 está asignado a P1. (Fig 4.13b)
-3. Un conjunto de arcos como se indica en la Fig 4.13c  indica que está en deadlock
+3. Un conjunto de arcos como se indica en la Fig 4.13c indica que está en deadlock
 
 El resultado de este producto, es una espera circular de forma constante; Hay una cadena circular de procesos en la que cada uno mantiene a uno o más recursos que son requeridos por el siguiente proceso de la cadena
 
 ### Condiciones Necesarias de Coffman
 
 Se necesitan 4 condiciones simultaneas para que se produzca un deadlock:
-- **Falta de Mutua Exclusión**: Los procesos reclaman control exclusivo de los recursos que piden.
-- **Retener y Esperar**: Un proceso retiene un recurso y no lo libera  hasta que lo ejecute o pida adquirir nuevos recursos
-- **No Expropiación**: Si el sistema operativo no puede liberar el recurso
-- **Espera Circula (grafo anterior)**: Hay una cadena circular de procesos en la que cada uno mantiene a uno o más recursos que son requeridos por el siguiente proceso de la cadena
+
+-   **Falta de Mutua Exclusión**: Los procesos reclaman control exclusivo de los recursos que piden.
+-   **Retener y Esperar**: Un proceso retiene un recurso y no lo libera hasta que lo ejecute o pida adquirir nuevos recursos
+-   **No Expropiación**: Si el sistema operativo no puede liberar el recurso
+-   **Espera Circula (grafo anterior)**: Hay una cadena circular de procesos en la que cada uno mantiene a uno o más recursos que son requeridos por el siguiente proceso de la cadena
 
 ### Estrategias para Tratar los Bloqueos
 
-#### Ignorarlos y Pensar que nunca ocurrio 
+#### Ignorarlos y Pensar que nunca ocurrio
 
 La mayoria de los sistemas incluyen este. Forma más simple.
 
 #### Prevenirlo o Evitarlo
 
 Se debe evitar que se de alguna de las condiciones de Coffman:
-- **Falta de Mutua Exclusión**: Se generan mas problemas
-- **Retener y Esperar**: Se puede utilizar el metodo de COBOL; cuando empieza a ejecutar un proceso, pide todos los recursos juntos. Hasta que no termina no libera. Pedo tambien tiene un costo
-- **No Expropiación**: 2 metodos:
-  - Si un proceso solitica un recurso que no está disponible, éste debe devolver todos aquellos recursos asignados
-  - Si un proceso pide un recurso que tiene otro proceso, el sistema obliga a liberar los recursos del otro proceso. Puede generar inaniación por no poder finalizar su circular
-- **Espera Circula (grafo anterior)**: Romper alguna de las 3 condiciones previas.
+
+-   **Falta de Mutua Exclusión**: Se generan mas problemas
+-   **Retener y Esperar**: Se puede utilizar el metodo de COBOL; cuando empieza a ejecutar un proceso, pide todos los recursos juntos. Hasta que no termina no libera. Pedo tambien tiene un costo
+-   **No Expropiación**: 2 metodos:
+    -   Si un proceso solitica un recurso que no está disponible, éste debe devolver todos aquellos recursos asignados
+    -   Si un proceso pide un recurso que tiene otro proceso, el sistema obliga a liberar los recursos del otro proceso. Puede generar inaniación por no poder finalizar su circular
+-   **Espera Circula (grafo anterior)**: Romper alguna de las 3 condiciones previas.
 
 #### Detectar y Recuperar
 
 Abortar un proceso cuando detecta un deadlock.
 
 :white_check_mark: Ventajas:
-- No limita el acceso a los recursos 
+
+-   No limita el acceso a los recursos
 
 :x: Desventajas:
-- Decidir la frecuencia con que se llevará a cabo el algoritmo de detección.
+
+-   Decidir la frecuencia con que se llevará a cabo el algoritmo de detección.
 
 Hay varios metodos para esto:
 
-- Abortar todos los procesos involucrados 
-- Abortar los procesos uno a uno, hasta que el deadlock desaparezca. 
-- Quitar un recurso a un proceso y entregárselo a otro que lo haya solicitado.
-- Llevar el proceso a un punto anterior al de haberle sido asignado el recurso causante del Deadlock. Hacer un backup de cada proceso en un punto anterior: *ChekPoint*. A este proceso de reinicio se lo llama *Rollback*. 
-
+-   Abortar todos los procesos involucrados
+-   Abortar los procesos uno a uno, hasta que el deadlock desaparezca.
+-   Quitar un recurso a un proceso y entregárselo a otro que lo haya solicitado.
+-   Llevar el proceso a un punto anterior al de haberle sido asignado el recurso causante del Deadlock. Hacer un backup de cada proceso en un punto anterior: _ChekPoint_. A este proceso de reinicio se lo llama _Rollback_.
