@@ -102,6 +102,7 @@
     - [Modelo de transición de estados de procesos](#modelo-de-transición-de-estados-de-procesos)
     - [Construcción](#construcción)
     - [Trazas y Rafagas](#trazas-y-rafagas)
+    - [Prioridades y PCP](#prioridades-y-pcp)
     - [Parametros](#parametros)
   - [Ejercicio 1](#ejercicio-1)
     - [Consigna:](#consigna)
@@ -115,8 +116,39 @@
 - [Clase 5 - Modulo 4: Sincronización y Comunicación entre procesos](#clase-5---modulo-4-sincronización-y-comunicación-entre-procesos)
   - [¿Porque?](#porque)
   - [Problemas Concurrentes](#problemas-concurrentes)
-    - [Grafos de Precedencia](#grafos-de-precedencia)
+  - [Concurrencia](#concurrencia)
+  - [Grafos de Precedencia](#grafos-de-precedencia)
     - [Condiciones de Bernstein](#condiciones-de-bernstein)
+  - [Especificación Concurrente](#especificación-concurrente)
+    - [Instrucciones FORK y JOIN](#instrucciones-fork-y-join)
+  - [Algunos Conceptos](#algunos-conceptos)
+    - [Conceptos](#conceptos)
+  - [Región Critica](#región-critica)
+  - [Algoritmos para Proteger la Región Critica](#algoritmos-para-proteger-la-región-critica)
+    - [1. Algoritmo de Sincronización con Espera Activa](#1-algoritmo-de-sincronización-con-espera-activa)
+    - [2. Alternancia Estricta (Turnos)](#2-alternancia-estricta-turnos)
+    - [3. Instrucciones Atómicas de Hardware](#3-instrucciones-atómicas-de-hardware)
+    - [4. Instrucción Intercambiar (CAS: Compare And Swap)](#4-instrucción-intercambiar-cas-compare-and-swap)
+    - [5. Algoritmos Que no se Utilizan](#5-algoritmos-que-no-se-utilizan)
+    - [6. Semaforos](#6-semaforos)
+      - [Definición](#definición-5)
+      - [Tipo](#tipo)
+      - [Semaforos con/sin espera activa](#semaforos-consin-espera-activa)
+  - [Comunicación Entre Procesos (IPC)](#comunicación-entre-procesos-ipc)
+    - [Formas de Comunicación](#formas-de-comunicación)
+    - [Tipos de Sincronizaciones Mediantes Mensajes](#tipos-de-sincronizaciones-mediantes-mensajes)
+    - [Modelo Producto-Consumidor (secuencia FIFO)](#modelo-producto-consumidor-secuencia-fifo)
+      - [Con sleep() \& wakeup()](#con-sleep--wakeup)
+      - [Con Contadores de eventos](#con-contadores-de-eventos)
+      - [Con Semáforos ](#con-semáforos)
+  - [Bloqueos Mutuos (DeadLocks)](#bloqueos-mutuos-deadlocks)
+    - [Definición](#definición-6)
+    - [Grafo de Asignación de Recursos (Resource Allocation Graph )](#grafo-de-asignación-de-recursos-resource-allocation-graph-)
+    - [Condiciones Necesarias de Coffman](#condiciones-necesarias-de-coffman)
+    - [Estrategias para Tratar los Bloqueos](#estrategias-para-tratar-los-bloqueos)
+      - [Ignorarlos y Pensar que nunca ocurrio](#ignorarlos-y-pensar-que-nunca-ocurrio)
+      - [Prevenirlo o Evitarlo](#prevenirlo-o-evitarlo)
+      - [Detectar y Recuperar](#detectar-y-recuperar)
 
 # Clase 1 y 2 - Modulo 1: Introducción a los Sistemas Operativos
 
@@ -1047,11 +1079,9 @@ Se asigna un **tiempo estimado** a cada transición (para la práctica se usan v
             -   Fin de E/S
             -   Llegada de un proceso
             -   Fin de un Proceso
-    -   **Evaluación de Prioridades:** Si la prioridad de un proceso es mayor, igual o menor que otro, Ej: P(A) > P(B). Las prioridades se evalúan con cada transición entrante a la cola de Listos. Si P(A) == P(B), desempatan por FIFO, osea, el más antiguo tiene prioridad.
+    -   **Evaluación de Prioridades:** Si la prioridad de un proceso es mayor, igual o menor que otro, Ej: P(A) > P(B).
 
 El sistema es un **mono-procesador**: solo un proceso puede estar ejecutándose a la vez dentro del conjunto de "Estados de Proceso".
-
-El **PCP** es un proceso a corto plazo que nos ahorra un cambio de proceso al ser interrumpido por el quantum, guardando recursos y overhead. El PCP se utiliza cuando continuamos ejecutando el mismo proceso al momento de ser interrumpido por quantum. En caso contrario, que debamos realizar un cambio de proceso, se lo llama como **process switch**.
 
 ### Trazas y Rafagas
 
@@ -1064,6 +1094,15 @@ Por ejemplo:
 > -   Proceso B: Ejecuta 5u, video 10u, ejecuta 20u, video 20u, ejecuta 10u, video 30u, ejecuta 5u y termina.
 
 Una **rafaga** es cada ejecución de la traza. Por ejemplo, del proceso A se tiene la rafaga "Ejecuta 20u" y "Ejecuta 5u", las peticiones externas no lo son.
+
+### Prioridades y PCP
+
+El **PCP** es un proceso a corto plazo que nos ahorra un cambio de proceso al ser interrumpido por el quantum, guardando recursos y overhead. El PCP se utiliza cuando continuamos ejecutando el mismo proceso al momento de ser interrumpido por quantum. En caso contrario, que debamos realizar un cambio de proceso, se lo llama como **process switch**.
+
+Las prioridades se evalúan con cada transición entrante a la cola de Listos. Osea, en la aparición de la transición 1, 3 o 5. En caso que ambas prioriodades sean iguales P(A) == P(B), nos podemos guiar bajo 2 criterios para decidir a cual seder el CPU:
+
+-   Si **ninguno se estaba ejecutando** de ante-mano, se desempatan por FIFO, osea, el más antiguo tiene prioridad.
+-   Si **ya habia un proceso ejecutandose**, pero ambas tienen la misma prioridad. No importa, se sigue ejecutando el mismo por PCP.
 
 ### Parametros
 
@@ -1170,35 +1209,567 @@ Una **rafaga** es cada ejecución de la traza. Por ejemplo, del proceso A se tie
 
 ## ¿Porque?
 
-En los sistemas operativos, en general, los procesos que trabajan juntos comparten con frecuencia un espacio común para almacenamiento, en el que cada uno puede leer o escribir, o también comparten un recurso.
+La comunicación entre procesos es necesario porque entre ellos comparten la misma memoria y se deben poner de acuerdo para laburar juntos. El acceso a estos recursos compartidos generan problemas de uso y de comunicación entre los procesos. Para resolver estos problemas de competencia entre procesos, se utilizan dos mecanismos:
 
-El acceso a estos recursos compartidos generan problemas de uso y de comunicación entre los procesos.
+-   **Sincronización:** Ordenamiento de las operaciones en el tiempo debido a las **condiciones de carrera** (velocidad de ver cual gana el acceso al recurso).
+-   **Comunicación:** Intercambio de Datos entre los procesos.
 
-Para resolver estos problemas de competencia entre procesos, se utilizan dos mecanismos: la sincronización y la comunicación
-
--   **SINCRONIZACIÓN ENTRE PROCESOS:** Ordenamiento de las operaciones en el tiempo debido a las condiciones de carrera (acceder a los diversos recursos asincrónicamente).
-
--   **COMUNICACIÓN ENTRE PROCESOS:** Intercambio de Datos. La comunicación permite que los procesos cooperen entre sí en la ejecución de un objetivo global, mientras que la sincronización permite que un proceso continúe su ejecución después de la ocurrencia de un determinado evento.
+La comunicación permite que los procesos cooperen entre sí en la ejecución de un objetivo global, mientras que la sincronización permite que un proceso continúe su ejecución después de la ocurrencia de un determinado evento.
 
 ## Problemas Concurrentes
 
+Los programas se pueden clasificar en:
+
+-   **Secuencial**: Especifica una secuencia de instrucciones que se ejecutan sobre un procesador que definimos como proceso o tarea.
+
+-   **Concurrente**: Especifica dos o más procesos secuenciales que pueden ejecutarse concurrentemente como tareas paralelas. Requiere mecanismos de sincronizacón y comunicación.
+
+## Concurrencia
+
+Concurrencia es la capacidad de un sistema para ejecutar varios procesos de manera aparentemente simultánea, intercalando su ejecución en el tiempo. Como multiprogramación.
+
+No significa necesariamente que se ejecuten al mismo tiempo (eso sería paralelismo), sino que sus ejecuciones se entrelazan, avanzando parcialmente y compartiendo recursos como la CPU o la memoria.
+
+Diferencia entre paralelismo y concurrencia:
+
+| Concurrencia                              | Paralelismo                            |
+| ----------------------------------------- | -------------------------------------- |
+| Se ejecutan aparentemente al mismo tiempo | Se ejecutan realmente al mismo tiempo  |
+| Puede ocurrir en una sola CPU             | Requiere múltiples CPUs o núcleos      |
+| Se logra por intercalado y planificación  | Se logra por ejecución simultánea real |
+
+<!--
 La concurrencia no se refiere a dos o más eventos que ocurren a la vez sino a dos o más eventos cuyo orden es no determinista, esto es, eventos acerca de los cuales no se puede predecir el orden relativo en que ocurrirán.
 
 Si bien dos procesos (o también dos hilos) completamente independientes entre sí ejecutándose simultáneamente son concurrentes, nos ocuparemos principalmente de procesos cuya ejecución está vinculada de alguna manera.
+-->
 
-### Grafos de Precedencia
+## Grafos de Precedencia
 
-Se crearon unas reglas en base a grafos de precedenbcia: Un grafo sin ciclos donde cada nodo representa una unica sentencia o un conjunto secuencial de instrucciones.
+Para analizar la concurrencia, se creo el grafo de presedencia.
 
-![](/imgs/clase-5/grafo.jpf)
+Un grafo sin ciclos donde cada nodo representa una unica sentencia o un conjunto secuencial de instrucciones. Ejemplo:
+
+Se tienen P procesos, instrucciones o hilos (cualquiera sea la unidad de ejecución) que se encuentran conectados entre sí.
+
+![](/imgs/clase-5/grafo.png)
+
+-   P1 se tiene que ejecutar antes que P2, P5 o P4.
+-   P7 se debe ejecutar despues de P3 y P6.
+-   P6 se debe ejecutar despues que P4 y P5
+
+Así sucesivamente se van creando poco a poco un grafo que permite ver relación entre los distintos elementos de la ejecución paralela.
 
 ### Condiciones de Bernstein
 
--   R = Read
--   W = WrIte
+Dos sentencias cualesquiera Si y Sj  pueden ejecutarse concurrentemente produciendo el mismo resultado que si se ejecutaran secuencialmente sí sólo sí se cumplen las siguientes condiciones:
 
-1. R(Si)  W (Sj) = (ø)
-2. W(Si)  R (Sj) = (ø)
-3. W(Si)  W (Sj) = (ø)
+1. Read(Si) ∩ WrIte(Sj) = (ø)
+2. WrIte(Si) ∩ Read(Sj) = (ø)
+3. WrIte(Si) ∩ WrIte(Sj) = (ø)
 
 Si las tres condiciones producen conjunto vacío, podemos asegurar que no hay dependencia entre las sentencias.
+
+## Especificación Concurrente
+
+### Instrucciones FORK y JOIN
+
+-   **FORK** -> Se crean dos ramas (padre e hijo) que continúan su ejecución en concurrencia desde el mismo punto. Es el inicio de la concurrencia.
+-   **JOIN** -> Lo ejecuta el proceso padre para indicar que espera a que el hijo termine antes de continuar.
+-   **QUIT** -> Lo ejecuta el proceso hijo cuando terminó su tarea.
+-   **JOIN y QUIT** -> Recombina la concurrencia, une las 2 ramas, indicando que la concurrencia finalizo.
+<!-- - **FORK ETIQUE** -> Produce dos ejecuciones concurrentes en un programa. -->
+
+Ejemplo:
+
+Programa para encontrar el máximo entre 3 números:
+
+```py
+cobegin
+  m1 = max(a,b);
+  m2 = max(c,d);
+codend
+
+m = max(m1,m2);
+return m;
+```
+
+Su ejecición con FORK y JOIN:
+
+```
+FORK max1;
+FORK max2;
+join;
+join;
+
+max1:
+  m1 = max(a,b);
+  quit;
+
+max2:
+  m2 = max(c,d);
+  quit;
+```
+
+## Algunos Conceptos
+
+### Conceptos
+
+-   **Operación Atómica**: se ejecuta completamente o no se ejecuta en absoluto. Aunque el sistema pueda interrumpir el proceso que la ejecuta, no se verá un estado intermedio o parcial de esa operación desde fuera.
+-   **Race Condition**: Situación cuando dos o más procesos acceden y modifican un recurso compartido al mismo tiempo, y el resultado final depende del orden exacto de ejecución de esas operaciones.
+-   **Sección/Región Crítica**: Es la parte del código de un proceso donde se accede a recursos compartidos que pueden causar conflictos si son modificados por varios procesos a la vez. En esta sección es crucial garantizar que sólo un proceso pueda ejecutarla a la vez.
+-   **Recurso Compartido**: Un recurso compartido es cualquier elemento del sistema que puede ser accedido por múltiples procesos o hilos.
+    -   **Puntos de Entrada**: Cantidad de procesos que pueden utilizarlo simultarneamente al mismo
+    -   **Recurso Critico o No Compatible**: un recurso con 1 punto de entrada
+-   **Mutua Exclusión**: Mecanismo que ordena los procesos para que accedan de forma ordena a un recurso, asegurando que solamente un proceso a la vez pueda ejecutar su sección crítica. Arregla la Race Condition.
+
+## Región Critica
+
+El problema de la región crítica consiste en sincronizar los procesos de forma tal que se cumpla el siguiente **procolo de sincronización**:
+
+1. **Mutua Exclusión**: Mecanismo que ordena los procesos para que accedan de forma ordena a un recurso, asegurando que solamente un proceso a la vez pueda ejecutar su sección crítica. Arregla la Race Condition.
+2. **Progreso**: El programa avance y no monopolize un recurso
+3. **Espera Limitada**: Un proceso debe poder entrar a la región critica después de un número limitado de intentos
+4. **Abandono (tiempo limitado)**: Debe dejar la región critica en un tiempo limitado. Es una consecuencia del 3.
+5. **Penalidad**: Un proceso no puede consumir tiempo de ejecución mientras espera por un recurso
+6. **Privilegio**: No debe haber ningun recurso privilegiado
+
+Se tiene un protocolo de acceso a la region. Se utilizan 3 funciones:
+
+-   EntradaRC() -> Se bloquea el acceso para otros procesos
+-   UsarRecurso()
+-   salidaRC()
+
+![](/imgs/clase-5/utilizacion%20region%20critica.png)
+
+Vamos a ver diferentes algoritmos para proteger la region critica
+
+## Algoritmos para Proteger la Región Critica
+
+<!-- Algoritmo a Nivel de Software - Utilizar una Bandera -->
+
+### 1. Algoritmo de Sincronización con Espera Activa
+
+Se declara una variable (bandera) pública booleana para señalizar si un recurso esta libre o no:
+
+-   `ocupada = 0` → recurso libre.
+-   `ocupada = 1` → recurso ocupado.
+
+Se tiene los siguientes conceptos:
+
+-   **Espera activa** (busy waiting): el proceso **ocupa la CPU** mientras espera que el recurso se libere.
+-   **Spinlock**: el algoritmo **gira en bucle**, comprobando constantemente si el recurso se liberó.
+
+Ejemplo:
+
+```c
+entradaRC()
+{
+    // Espera activa: se queda en bucle mientras la variable 'ocupada' sea verdadera (1). El proceso está esperando que el recurso se libere (ocupada = 0).
+    while(ocupada){ };
+    // Una vez que sale del bucle, se marca el recurso como ocupado (entra a la región crítica).
+    ocupada = 1;
+}
+
+salidaRC()
+{
+    // Se libera el recurso: permite que otros procesos puedan entrar a la región crítica.
+    ocupada = 0;
+}
+
+```
+
+❌ Problemas:
+
+-   Desperdicio de CPU.
+-   La variable ocupada es un recurso compartido, y su acceso no es atómico.
+
+### 2. Alternancia Estricta (Turnos)
+
+Este algoritmo de sincronización permite que dos procesos se alternen el acceso a la región crítica, asegurando que nunca entren al mismo tiempo. Se tiene 2 variables:
+
+-   **i**: Identificador del proceso, puede ser 0 o 1 (por ejemplo, 0 para P0, 1 para P1).
+-   **turno**: Variable global que indica cuál proceso tiene el turno para entrar.
+
+Se realiza una comparación de ambos:
+
+-   Si **turno == i** => el proceso i puede entrar a la región crítica.
+-   Si **turno != i** => el proceso debe esperar activamente.
+
+```C
+entradaRC(int i)
+{
+    // Solo entra si es su turno.
+    // Espera activa: se queda aquí mientras no sea su turno
+    while(turno != i){ };
+
+}
+
+salidaRC(int i)
+{
+    // Cambia el turno para que le toque al otro proceso.
+    // Si i = 0, lo pasa a 1; si i = 1, lo pasa a 0.
+    turno = 1 - i;
+}
+
+```
+
+❌ Problemas:
+
+-   Solo se puede utilizar con 2 procesos
+-   Puede generar inanición si no se libera el recurso
+
+<!-- ### Algoritmo a Nivel de Hardware -->
+
+### 3. Instrucciones Atómicas de Hardware
+
+Usar la instrucción tsl (Test and Set Lock), simula una operación atómica que verifica y bloquea el recurso si está libre.
+
+```c
+tsl(int *flag)
+{
+    int x = flag; // Guarda el valor actual del flag en una variable temporal.
+    *flag = 1;    // Asigna 1 al flag (ocupa el recurso).
+    return x;     // Devuelve el valor previo para comprobar si estaba ocupado.
+}
+
+
+entradaRC()
+{
+    // Mientras que el flag devuelva 1, se queda esperando (recurso ocupado).
+    // Cuando devuelve 0, entra a la región crítica.
+    while(tsl(ocupado)){ };
+}
+
+salidaRC()
+{
+    // Libera el recurso para que otros procesos puedan entrar.
+    ocupado = 0;
+}
+
+```
+
+❌ Problemas:
+
+-   Puede causar espera activa e inanición
+
+### 4. Instrucción Intercambiar (CAS: Compare And Swap)
+
+CAS es una instrucción atómica: compara el valor actual de una variable con uno esperado y, si coinciden, la cambia por otro valor.
+
+✅ **Ventajas**
+
+-   Aplica a varios procesos, incluso en multiprocesadores.
+-   No requiere estructuras complejas.
+-   Permite manejar múltiples regiones críticas.
+
+❌ **Desventajas**
+
+-   Usa espera activa: consume CPU mientras espera.
+-   Puede causar inanición si hay muchos procesos esperando.
+
+```c
+bool CAS(int* cerrojo, int esperado, int nuevo_valor) {
+    if (*cerrojo == esperado) {
+        *cerrojo = nuevo_valor;
+        return true;  // Intercambio exitoso
+    }
+    return false;     // No se hizo el cambio
+}
+```
+
+Este fragmento permite que múltiples procesos intenten entrar a una región crítica, pero solo uno lo logra cuando la condición de cerrojo == 0 se cumple.
+
+### 5. Algoritmos Que no se Utilizan
+
+Estas técnicas no son escalables ni seguras en sistemas modernos, por lo que no se dara detalles:
+
+-   No usar multitarea
+-   Deshabilitar interrupciones
+
+### 6. Semaforos
+
+#### Definición
+
+Un semáforo es una herramienta de sincronización de procesos. permite el ordenamiento de las operaciones que realizan los procesos en el tiempo.
+
+Internamente, un semáforo es una variable entera protegida, que solo puede ser modificada a través de dos operaciones atómicas:
+
+-   **P()** o **down()**: Disminuye el valor del semáforo. Si el valor queda negativo, el proceso se bloquea.
+-   **V()** o **up()**: incrementa el valor del semáforo. Si hay procesos bloqueados, despierta uno.
+
+Además, existe una operación de inicialización, donde se define el valor inicial.
+
+> A diferencia de una bandera, las operaciones down y up son atómicas, lo que garantiza que dos procesos no puedan modificar el valor al mismo tiempo.
+
+#### Tipo
+
+-   **Binario o Mutex (booleano)**: Solo pueden tomar los valores 0 y 1. Se usa principalmente para mutua exclusión (una sola entidad accede al recurso).
+-   **Contadores**: Pueden tomar valores enteros (positivos, nulo o negativo). Permite controlar el acceso a un conjunto de recursos idénticos, como n impresoras.
+
+#### Semaforos con/sin espera activa
+
+-   **Con espera activa (busy waiting)**:
+    El proceso ocupa CPU mientras espera que el semáforo le permita avanzar Ineficiente.
+
+-   **Sin espera activa (bloqueante)**:
+    El proceso se bloquea automáticamente si no puede continuar, liberando la CPU para otros. Este es el modelo ideal y el que se usar en la práctica y en sistemas operativos reales.
+
+🧠 Nos enfocaremos en semáforos sin espera activa.
+
+Se incorporan dos operaciones atómicas en el sistema:
+
+-   **block():**
+
+Coloca al proceso actual en la cola del semáforo. Cambia su estado a inactivo o bloqueado.
+
+-   **wakeup():**
+
+Despierta a uno de los procesos en la cola. Lo pasa del estado de bloqueado a listo. La elección de qué proceso activar la decide el kernel (no la función).
+
+## Comunicación Entre Procesos (IPC)
+
+### Formas de Comunicación
+
+2 formas de comunicarnos:
+
+-   **Comunicación a través de un área común de memoria (comunicación indirecta)**
+
+Los procesos envían y reciben los mensajes entre sí. Requieren un bus para ellos.
+
+-   **Comunicación por intercambio de mensajes (comunicación directa)**
+
+Los mensajes son enviados a un buzon o mailbox y se retiran del buzón
+
+![](/imgs/clase-5/comunicacion.png)
+
+> A pide un mailbnox y envía MSG, b se activa y recibe MSG
+
+En todo modelo de comunicación, se tiene un emisor, receptor, medio de comunicación, mensaje y protocolo. Esta información puede verse representado por los **mailbox**. interfaz entre procesos.
+
+### Tipos de Sincronizaciones Mediantes Mensajes
+
+-   **Comunicación Sincrónica**
+
+    1. El emisor se bloquea hasta que el receptor esté listo para recibir el mensaje.
+    2. El receptor se bloquea si aún no hay mensaje disponible.
+    3. Una vez que el mensaje se entrega, ambos procesos continúan su ejecución concurrentemente.
+
+-   **Comunicación Asincrónica**
+
+    1. Las primitivas no bloquean a los procesos.
+    2. El emisor continúa su ejecución inmediatamente, sin esperar al receptor.
+    3. El receptor sigue ejecutándose, incluso si no tiene mensajes pendientes.
+    4. La gestión de mensajes pendientes depende de la implementación.
+
+-   **Comunicación Semi-Sincrónica**
+    -   El send es no bloqueante: el emisor envía y sigue su ejecución.
+    -   El receive es bloqueante: el receptor se detiene hasta recibir el mensaje.
+    -   Riesgoso porque puede producirse una acumulación de mensajes en la cola del receptor si este no atiende rápidamente.
+
+### Modelo Producto-Consumidor (secuencia FIFO)
+
+-   **Productor**: _Produce_ algo y lo _deposita_ en una cola
+-   **Consumidor**: _Recupera_ lo que dejo el producto en la cola y lo _consume_
+-   **Buffer**: Zona de memoria utilizada para amortiguar las diferencias de velocidad entre dos procesos. Almacena temporalmente los elementos generados por productos.
+
+![](/imgs/clase-5/productor-consumidor.png)
+
+Se utilizan las respecticas funcionnes mostradas en la representación.
+
+Se tiene diferentes algoritmos para el modelo presentado
+
+#### Con sleep() & wakeup()
+
+-   sleep() -> bloquea al proceso actual.
+-   wakeup() -> desbloquea un proceso específico.
+
+Usa una variable `cont` que indica la cantidad de lugares ocupados que tiene el buffer, donde N es el total de lugares.
+
+```c
+// Productor
+p() {
+    while (1) {
+        x = producir(); // Produce un elemento
+        if (cont == N)  // Si el buffer está lleno
+            sleep();    // Se bloquea esperando espacio
+        cont++;         // Aumenta el contador de elementos en el buffer
+        ingresar(x);    // Deposita el elemento en el buffer
+        if (cont == 1)  // Si el buffer estaba vacío antes
+            wakeup(c);  // Despierta al consumidor
+    }
+}
+
+// Consumidor
+c() {
+    while (1) {
+        if (cont == 0)     // Si el buffer está vacío
+            sleep();       // Se bloquea esperando un nuevo elemento
+        x = sacar();       // Extrae un elemento del buffer
+        cont--;            // Disminuye el contador
+        if (cont == N - 1) // Si había espacio lleno antes
+            wakeup(p);     // Despierta al productor
+        consumir(x);       // Procesa el dato consumido
+    }
+}
+
+```
+
+❌ Problema: Condición de carrera.
+
+Si el consumidor revisa cont == 0 y es interrumpido antes de dormir, el productor puede producir, hacer wakeup, pero como el consumidor aún no está dormido, la señal se pierde, y el consumidor queda bloqueado para siempre.
+
+#### Con Contadores de eventos
+
+`e` es una variables especiales con tres operaciones primitivas:
+
+-   **read(e)** -> devuelve el valor de _e_.
+-   **advance(e)** -> Incrementa atómicamente el valor de _e_ en 1.
+-   **await(e, v)** -> espera hasta que e ≥ v.
+    -   Solo incrementa el valor, nunca disminuye
+    -   Siempre se inician en cero
+
+```c
+// Variables globales
+int ing = 0;     // Eventos de ingreso al buffer
+int sacados = 0; // Eventos de consumo
+
+// Productor
+p() {
+    int prod = 0;
+    while (1) {
+        x = producir();           // Produce un elemento
+        prod++;                   // Actualiza su número de producción
+        await(N, prod - sacados); // Espera si hay demasiados productos sin consumir
+        ingresar(x);              // Deposita el elemento
+        advance(ing);             // Incrementa el contador de elementos ingresados
+    }
+}
+
+// Consumidor
+c() {
+    int sec = 0;
+    while (1) {
+        sec++;            // Número de secuencia de consumo
+        await(ing, sec);  // Espera hasta que haya un ítem disponible
+        x = sacar();      // Extrae del buffer
+        advance(sacados); // Marca el ítem como consumido
+        consumir(x);      // Lo procesa
+    }
+}
+
+```
+
+Se tienen las siguientes variables extras:
+
+-   **ing**: cantidad acumulada de ítems producidos.
+-   **sacados**: cantidad acumulada de ítems consumidos.
+
+#### Con Semáforos 
+
+Se utilizan 3 semáforos:
+
+-   **mutex = 1** -> Exclusión mutua
+-   **vacio = N** -> Lugares vacíos en el buffer
+-   **lleno = 0** -> Lugares ocupados en el buffer
+
+```c
+// Variables semáforo
+semaphore mutex = 1; // Exclusión mutua para acceder al buffer
+semaphore vacio = N; // Cantidad de lugares libres en el buffer
+semaphore lleno = 0; // Cantidad de elementos disponibles para consumir
+
+// Productor
+p() {
+    while (1) {
+        x = producir(); // Produce un elemento
+        P(vacio);       // Espera que haya espacio en el buffer
+        P(mutex);       // Entra a la sección crítica
+        ingresar(x);    // Coloca el ítem en el buffer
+        V(mutex);       // Sale de la sección crítica
+        V(lleno);       // Señala que hay un nuevo ítem para consumir
+    }
+}
+
+// Consumidor
+c() {
+    while (1) {
+        P(lleno);    // Espera hasta que haya un elemento en el buffer
+        P(mutex);    // Entra a la sección crítica
+        x = sacar(); // Toma un ítem del buffer
+        V(mutex);    // Sale de la sección crítica
+        V(vacio);    // Señala que hay un espacio libre en el buffer
+        consumir(x); // Procesa el ítem
+    }
+}
+```
+
+## Bloqueos Mutuos (DeadLocks)
+
+### Definición
+
+- **Deadlock**: Situación cuando dos o más procesos poseen determinados recursos, y cada uno queda detenido, a la espera de alguno de los que tiene el otro. El sistema puede seguir operando normalmente, pero ninguno de los procesos involucrados podrán avanzar. Quedando permamentemente bloqueados. Se da por lo motivos:
+  - Comunicación entre procesos
+  - Petición de Recursos
+
+- **Inanición**: Situación en que un proceso no puede avanzar en su ejecución dado que necesita recursos que están (alternativamente) asignados a otros procesos.
+
+### Grafo de Asignación de Recursos (Resource Allocation Graph )
+
+Estos grafos están formados por dos elementos:
+- P = Un conjunto de vértices formado por los procesos y los recursos del sistema
+- R = Un conjunto de arcos que representan la asignación o solicitud de recursos.
+
+Se tiene el siguiente ejemplo:
+
+![](/imgs/clase-5/deadlocks.png)
+
+Los recursos fueron representados con cuadrados y los procesos con círculos. Un arco de Pi a Rj significa que el proceso Pi solicito el recurso Rj. Un arco de Rj a Pi significa que el recurso Rj esta asignado al proceso Pi . 
+
+1. Un arco dirigido de P1 a R1 indica que P1 pidió el recurso R1 y está esperando. (Fig 4.13a)
+2. Un arco dirigido de R1 a P1 indica que P1 pidió el recurso R1 y R1 está asignado a P1. (Fig 4.13b)
+3. Un conjunto de arcos como se indica en la Fig 4.13c  indica que está en deadlock
+
+El resultado de este producto, es una espera circular de forma constante; Hay una cadena circular de procesos en la que cada uno mantiene a uno o más recursos que son requeridos por el siguiente proceso de la cadena
+
+### Condiciones Necesarias de Coffman
+
+Se necesitan 4 condiciones simultaneas para que se produzca un deadlock:
+- **Falta de Mutua Exclusión**: Los procesos reclaman control exclusivo de los recursos que piden.
+- **Retener y Esperar**: Un proceso retiene un recurso y no lo libera  hasta que lo ejecute o pida adquirir nuevos recursos
+- **No Expropiación**: Si el sistema operativo no puede liberar el recurso
+- **Espera Circula (grafo anterior)**: Hay una cadena circular de procesos en la que cada uno mantiene a uno o más recursos que son requeridos por el siguiente proceso de la cadena
+
+### Estrategias para Tratar los Bloqueos
+
+#### Ignorarlos y Pensar que nunca ocurrio 
+
+La mayoria de los sistemas incluyen este. Forma más simple.
+
+#### Prevenirlo o Evitarlo
+
+Se debe evitar que se de alguna de las condiciones de Coffman:
+- **Falta de Mutua Exclusión**: Se generan mas problemas
+- **Retener y Esperar**: Se puede utilizar el metodo de COBOL; cuando empieza a ejecutar un proceso, pide todos los recursos juntos. Hasta que no termina no libera. Pedo tambien tiene un costo
+- **No Expropiación**: 2 metodos:
+  - Si un proceso solitica un recurso que no está disponible, éste debe devolver todos aquellos recursos asignados
+  - Si un proceso pide un recurso que tiene otro proceso, el sistema obliga a liberar los recursos del otro proceso. Puede generar inaniación por no poder finalizar su circular
+- **Espera Circula (grafo anterior)**: Romper alguna de las 3 condiciones previas.
+
+#### Detectar y Recuperar
+
+Abortar un proceso cuando detecta un deadlock.
+
+:white_check_mark: Ventajas:
+- No limita el acceso a los recursos 
+
+:x: Desventajas:
+- Decidir la frecuencia con que se llevará a cabo el algoritmo de detección.
+
+Hay varios metodos para esto:
+
+- Abortar todos los procesos involucrados 
+- Abortar los procesos uno a uno, hasta que el deadlock desaparezca. 
+- Quitar un recurso a un proceso y entregárselo a otro que lo haya solicitado.
+- Llevar el proceso a un punto anterior al de haberle sido asignado el recurso causante del Deadlock. Hacer un backup de cada proceso en un punto anterior: *ChekPoint*. A este proceso de reinicio se lo llama *Rollback*. 
+
