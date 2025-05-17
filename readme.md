@@ -1,10 +1,10 @@
 # 📘 Introducción
 
-> Material de cursada de la materia **Sistemas Operativos**  
-> 📅 Inicio: 09/04/2025  
-> 🎓 Alumno: Tiago Pujia | 👨‍🏫 Prof: Alexis Villamayor  
-> 🕔 Comisión 3900 [3 = Miercoles, 9 = Turno noche]
-> ▶️ [Clases Grabadas](https://www.youtube.com/)
+> -   Material de cursada de la materia **Sistemas Operativos**
+> -   📅 Inicio: 09/04/2025
+> -   🎓 Alumno: Tiago Pujia | 👨‍🏫 Prof: Alexis Villamayor
+> -   🕔 Comisión 3900 [3 = Miercoles, 9 = Turno noche]
+> -   ▶️ [Clases Grabadas](https://www.youtube.com/)
 
 ## Indice
 
@@ -94,45 +94,50 @@
   - [Planificación Multiprocesador](#planificación-multiprocesador)
     - [Afinidad a Procesador](#afinidad-a-procesador)
     - [Balanceo de Cargas](#balanceo-de-cargas)
-- [Practica Planificación](#practica-planificación)
-  - [Modelo de Planificación de Procesos - Diagrama de Gantt](#modelo-de-planificación-de-procesos---diagrama-de-gantt)
+  - [Tiempo Real](#tiempo-real)
     - [Definición](#definición-4)
-    - [Utilidades del diagrama:](#utilidades-del-diagrama)
-    - [Modelo de transición de estados de procesos](#modelo-de-transición-de-estados-de-procesos)
-    - [Construcción](#construcción)
-    - [Trazas y Rafagas](#trazas-y-rafagas)
-    - [Prioridades y PCP](#prioridades-y-pcp)
-    - [Parametros](#parametros)
-  - [Ejercicio 1](#ejercicio-1)
-    - [Consigna:](#consigna)
-    - [Solución final](#solución-final)
-  - [Ejercicio 2](#ejercicio-2)
-    - [Consigna](#consigna-1)
-    - [Solución Final](#solución-final-1)
-  - [Ejercicio 3](#ejercicio-3)
-    - [Consigna](#consigna-2)
-    - [Solución Final](#solución-final-2)
+    - [Tipos](#tipos)
+    - [Sistemas Operativos Interrumpible (prevenible)](#sistemas-operativos-interrumpible-prevenible)
+  - [Practica: Planificación](#practica-planificación)
+    - [Modelo de Planificación de Procesos - Diagrama de Gantt](#modelo-de-planificación-de-procesos---diagrama-de-gantt)
+      - [Definición](#definición-5)
+      - [Utilidades del diagrama:](#utilidades-del-diagrama)
+      - [Modelo de transición de estados de procesos](#modelo-de-transición-de-estados-de-procesos)
+      - [Construcción](#construcción)
+      - [Trazas y Rafagas](#trazas-y-rafagas)
+      - [Prioridades y PCP](#prioridades-y-pcp)
+      - [Parametros](#parametros)
+    - [Ejercicio 1](#ejercicio-1)
+      - [Consigna](#consigna)
+      - [Solución final](#solución-final)
+    - [Ejercicio 2](#ejercicio-2)
+      - [Consigna](#consigna-1)
+      - [Solución Final](#solución-final-1)
+    - [Ejercicio 3](#ejercicio-3)
+      - [Consigna](#consigna-2)
+      - [Solución Final](#solución-final-2)
 - [Modulo 4: Sincronización y Comunicación entre procesos](#modulo-4-sincronización-y-comunicación-entre-procesos)
   - [¿Porque?](#porque)
-  - [Problemas Concurrentes](#problemas-concurrentes)
   - [Concurrencia](#concurrencia)
-  - [Grafos de Precedencia](#grafos-de-precedencia)
-    - [Condiciones de Bernstein](#condiciones-de-bernstein)
-  - [Especificación Concurrente](#especificación-concurrente)
-    - [Instrucciones FORK y JOIN](#instrucciones-fork-y-join)
   - [Algunos Conceptos](#algunos-conceptos)
-    - [Conceptos](#conceptos)
-  - [Región Critica](#región-critica)
-  - [Algoritmos para Proteger la Región Critica](#algoritmos-para-proteger-la-región-critica)
-    - [1. Algoritmo de Sincronización con Espera Activa](#1-algoritmo-de-sincronización-con-espera-activa)
-    - [2. Alternancia Estricta (Turnos)](#2-alternancia-estricta-turnos)
-    - [3. Instrucciones Atómicas de Hardware](#3-instrucciones-atómicas-de-hardware)
-    - [4. Instrucción Intercambiar (CAS: Compare And Swap)](#4-instrucción-intercambiar-cas-compare-and-swap)
-    - [5. Algoritmos Que no se Utilizan](#5-algoritmos-que-no-se-utilizan)
-    - [6. Semaforos](#6-semaforos)
-      - [Definición](#definición-5)
+  - [Representación de Concurrencia](#representación-de-concurrencia)
+    - [Grafos de Precedencia](#grafos-de-precedencia)
+    - [Condiciones de Bernstein](#condiciones-de-bernstein)
+  - [Instrucciones FORK y JOIN](#instrucciones-fork-y-join)
+  - [Región Critica y Algoritmos de Protección](#región-critica-y-algoritmos-de-protección)
+    - [1. Utilización de una Bandera](#1-utilización-de-una-bandera)
+    - [2. Bandera con Instrucciones Atómicas](#2-bandera-con-instrucciones-atómicas)
+    - [3. Alternancia Estricta (Turnos)](#3-alternancia-estricta-turnos)
+    - [4. Algoritmo de Peterson](#4-algoritmo-de-peterson)
+    - [5. Instrucción Intercambiar (CAS: Compare And Swap)](#5-instrucción-intercambiar-cas-compare-and-swap)
+    - [6. Algoritmos Que no se Utilizan](#6-algoritmos-que-no-se-utilizan)
+    - [7. Semaforos 🚦](#7-semaforos-)
+      - [Definición](#definición-6)
       - [Tipo](#tipo)
       - [Semaforos con/sin espera activa](#semaforos-consin-espera-activa)
+      - [Patrones Comunes](#patrones-comunes)
+    - [8. Monitores](#8-monitores)
+    - [9. Memoria Transaccional](#9-memoria-transaccional)
   - [Comunicación Entre Procesos (IPC)](#comunicación-entre-procesos-ipc)
     - [Formas de Comunicación](#formas-de-comunicación)
     - [Tipos de Sincronizaciones Mediantes Mensajes](#tipos-de-sincronizaciones-mediantes-mensajes)
@@ -140,15 +145,24 @@
       - [Con sleep() \& wakeup()](#con-sleep--wakeup)
       - [Con Contadores de eventos](#con-contadores-de-eventos)
       - [Con Semáforos ](#con-semáforos)
+    - [Mecanismos de IPC](#mecanismos-de-ipc)
+      - [1. Pipes (Tuberías Anonima)](#1-pipes-tuberías-anonima)
+      - [2. FIFOs (Named Pipes)](#2-fifos-named-pipes)
+      - [4. 🚦 Señales (Signals)](#4--señales-signals)
+      - [4. 🧠 Memoria Compartida (Shared Memory)](#4--memoria-compartida-shared-memory)
+      - [5. 🌐 Sockets](#5--sockets)
+      - [6. RPC (Remote Procedure Call)](#6-rpc-remote-procedure-call)
+      - [7. RMI (Remote Method Invocation)](#7-rmi-remote-method-invocation)
+      - [✅ Comparación rápida](#-comparación-rápida)
   - [Bloqueos Mutuos (DeadLocks)](#bloqueos-mutuos-deadlocks)
-    - [Definición](#definición-6)
+    - [Definición](#definición-7)
     - [Grafo de Asignación de Recursos (Resource Allocation Graph )](#grafo-de-asignación-de-recursos-resource-allocation-graph-)
     - [Condiciones Necesarias de Coffman](#condiciones-necesarias-de-coffman)
     - [Estrategias para Tratar los Bloqueos](#estrategias-para-tratar-los-bloqueos)
-      - [Ignorarlos y Pensar que nunca ocurrio](#ignorarlos-y-pensar-que-nunca-ocurrio)
       - [Prevenirlo o Evitarlo](#prevenirlo-o-evitarlo)
       - [Detectar y Recuperar](#detectar-y-recuperar)
-- [Practica Semaforos para los Procesos](#practica-semaforos-para-los-procesos)
+      - [Algoritmo Avestruz (ignorarlo)](#algoritmo-avestruz-ignorarlo)
+  - [Practica: Semaforos para los Procesos](#practica-semaforos-para-los-procesos)
 - [🧠 Módulo 5: Administración de Memoria](#-módulo-5-administración-de-memoria)
   - [Funciones y Operaciones](#funciones-y-operaciones)
     - [🔍 Consideraciones Generales](#-consideraciones-generales)
@@ -166,19 +180,19 @@
     - [Particiones Variables](#particiones-variables)
     - [📊 Tabla Comparativa de Esquemas de Asignación de Memoria Contigua](#-tabla-comparativa-de-esquemas-de-asignación-de-memoria-contigua)
     - [Segmentación](#segmentación)
-      - [Definición](#definición-7)
+      - [Definición](#definición-8)
       - [📌 Características](#-características)
       - [🛠 ¿Cómo se administra?](#-cómo-se-administra)
       - [✅ Ejemplo práctico](#-ejemplo-práctico)
     - [Paginación](#paginación)
-      - [Definición](#definición-8)
-    - [⚙️ ¿Cómo funciona?](#️-cómo-funciona)
+      - [Definición](#definición-9)
+      - [⚙️ ¿Cómo funciona?](#️-cómo-funciona)
       - [Caracteristicas](#caracteristicas-2)
       - [⚡️ Optimización: TLB (Translation Lookaside Buffer)](#️-optimización-tlb-translation-lookaside-buffer)
       - [Paginación Multinivel](#paginación-multinivel)
       - [Memoria Compartida](#memoria-compartida)
   - [Memoria Virtual](#memoria-virtual)
-    - [Definición](#definición-9)
+    - [Definición](#definición-10)
     - [Swapping](#swapping)
     - [Paginación bajo demanda](#paginación-bajo-demanda)
     - [Protocolo al Tener Fallo de página](#protocolo-al-tener-fallo-de-página)
@@ -192,13 +206,14 @@
       - [Columna de Referencia](#columna-de-referencia)
       - [Segunda Oportunidad](#segunda-oportunidad)
       - [Segunda Oportunidad Mejorada](#segunda-oportunidad-mejorada)
-    - [Como Asignar Frames a los Procesos](#como-asignar-frames-a-los-procesos)
+    - [Como Asignar Frames a los Procesos (completar)](#como-asignar-frames-a-los-procesos-completar)
       - [Algoritmos de reemplazo de Páginas](#algoritmos-de-reemplazo-de-páginas)
     - [Hiperpaginación](#hiperpaginación)
-  - [Sistemas Mixtos (Segmentación con Paginación)](#sistemas-mixtos-segmentación-con-paginación)
-    - [Definición](#definición-10)
+  - [Sistemas Mixtos (Segmentación con Paginación) (completar)](#sistemas-mixtos-segmentación-con-paginación-completar)
+    - [Definición](#definición-11)
     - [Funcionamiento](#funcionamiento)
     - [Ventajas y Desventajas](#ventajas-y-desventajas)
+- [Modulo 6: Administración de Entrada/Salida - File System](#modulo-6-administración-de-entradasalida---file-system)
 
 # Modulo 1: Introducción a los Sistemas Operativos
 
@@ -859,19 +874,12 @@ Para un proceso _p_ que requiere de un tiempo _t_ de ejecución:
 
 ## Clasificación Algoritmos de Planificación
 
-El planificador a corto plazo, se invoca por alguna de las 4 circustancias:
+Los algoritmos vistos se podrían calificar según dos criterios:
 
--   Ejecutado a Espera
--   Ejecutado a Listo
--   Espera a Listo
--   Ejecutando a Terminado
-
-los algoritmos vistos se podrían calificar según dos criterios:
-
--   Sistemas Expropiativo, Cooperativo o Non-Non-Preemptive,(desusho) = El proceso cede voluntariamente el control de la CPU al sistema operativo
--   Sistema Apropiativos, No Cooperativo o Preemptive = El sistema operativo puede interrumpir al proceso en cualquier momento
--   No considera Información Intrinseca = No es necesario el historial de procesos o información de antemano para que el algoritmo funcione
--   Considera Información Intrinseca = Es necesario un historial de procesos como tiempo o tipo
+-   **Sistemas Expropiativo, Cooperativo o Non-Non-Preemptive,(desusho)**: El proceso cede voluntariamente el control de la CPU al sistema operativo
+-   **Sistema Apropiativos, No Cooperativo o Preemptive**: El sistema operativo puede interrumpir al proceso en cualquier momento
+-   **No considera Información Intrinseca**: No es necesario el historial de procesos o información de antemano para que el algoritmo funcione
+-   **Considera Información Intrinseca**: Es necesario un historial de procesos como tiempo o tipo
 
 | X           | No considera Información Intrinseca | Considera Información Intrinseca |
 | ----------- | ----------------------------------- | -------------------------------- |
@@ -1064,11 +1072,49 @@ El balanceo de cargas consiste en distribuir equitativamente el trabajo (proceso
 -   **Migración Activa o por Empuje**: Periódicamente se ejecuta una tarea que analiza la ocupación de los procesadores, y si la misma pasa de determinado umbral, migra el proceso de la cola de dicho procesador a la cola del procesador más desocupado.
 -   **Migración Pasiva o por Jalón**: Ocurre naturalmente cuando un proceso pasa al estado de Listo y el planificador elige asignarlo a otro procesador
 
-# Practica Planificación
-
-## Modelo de Planificación de Procesos - Diagrama de Gantt
+## Tiempo Real
 
 ### Definición
+
+Un sistema de tiempo real es aquel que no solo debe ser correcto en sus resultados, sino también en el tiempo en que entrega esos resultados. Un proceso de **tiempo real** debe garantizar que ha recibido cierto tiempo de CPU antes de un tiempo límite, o plazo (deadline).
+
+### Tipos
+
+-   **Tiempo Real Duro**
+    -   Garantiza que se cumplira el plazo. Caso contrario, rechaza el proceso antes de iniciar.
+    -   Requier conocer con certeza el tiempo de operacion de ante mano
+    -   Por la causa anterior, es imposible implementar aplicar esta idea en un sistema general
+-   **Tiempo Real Suave**
+    -   No se garantiza, pero se prioriza al proceso
+    -   Puede causar inanición
+    -   Se implementa con:
+        -   Colas de mayor prioridad
+        -   Prioridad que no se degrada con el tiempo
+        -   Baja latencia de despacho
+
+| Concepto                   | Tiempo Real Duro                  | Tiempo Real Suave                 |
+| -------------------------- | --------------------------------- | --------------------------------- |
+| ¿Se garantizan los plazos? | Sí                                | No, solo prioridad                |
+| ¿Es común?                 | No (difícil con hardware general) | Sí (multimedia, interfaces, etc.) |
+| ¿Puede causar inanición?   | No                                | Sí, si no se regula bien          |
+
+### Sistemas Operativos Interrumpible (prevenible)
+
+Un sistema operativo prevenible (o interrumpible) es aquel cuyo núcleo puede interrumpir su ejecución interna para ceder el CPU a otro proceso, incluso durante la ejecución de una llamada al sistema o una operación del propio kernel. Para que un sistema operativo soporte tiempo real suave, debe ser capaz de interrumpirse a sí mismo para ceder el control del CPU.
+
+-   **Sistemas No Prevenibles**:
+    -   El nucleo no se puede interrumpir
+    -   Una vez que entra una llamada al sistema, esta debe ejecutarse completa antes de que otro proceso pueda tomar el control del CPU.
+    -   Esto introduce demoras impredecibles.
+-   **Sistemas Prevenibles**: Tiene 2 enfoques de aplicación
+    -   **Puntos seguros de interrupción**: Se colocan instrucciones en partes críticas del núcleo para permitir que el despachador ceda el CPU cuando sea seguro hacerlo.
+    -   **Nucleo completamente interrumpible**: Todo el núcleo está preparado para que pueda ser interrumpido en cualquier momento. Se protegue las estructuras con mecanismos de sincronización
+
+## Practica: Planificación
+
+### Modelo de Planificación de Procesos - Diagrama de Gantt
+
+#### Definición
 
 Un **Diagrama de Gantt** es una representación **gráfica** que muestra cómo se distribuye el trabajo de los procesos y tareas del sistema operativo a lo largo del tiempo. Permite visualizar la interacción entre:
 
@@ -1077,7 +1123,7 @@ Un **Diagrama de Gantt** es una representación **gráfica** que muestra cómo s
 -   Las operaciones de entrada/salida (E/S).
 -   Las prioridades de los procesos.
 
-### Utilidades del diagrama:
+#### Utilidades del diagrama:
 
 -   Ver qué proceso tiene el control de la CPU en cada instante.
 -   Visualizar el orden de ejecución y los cambios de estado.
@@ -1087,7 +1133,7 @@ Un **Diagrama de Gantt** es una representación **gráfica** que muestra cómo s
     -   **Tiempo de retorno**
     -   **Tiempo de respuesta**
 
-### Modelo de transición de estados de procesos
+#### Modelo de transición de estados de procesos
 
 Se utiliza un grafo básico con **5 transiciones**. Cada número representa un tipo de cambio de estado del proceso. Las transiciones están numeradas.
 
@@ -1104,7 +1150,7 @@ Se asigna un **tiempo estimado** a cada transición (para la práctica se usan v
 > 5. Bloqueados E / S - Listos: 5u
 > 6. Ejecutando - Terminados: 15u
 
-### Construcción
+#### Construcción
 
 ![](/imgs/clase-4/grantt%20ejemplo.png)
 
@@ -1131,7 +1177,7 @@ Se asigna un **tiempo estimado** a cada transición (para la práctica se usan v
 
 El sistema es un **mono-procesador**: solo un proceso puede estar ejecutándose a la vez dentro del conjunto de "Estados de Proceso".
 
-### Trazas y Rafagas
+#### Trazas y Rafagas
 
 Una **traza** es la secuencia ordenada de acciones que un proceso realiza durante su vida útil (desde que se crea hasta que termina). Incluye ejecutar algo, realizar interrupciones, entre otras. Un proceso siempre comienza y termina con una traza.
 
@@ -1143,7 +1189,7 @@ Por ejemplo:
 
 Una **rafaga** es cada ejecución de la traza. Por ejemplo, del proceso A se tiene la rafaga "Ejecuta 20u" y "Ejecuta 5u", las peticiones externas no lo son.
 
-### Prioridades y PCP
+#### Prioridades y PCP
 
 El **PCP** es un proceso a corto plazo que nos ahorra un cambio de proceso al ser interrumpido por el quantum, guardando recursos y overhead. El PCP se utiliza cuando continuamos ejecutando el mismo proceso al momento de ser interrumpido por quantum. En caso contrario, que debamos realizar un cambio de proceso, se lo llama como **process switch**.
 
@@ -1152,7 +1198,7 @@ Las prioridades se evalúan con cada transición entrante a la cola de Listos. O
 -   Si **ninguno se estaba ejecutando** de ante-mano, se desempatan por FIFO, osea, el más antiguo tiene prioridad.
 -   Si **ya habia un proceso ejecutandose**, pero ambas tienen la misma prioridad. No importa, se sigue ejecutando el mismo por PCP.
 
-### Parametros
+#### Parametros
 
 -   Algoritmo de Planificación de Jobs (opcional)
 -   Algoritmo de Planificación de procesos a corto plazo
@@ -1169,9 +1215,9 @@ Las prioridades se evalúan con cada transición entrante a la cola de Listos. O
         -   Si es con desalojo o no
     -   Variación o mezclas
 
-## Ejercicio 1
+### Ejercicio 1
 
-### Consigna:
+#### Consigna
 
 ![](/imgs/clase-4/Grafo%205%20estados.png)
 
@@ -1196,13 +1242,13 @@ Las prioridades se evalúan con cada transición entrante a la cola de Listos. O
 >
 > 6- Ejecutando - Terminados: 15u
 
-### Solución final
+#### Solución final
 
 ![](/imgs/clase-4/Ejercicio1/Completo.png)
 
-## Ejercicio 2
+### Ejercicio 2
 
-### Consigna
+#### Consigna
 
 ![](/imgs/clase-4/Grafo%205%20estados.png)
 
@@ -1224,13 +1270,13 @@ Las prioridades se evalúan con cada transición entrante a la cola de Listos. O
 >
 > Se pide: Realizar el diagrama temporal de procesamiento, indicando claramente los tiempos de ejecución de los procesos, de las rutinas del sistema operativo; y en la misma hoja de la grilla las interrupciones que se producen para posibilitar cada cambio (con su clasificación), los conflictos (en caso de existir) y cuál fue el criterio utilizado para su resolución.
 
-### Solución Final
+#### Solución Final
 
 ![](/imgs/clase-4/Ejercicio2/Completo.png)
 
-## Ejercicio 3
+### Ejercicio 3
 
-### Consigna
+#### Consigna
 
 > Un sistema operativo tiene una planificación de largo plazo con algoritmo SJF (Shortest Job First) y una planificación de corto plazo con algoritmo Round Robin con un quantum de 15u, con reevaluación de prioridades dinámicas, las cuales se calculan como la prioridad inicial del proceso más la mitad del tiempo de la última ráfaga de ejecución del mismo: (PI + Tr/2), a menor valor de este cálculo, mayor prioridad. Además, se cuentan con 1 disco y 1 monitor conectado a un canal selector.
 >
@@ -1249,7 +1295,7 @@ Las prioridades se evalúan con cada transición entrante a la cola de Listos. O
 > 5. Bloqueado - Listos: 5u
 > 6. Ejecutando – Finalizado: 10u
 
-### Solución Final
+#### Solución Final
 
 ![](/imgs/clase-4/Ejercicio3/Completo.png)
 
@@ -1263,8 +1309,6 @@ La comunicación entre procesos es necesario porque entre ellos comparten la mis
 -   **Comunicación:** Intercambio de Datos entre los procesos.
 
 La comunicación permite que los procesos cooperen entre sí en la ejecución de un objetivo global, mientras que la sincronización permite que un proceso continúe su ejecución después de la ocurrencia de un determinado evento.
-
-## Problemas Concurrentes
 
 Los programas se pueden clasificar en:
 
@@ -1286,13 +1330,19 @@ Diferencia entre paralelismo y concurrencia:
 | Puede ocurrir en una sola CPU             | Requiere múltiples CPUs o núcleos      |
 | Se logra por intercalado y planificación  | Se logra por ejecución simultánea real |
 
-<!--
-La concurrencia no se refiere a dos o más eventos que ocurren a la vez sino a dos o más eventos cuyo orden es no determinista, esto es, eventos acerca de los cuales no se puede predecir el orden relativo en que ocurrirán.
+## Algunos Conceptos
 
-Si bien dos procesos (o también dos hilos) completamente independientes entre sí ejecutándose simultáneamente son concurrentes, nos ocuparemos principalmente de procesos cuya ejecución está vinculada de alguna manera.
--->
+-   **Operación Atómica**: se ejecuta completamente o no se ejecuta en absoluto. Aunque el sistema pueda interrumpir el proceso que la ejecuta, no se verá un estado intermedio o parcial de esa operación desde fuera.
+-   **Race Condition(condición de carrera)**: Situación cuando dos o más procesos acceden y modifican un recurso compartido al mismo tiempo, y el resultado final depende del orden exacto de ejecución de esas operaciones.
+-   **Sección/Región Crítica**: Es la parte del código de un proceso donde se accede a recursos compartidos que pueden causar conflictos si son modificados por varios procesos a la vez. En esta sección es crucial garantizar que sólo un proceso pueda ejecutarla a la vez.
+-   **Recurso Compartido**: Un recurso compartido es cualquier elemento del sistema que puede ser accedido por múltiples procesos o hilos.
+    -   **Puntos de Entrada**: Cantidad de procesos que pueden utilizarlo simultarneamente al mismo
+    -   **Recurso Critico o No Compatible**: un recurso con 1 punto de entrada
+-   **Mutua Exclusión**: Mecanismo que ordena los procesos para que accedan de forma ordena a un recurso, asegurando que solamente un proceso a la vez pueda ejecutar su sección crítica. Arregla la Race Condition.
 
-## Grafos de Precedencia
+## Representación de Concurrencia
+
+### Grafos de Precedencia
 
 Para analizar la concurrencia, se creo el grafo de presedencia.
 
@@ -1318,9 +1368,7 @@ Dos sentencias cualesquiera Si y Sj  pueden ejecutarse concurrentemente produci
 
 Si las tres condiciones producen conjunto vacío, podemos asegurar que no hay dependencia entre las sentencias.
 
-## Especificación Concurrente
-
-### Instrucciones FORK y JOIN
+## Instrucciones FORK y JOIN
 
 -   **FORK** -> Se crean dos ramas (padre e hijo) que continúan su ejecución en concurrencia desde el mismo punto. Es el inicio de la concurrencia.
 -   **JOIN** -> Lo ejecuta el proceso padre para indicar que espera a que el hijo termine antes de continuar.
@@ -1359,19 +1407,7 @@ max2:
   quit;
 ```
 
-## Algunos Conceptos
-
-### Conceptos
-
--   **Operación Atómica**: se ejecuta completamente o no se ejecuta en absoluto. Aunque el sistema pueda interrumpir el proceso que la ejecuta, no se verá un estado intermedio o parcial de esa operación desde fuera.
--   **Race Condition**: Situación cuando dos o más procesos acceden y modifican un recurso compartido al mismo tiempo, y el resultado final depende del orden exacto de ejecución de esas operaciones.
--   **Sección/Región Crítica**: Es la parte del código de un proceso donde se accede a recursos compartidos que pueden causar conflictos si son modificados por varios procesos a la vez. En esta sección es crucial garantizar que sólo un proceso pueda ejecutarla a la vez.
--   **Recurso Compartido**: Un recurso compartido es cualquier elemento del sistema que puede ser accedido por múltiples procesos o hilos.
-    -   **Puntos de Entrada**: Cantidad de procesos que pueden utilizarlo simultarneamente al mismo
-    -   **Recurso Critico o No Compatible**: un recurso con 1 punto de entrada
--   **Mutua Exclusión**: Mecanismo que ordena los procesos para que accedan de forma ordena a un recurso, asegurando que solamente un proceso a la vez pueda ejecutar su sección crítica. Arregla la Race Condition.
-
-## Región Critica
+## Región Critica y Algoritmos de Protección
 
 El problema de la región crítica consiste en sincronizar los procesos de forma tal que se cumpla el siguiente **procolo de sincronización**:
 
@@ -1390,23 +1426,17 @@ Se tiene un protocolo de acceso a la region. Se utilizan 3 funciones:
 
 ![](/imgs/clase-5/utilizacion%20region%20critica.png)
 
-Vamos a ver diferentes algoritmos para proteger la region critica
+Vamos a ver diferentes algoritmos para proteger la region critica. Antes de empezar a repasar los algoritmos, se deben tener los siguientes conceptos:
 
-## Algoritmos para Proteger la Región Critica
+-   **Espera activa** (busy waiting): el proceso **ocupa la CPU** mientras espera que el recurso se libere.
+-   **Spinlock**: el algoritmo **gira en bucle**, comprobando constantemente si el recurso se liberó.
 
-<!-- Algoritmo a Nivel de Software - Utilizar una Bandera -->
-
-### 1. Algoritmo de Sincronización con Espera Activa
+### 1. Utilización de una Bandera
 
 Se declara una variable (bandera) pública booleana para señalizar si un recurso esta libre o no:
 
 -   `ocupada = 0` → recurso libre.
 -   `ocupada = 1` → recurso ocupado.
-
-Se tiene los siguientes conceptos:
-
--   **Espera activa** (busy waiting): el proceso **ocupa la CPU** mientras espera que el recurso se libere.
--   **Spinlock**: el algoritmo **gira en bucle**, comprobando constantemente si el recurso se liberó.
 
 Ejemplo:
 
@@ -1432,7 +1462,38 @@ salidaRC()
 -   Desperdicio de CPU.
 -   La variable ocupada es un recurso compartido, y su acceso no es atómico.
 
-### 2. Alternancia Estricta (Turnos)
+### 2. Bandera con Instrucciones Atómicas
+
+Usar la instrucción TSL (Test and Set Lock), simula una operación atómica que verifica y bloquea el recurso si está libre.
+
+```c
+tsl(int *flag)
+{
+    int x = flag; // Guarda el valor actual del flag en una variable temporal.
+    *flag = 1;    // Asigna 1 al flag (ocupa el recurso).
+    return x;     // Devuelve el valor previo para comprobar si estaba ocupado.
+}
+
+entradaRC()
+{
+    // Mientras que el flag devuelva 1, se queda esperando (recurso ocupado).
+    // Cuando devuelve 0, entra a la región crítica.
+    while(tsl(ocupado)){ };
+}
+
+salidaRC()
+{
+    // Libera el recurso para que otros procesos puedan entrar.
+    ocupado = 0;
+}
+
+```
+
+❌ Problemas:
+
+-   Puede causar espera activa e inanición
+
+### 3. Alternancia Estricta (Turnos)
 
 Este algoritmo de sincronización permite que dos procesos se alternen el acceso a la región crítica, asegurando que nunca entren al mismo tiempo. Se tiene 2 variables:
 
@@ -1464,44 +1525,27 @@ salidaRC(int i)
 
 ❌ Problemas:
 
--   Solo se puede utilizar con 2 procesos
+-   Sirve unicamente cuando hay 2 proceso que compiten por acceder a una region critica
 -   Puede generar inanición si no se libera el recurso
 
 <!-- ### Algoritmo a Nivel de Hardware -->
 
-### 3. Instrucciones Atómicas de Hardware
+### 4. Algoritmo de Peterson
 
-Usar la instrucción tsl (Test and Set Lock), simula una operación atómica que verifica y bloquea el recurso si está libre.
+Realiza una combinación de 2 metodos anteriores:
 
-```c
-tsl(int *flag)
-{
-    int x = flag; // Guarda el valor actual del flag en una variable temporal.
-    *flag = 1;    // Asigna 1 al flag (ocupa el recurso).
-    return x;     // Devuelve el valor previo para comprobar si estaba ocupado.
-}
+-   Utilización de banderas para indicar proceso a entrar
+-   Turnos para desempatar en caso de que ambos procesos busquen entrar a la vez
 
+Si un proceso detecta que el otro fue el primero en actualizar el turno, entonces lo deja pasar
 
-entradaRC()
-{
-    // Mientras que el flag devuelva 1, se queda esperando (recurso ocupado).
-    // Cuando devuelve 0, entra a la región crítica.
-    while(tsl(ocupado)){ };
-}
+❌ **Desventajas**
 
-salidaRC()
-{
-    // Libera el recurso para que otros procesos puedan entrar.
-    ocupado = 0;
-}
+-   Usa espera activa: consume CPU mientras espera.
+-   Sirve unicamente cuando hay 2 proceso que compiten por acceder a una region critica
+-   Falla en equipos multiprocesadores
 
-```
-
-❌ Problemas:
-
--   Puede causar espera activa e inanición
-
-### 4. Instrucción Intercambiar (CAS: Compare And Swap)
+### 5. Instrucción Intercambiar (CAS: Compare And Swap)
 
 CAS es una instrucción atómica: compara el valor actual de una variable con uno esperado y, si coinciden, la cambia por otro valor.
 
@@ -1528,52 +1572,86 @@ bool CAS(int* cerrojo, int esperado, int nuevo_valor) {
 
 Este fragmento permite que múltiples procesos intenten entrar a una región crítica, pero solo uno lo logra cuando la condición de cerrojo == 0 se cumple.
 
-### 5. Algoritmos Que no se Utilizan
+### 6. Algoritmos Que no se Utilizan
 
 Estas técnicas no son escalables ni seguras en sistemas modernos, por lo que no se dara detalles:
 
 -   No usar multitarea
 -   Deshabilitar interrupciones
 
-### 6. Semaforos
+### 7. Semaforos 🚦
 
 #### Definición
 
-Un semáforo es una herramienta de sincronización de procesos. permite el ordenamiento de las operaciones que realizan los procesos en el tiempo.
+Un semáforo es una herramienta de sincronización de procesos. Previene problemas como:
 
-Internamente, un semáforo es una variable entera protegida, que solo puede ser modificada a través de dos operaciones atómicas:
+-   Condicion de carrera
+-   Bloqueos mutuos
+-   inanición
 
--   `P()`, `down()` o `wait()`: Disminuye el valor del semáforo. Si el valor queda negativo, el proceso se bloquea.
--   `V()`, `up()` o `signal()`: incrementa el valor del semáforo. Si hay procesos bloqueados, despierta uno.
+Internamente, un semáforo es una variable entera protegida, que solo puede ser modificada a través de las operaciones:
 
-Además, existe una operación de inicialización, donde se define el valor inicial.
+-   `P()`, `down()` o `wait()`: Disminuye el valor del semáforo. Si el valor queda negativo, el proceso se bloquea y no puede continuar hasta que otro lo incremente.
+-   `V()`, `up()` o `signal()`: Incrementa el valor del semáforo. Si hay procesos bloqueados, despierta uno.
+-   `Inicializar`: Definir valor inicial del semaforo
 
-> A diferencia de una bandera, las operaciones down y up son atómicas, lo que garantiza que dos procesos no puedan modificar el valor al mismo tiempo.
+> A diferencia de una bandera, las operaciones down y up son atómicas, lo que garantiza que los procesos no puedan modificar el valor al mismo tiempo.
 
 #### Tipo
 
 -   **Binario o Mutex (booleano)**: Solo pueden tomar los valores 0 y 1. Se usa principalmente para mutua exclusión (una sola entidad accede al recurso).
--   **Contadores**: Pueden tomar valores enteros (positivos, nulo o negativo). Permite controlar el acceso a un conjunto de recursos idénticos, como n impresoras.
+-   **Contadores o Multiplex**: Pueden tomar valores enteros (positivos, nulo o negativo). Permite controlar el acceso a un conjunto de recursos idénticos, como n impresoras.
 
 #### Semaforos con/sin espera activa
 
--   **Con espera activa (busy waiting)**:
-    El proceso ocupa CPU mientras espera que el semáforo le permita avanzar Ineficiente.
-
--   **Sin espera activa (bloqueante)**:
-    El proceso se bloquea automáticamente si no puede continuar, liberando la CPU para otros. Este es el modelo ideal y el que se usar en la práctica y en sistemas operativos reales.
+-   **Con espera activa (busy waiting)**: El proceso ocupa CPU mientras espera que el semáforo le permita avanzar Ineficiente.
+-   **Sin espera activa (bloqueante)**: El proceso se bloquea automáticamente si no puede continuar, liberando la CPU para otros. Este es el modelo ideal y el que se usar en la práctica y en sistemas operativos reales.
 
 🧠 Nos enfocaremos en semáforos sin espera activa.
 
 Se incorporan dos operaciones atómicas en el sistema:
 
--   `block():`
+-   `block()`: Coloca al proceso actual en la cola del semáforo. Cambia su estado a inactivo o bloqueado.
+-   `wakeup()`: Despierta a uno de los procesos en la cola. Lo pasa del estado de bloqueado a listo. La elección de qué proceso activar la decide el kernel (no la función).
 
-Coloca al proceso actual en la cola del semáforo. Cambia su estado a inactivo o bloqueado.
+#### Patrones Comunes
 
--   `wakeup():`
+-   **Señalización**: Un hilo avisa a otro que una condición se ha cumplido. Permitiendo al hilo bloqueado, continuar con su ejecución.
+-   **Rendezvous**: Dos hilos se esperen mutuamente en cierto punto para continuar en conjunto
+-   **Torniquete**: Permite que un proceso o grupo de procesos pase uno a uno tras cumplirse una condición.
+-   **Barrera**: Bloquea la ejecución de todos los hilos hasta que todos hayan alcanzado un punto determinado.
+-   **Apagador**: Múltiples procesos de una misma categoría puedan acceder simultáneamente a una sección crítica, pero prohíbe que procesos de categorías distintas lo hagan al mismo tiempo.
 
-Despierta a uno de los procesos en la cola. Lo pasa del estado de bloqueado a listo. La elección de qué proceso activar la decide el kernel (no la función).
+### 8. Monitores
+
+Los monitores surgen como una solución al principal problema de los semáforos: su uso complicado entendimiento, puede llevar a condiciones de carrera o bloqueos. Para evitar estos errores, los monitores ofrecen un modelo más **estructurado y seguro**.
+
+Un **monitor** es una construcción de **alto nivel** provista por el **lenguaje de programación** o el **entorno de desarrollo**, que permite la sincronización entre procesos o hilos. Se basa en los siguientes principios:
+
+-   ✅ Encapsula tanto los **datos compartidos** como los **métodos** que los manipulan.
+-   ✅ Solo permite que un proceso o hilo ejecute un método del monitor **a la vez** (mutua exclusión garantizada).
+-   ✅ Impide el acceso directo a funciones potencialmente peligrosas.
+-   ✅ Es considerado un **Tipo de Dato Abstracto (TDA)**.
+
+Quiere decir, que puede tener la siguiente **estructura**:
+
+-   📦 **Variables internas**: compartidas, privadas al monitor.
+-   🔐 **Métodos públicos**: son los únicos accesibles desde el exterior.
+-   ❌ **Métodos privados**: no accesibles directamente desde fuera del monitor.
+-   ⚠️ **Condiciones** (`wait` y `signal`): utilizadas para sincronizar la ejecución de procesos/hilos.
+
+Puede implementarse utilizando cualquiera de los mecanismos de sincronización presentados anteriormente. Como semáforos, mutex o variables de condicióin.
+
+### 9. Memoria Transaccional
+
+Permite agrupar varias operaciones sobre memoria dentro de una **transacción**, protegiendo a la memoria. Estas operaciones se ejecutan como una unidad **atómica**, es decir:
+
+-   Si **todas** las operaciones tienen éxito ➜ se **confirma** (commit) la transacción.
+-   Si **alguna** falla (por conflicto u otro motivo) ➜ se **rechaza** (rollback) y no se aplica **ningún cambio**.
+
+Esta idea es similar al concepto de **transacción en bases de datos**.
+
+> De esta forma, **no se requiere identificar regiones críticas manualmente**, el sistema se encarga de detectar y resolver los conflictos de acceso.
 
 ## Comunicación Entre Procesos (IPC)
 
@@ -1581,13 +1659,8 @@ Despierta a uno de los procesos en la cola. Lo pasa del estado de bloqueado a li
 
 2 formas de comunicarnos:
 
--   **Comunicación a través de un área común de memoria (comunicación indirecta)**
-
-Los procesos envían y reciben los mensajes entre sí. Requieren un bus para ellos.
-
--   **Comunicación por intercambio de mensajes (comunicación directa)**
-
-Los mensajes son enviados a un buzon o mailbox y se retiran del buzón
+-   **Comunicación a través de un área común de memoria (comunicación indirecta)**: Los procesos envían y reciben los mensajes entre sí. Requieren un bus para ellos.
+-   **Comunicación por intercambio de mensajes (comunicación directa)**: Los mensajes son enviados a un buzon o mailbox y se retiran del buzón
 
 ![](/imgs/clase-5/comunicacion.png)
 
@@ -1619,13 +1692,14 @@ En todo modelo de comunicación, se tiene un emisor, receptor, medio de comunica
 
 -   **Productor**: _Produce_ algo y lo _deposita_ en una cola
 -   **Consumidor**: _Recupera_ lo que dejo el producto en la cola y lo _consume_
--   **Buffer**: Zona de memoria utilizada para amortiguar las diferencias de velocidad entre dos procesos. Almacena temporalmente los elementos generados por productos.
-
-![](/imgs/clase-5/productor-consumidor.png)
+-   **Buffer**: Zona de memoria compartida utilizada para amortiguar las diferencias de velocidad entre dos procesos. Almacena temporalmente los elementos generados por productos.
+-   Si un consumidor está listo y el buffer está vacio, debe bloquearse hasta que un productor genere un elemento.
+-   Las operaciones de agregar o retirar un elemento, es atomica
+    ![](/imgs/clase-5/productor-consumidor.png)
 
 Se utilizan las respecticas funcionnes mostradas en la representación.
 
-Se tiene diferentes algoritmos para el modelo presentado
+Se tiene diferentes algoritmos para el modelo presentado.
 
 #### Con sleep() & wakeup()
 
@@ -1752,6 +1826,75 @@ c() {
 }
 ```
 
+Solo los productores incrementan el semaforo y los consumidores decrementan. Ambos semaforos comunican al planificador, cuándo es posible despertar a algún consumidor.
+
+### Mecanismos de IPC
+
+Los mecanismos de **IPC** permiten que los procesos se comuniquen y/o compartan información. Son fundamentales en sistemas multitarea.
+
+#### 1. Pipes (Tuberías Anonima)
+
+-   Permiten la comunicación **unidireccional** entre procesos relacionados (padre ↔ hijo).
+-   Son **transitorias** (dejan de existir cuando termina el proceso).
+-   Se crean con `pipe()`.
+-
+
+#### 2. FIFOs (Named Pipes)
+
+-   Similar a los pipes, pero permiten comunicación entre procesos **no relacionados**.
+-   Se crean con `mkfifo()`.
+
+> 🧭 Útiles para procesos que se comunican sin necesidad de memoria compartida.
+
+#### 4. 🚦 Señales (Signals)
+
+-   Mecanismo para **notificar eventos asincrónicos** (ej: interrupciones del sistema).
+-   Un proceso puede enviar señales a otro proceso
+-   Se manejan con funciones como `signal()` o `sigaction()`.
+
+> 🧭 Ideal para eventos simples, no para transferencia de grandes volúmenes de datos.
+
+#### 4. 🧠 Memoria Compartida (Shared Memory)
+
+-   Permite que **múltiples procesos accedan a un mismo espacio de memoria**.
+-   Muy eficiente, ya que **no se copian datos**.
+-   Requiere **sincronización explícita** (usualmente con semáforos o mutexes) para evitar condiciones de carrera.
+
+> 📌 Muy usada en sistemas de alto rendimiento o tiempo real.
+
+#### 5. 🌐 Sockets
+
+-   Permiten la comunicación entre procesos, incluso en **máquinas distintas**.
+-   Basados en la pila de red (TCP/IP o UDP).
+-   **Bidireccionales**, escalables y muy versátiles.
+-   Se usan ampliamente en aplicaciones cliente-servidor (como servidores web o chat).
+
+> 🌍 Son la base de la comunicación en red moderna.
+
+#### 6. RPC (Remote Procedure Call)
+
+-   Permite que un proceso ejecute una **función remota** en otro proceso, como si fuera local.
+-   Oculta detalles de red y transporte.
+-   Amplio uso en sistemas distribuidos (ej: gRPC, XML-RPC).
+
+#### 7. RMI (Remote Method Invocation)
+
+-   Similar al RPC, pero orientado a **objetos** (Java, por ejemplo).
+-   Permite llamar a métodos de objetos remotos.
+
+> ⚙️ Ambos son usados para construir arquitecturas distribuidas, como **cliente-servidor** o **microservicios**.
+
+#### ✅ Comparación rápida
+
+| Mecanismo          | Dirección | Procesos          | Persistencia | Uso común                   |
+| ------------------ | --------- | ----------------- | ------------ | --------------------------- |
+| Pipe               | Uni       | Relacionados      | Temporal     | Padre-hijo                  |
+| FIFO               | Uni       | No relacionados   | Permanente   | Com. entre procesos locales |
+| Señales            | N/A       | Cualquiera        | N/A          | Notificaciones              |
+| Memoria compartida | Bi        | No relacionados   | Temporal     | Gran volumen de datos       |
+| Sockets            | Bi        | Locales o remotos | Permanente   | Red / Cliente-servidor      |
+| RPC / RMI          | Bi        | Remotos o locales | Permanente   | Sistemas distribuidos       |
+
 ## Bloqueos Mutuos (DeadLocks)
 
 ### Definición
@@ -1791,15 +1934,55 @@ Se necesitan 4 condiciones simultaneas para que se produzca un deadlock:
 -   **No Expropiación**: Si el sistema operativo no puede liberar el recurso
 -   **Espera Circula (grafo anterior)**: Hay una cadena circular de procesos en la que cada uno mantiene a uno o más recursos que son requeridos por el siguiente proceso de la cadena
 
+Las primeras tres condiciones son necesarias pero no suficientes, solo indican una situación de riesgo.
+
 ### Estrategias para Tratar los Bloqueos
-
-#### Ignorarlos y Pensar que nunca ocurrio
-
-La mayoria de los sistemas incluyen este. Forma más simple.
 
 #### Prevenirlo o Evitarlo
 
-Se debe evitar que se de alguna de las condiciones de Coffman:
+-   **Evitar Condiciones de Coffman**:
+
+Para prevenir un bloqueo, basta con evitar al menos una de las siguientes condiciones: - Mutua Exclusión: No se puede eliminar sin generar más problemas. - Retener y Esperar: Usar métodos como el de COBOL, donde los procesos solicitan todos los recursos al inicio y los liberan al terminar. Es costoso. - No Expropiación: - Si un proceso solicita un recurso no disponible, debe liberar todos los que tiene. - O bien, el sistema puede forzar la liberación del recurso en otro proceso. Esto puede causar inanición. - Espera Circular: Romper alguna de las condiciones anteriores para evitar ciclos en el grafo de asignación.
+
+-   **Retención y Espera**:
+
+Todos los procesos declaran al inicio qué recursos necesitarán. El sistema los reserva exclusivamente hasta que el proceso finalice. Es una idea utópica: requiere conocer de antemano todos los recursos, lo cual rara vez es posible.
+
+-   **Solicitud de una Vez**:
+
+Los recursos solo se otorgan a procesos que no tienen ningún recurso. Si un proceso necesita más recursos, debe renunciar primero a los que ya tiene.
+
+-   **Asignación Jerárquica**
+
+A cada recurso se le asigna una prioridad o nivel. Un proceso solo puede solicitar recursos de niveles superiores al último obtenido. Es muy restrictiva para muchos escenarios.
+
+-   **Algoritmo del Banquero**
+    El sistema actúa como un banquero: solo presta si puede garantizar que recuperará lo prestado, incluso en el peor caso.
+
+1. Cada proceso declara su reclamo máximo de recursos.
+2. El sistema conoce los recursos disponibles.
+3. Se simula la asignación para verificar si deja al sistema en estado seguro.
+    - Estado Seguro: Existe un orden de ejecución sin riesgo de bloqueo.
+    - Estado Inseguro: No se puede garantizar la ejecución sin deadlock.
+
+El sistema mantiene:
+
+-   Reclamado: Recursos máximos que podrían solicitarse.
+-   Asignado: Recursos actualmente en uso.
+-   Solicitado: Recursos adicionales que se desean.
+-   Disponibles: Recursos totales restantes.
+-   Libres: Recursos sin asignar.
+
+Para conceder una solicitud:
+
+-   No debe exceder los disponibles.
+-   No debe superar el reclamo declarado.
+-   El estado resultante debe ser seguro.
+
+<!--
+##### Evitar Condiciones de Coffman
+
+Para prevenir un bloqueo, es tan simple como evitar que ocurra alguna de las condiciones necesarias de coffman
 
 -   **Falta de Mutua Exclusión**: Se generan mas problemas
 -   **Retener y Esperar**: Se puede utilizar el metodo de COBOL; cuando empieza a ejecutar un proceso, pide todos los recursos juntos. Hasta que no termina no libera. Pedo tambien tiene un costo
@@ -1808,26 +1991,70 @@ Se debe evitar que se de alguna de las condiciones de Coffman:
     -   Si un proceso pide un recurso que tiene otro proceso, el sistema obliga a liberar los recursos del otro proceso. Puede generar inaniación por no poder finalizar su circular
 -   **Espera Circula (grafo anterior)**: Romper alguna de las 3 condiciones previas.
 
+##### Retención y Espera
+
+Todos los programas declaran al iniciar su ejecución qué r ecursos van a requerir. Éstos son apartados para su uso exclusivo hasta que el proceso termine. El sistema operativo puede seguir atendiendo solicitudes que no rivalicen.
+
+Requiere que el programador sepa por atnicipado qué recursos requerirá. Esto lo hace un mecanismo utopico y que no es posible en la practica.
+
+##### Solicitud de una Vez
+
+Los recursos se otorgan exclusivamente a aquellos procesos que no poseen ningún recurso. Si un proceso solicita recursos nuevamente, debe renunciar a los recursos que tiene para tener uno nuevo.
+
+##### Asignación Jerárquica
+
+Se asigna una prioridad o nivel jerárquicoa a cada recurso. Una vez que un proceso obtiene un recurso de determinado nivel, sólo puede solicitar recursos adicionales de niveles superiores.
+
+Es demasiado estricto para muchas situaciones.
+
+##### Algoritmo del Banquero
+
+Se le dice banquero porque solo presta si está seguro de que podrá recuperar los préstamos incluso en el peor escenario.
+
+1. Cada proceso declara al principio su reclamo máximo de recursos que quiere
+2. El sistema conoce cuántos recursos de cada tipo hay disponioble
+3. El sistema evalua si puede concederlos sin poner en peligro la estabilidad del sistema
+
+-   **Estado Seguro**: Hay al menos un orden en el que los procesos pueden ejecutarse sin provocar bloqueo
+-   **Estado Inseguro**: No se puede garanztizar la ejecución sin llegar a un bloqueo
+
+Datos que mantiene el sistema
+
+-   **Reclamado**: Numero de recursos que ya han sido reclamados
+-   **Asignado**: Numero de recursos actualmente asignados a procesos en ejecución
+-   **Solicitado**: Numero de recursos pendientes de asignar
+-   **Disponibles**: Numero total de recursos disponibles
+-   **Libres**: Numero total de recursos que no han sido asignados
+
+Condición para otorgar una solicitud:
+
+-   No excede los recursos disponibles
+-   Ningun proceso solicite recursos por encima de su reclamo
+-   El estado resultante de conceder los recursos es seguro.
+-->
+
 #### Detectar y Recuperar
 
-Abortar un proceso cuando detecta un deadlock.
+Busca la mejor manera de salir del bloqueo. El chequeo se puede ejecutar:
 
-✅ **Ventajas**
+-   Periodicamente
+-   Cada vez que un proceso solicite un recurso
+-   Cuando el nivel del CPU baje de cierto porcentaje
+-   Estrategia combinada
 
--   No limita el acceso a los recursos
+Hay varios metodos para recuperarse:
 
-❌ **Desventajas:**
-
--   Decidir la frecuencia con que se llevará a cabo el algoritmo de detección.
-
-Hay varios metodos para esto:
-
--   Abortar todos los procesos involucrados
+-   Abortar todos los procesos bloqueados
 -   Abortar los procesos uno a uno, hasta que el deadlock desaparezca.
 -   Quitar un recurso a un proceso y entregárselo a otro que lo haya solicitado.
 -   Llevar el proceso a un punto anterior al de haberle sido asignado el recurso causante del Deadlock. Hacer un backup de cada proceso en un punto anterior: _ChekPoint_. A este proceso de reinicio se lo llama _Rollback_.
+-   Apropiación Temporal: Tomar un recurso asignado a determinado proceso para otorgárselo temporalmente a otro.
 
-# Practica Semaforos para los Procesos
+#### Algoritmo Avestruz (ignorarlo)
+
+Se crea que la frecuencia de un bloqueo es muy poco comun y no reperctura en el sistema. Por lo que, es preferible ignorarlo antes que seguir sumando hardware u logica al sistema, como al igual que los otros metodos son demasiados onerosos.
+
+## Practica: Semaforos para los Procesos
 
 # 🧠 Módulo 5: Administración de Memoria
 
@@ -1909,7 +2136,7 @@ Cuando se crea un proceso, el sistema operativo le asigna un espacio de memoria 
 
 ### Como se manejan las Direcciones
 
-El manejo de direcciones de memoria\*depende del hardware y del sistema operativo.
+El manejo de direcciones de memoria depende del hardware y del sistema operativo.
 
 El compilador reemplaza variables y funciones por direcciones de memoria, pero estas deben ser traducidas a direcciones relativas o dinámicas para poder coexistir con otros procesos sin conflictos. Existen tres enfoques principales, según **cuándo** se realiza la conversión de las direcciones lógicas del programa a direcciones físicas reales en memoria:
 
@@ -2062,9 +2289,9 @@ Estos segmentos pueden tener **diferentes tipos de acceso**: solo lectura, escri
 1.  La **CPU** solicita una dirección lógica compuesta por:  
     `s:d` → donde `s = número de segmento` y `d = desplazamiento (offset)`.
 2.  El sistema operativo mantiene una **SMT (Segment Memory Table)** por cada proceso. La **SMT** guarda:
-    - Número de segmento
-    - Tamaño del segmento.
-    - Dirección base en memoria física
+    -   Número de segmento
+    -   Tamaño del segmento.
+    -   Dirección base en memoria física
 3.  Cunado se requiere una dirección. El **MMU** traduce la dirección lógica a física. Verifica que `d < tamaño del segmento`:
     -   Si es válido: **dirección física = base del segmento + desplazamiento**
     -   Si no es válido: **segmentation fault**.
@@ -2081,9 +2308,9 @@ Supongamos que un programa tiene los siguientes segmentos:
 
 Si el programa quiere acceder a la dirección `1:100`, entonces:
 
-1.   SMT busca el segmento `1` → Base = `4000`
-2.   Verifica que `100 < 1000` → ✔️
-3.   Dirección física = `4000 + 100 = 4100`
+1.  SMT busca el segmento `1` → Base = `4000`
+2.  Verifica que `100 < 1000` → ✔️
+3.  Dirección física = `4000 + 100 = 4100`
 
 ### Paginación
 
@@ -2092,17 +2319,19 @@ Si el programa quiere acceder a la dirección `1:100`, entonces:
 ![](/imgs/clase-6/Asignacion-Memoria/Estructura%20Paginacion.png)
 
 La paginación es una técnica de administración de memoria que divide tanto la memoria lógica (programa) como la memoria física (RAM) en bloques del mismo tamaño. Para comprender mejor los conceptos:
-- 🔹 **Página (page)**: Unidad de división de la **memoria lógica** del proceso (programa).
-- 🔹 **Marco (frame)**: Unidad de división de la **memoria física** del sistema.
-- 📐 **Tamaño**: Las páginas y marcos tienen igual tamaño (potencias de 2, ej. 4KB, 8KB...).
 
-### ⚙️ ¿Cómo funciona?
+-   🔹 **Página (page)**: Unidad de división de la **memoria lógica** del proceso (programa).
+-   🔹 **Marco (frame)**: Unidad de división de la **memoria física** del sistema.
+-   📐 **Tamaño**: Las páginas y marcos tienen igual tamaño (potencias de 2, ej. 4KB, 8KB...).
+
+#### ⚙️ ¿Cómo funciona?
 
 ![](/imgs/clase-6/Asignacion-Memoria/Estructura%20Paginacion%20Bus.png)
 
 El bus de direcciones se parte en 2:
-- `p` → Número de página. Bits para cantidad de paginas (numero de pagina)
-- `d` → Desplazamiento (offset) dentro de esa página. Bits de desplazamiento.
+
+-   `p` → Número de página. Bits para cantidad de paginas (numero de pagina)
+-   `d` → Desplazamiento (offset) dentro de esa página. Bits de desplazamiento.
 
 > **Dirección física = dirección base del marco + desplazamiento**
 
@@ -2110,14 +2339,14 @@ El bus de direcciones se parte en 2:
 
 1. Se divide el espacio lógico del programa en páginas
 2. Se divide la ram en frames de igual tamaño a las paginas
-3. Se asigna a cada página un frame disponible. 
+3. Se asigna a cada página un frame disponible.
 4. Se guarda en una `MPT` (Memory Page Table) por proceso el:
     - Nro de pagina
     - Tamaño
     - Dirección de Inicio
-5. Cuando se requiere una dirección, se llama al MMU, traduce direcciones lógicas a físicas. Se recupera el inicio del frame en la MPT a partir de la pagina. 
-   - `Dirección Lógica = Página (p) + Desplazamiento (d)`
-   - `Dirección Física = Dirección Base del Marco + d`
+5. Cuando se requiere una dirección, se llama al MMU, traduce direcciones lógicas a físicas. Se recupera el inicio del frame en la MPT a partir de la pagina.
+    - `Dirección Lógica = Página (p) + Desplazamiento (d)`
+    - `Dirección Física = Dirección Base del Marco + d`
 
 Para indicar si un frame esta ocupado o libre, se utiliza el `MFT` (Memory Frame Table) con un valor booleano.
 
@@ -2125,24 +2354,23 @@ Para indicar si un frame esta ocupado o libre, se utiliza el `MFT` (Memory Frame
 
 <!-- Fragmentación -> Se fragmenta por pagina y se reduce la externa. Esta dado por los tamaños a los frames y paginas, dado por la formula: [tamaño] - 1byte(Unidad minima para poner en la pagina) por frame -->
 
+| Característica     | Detalle                                                                   |
+| ------------------ | ------------------------------------------------------------------------- |
+| Fragmentación      | ✅ Solo interna. Mucho menor que en segmentación. Se fragmenta por pagina |
+| Reasignación       | ✅ Los marcos pueden reutilizarse fácilmente.                             |
+| Hardware requerido | ❗ Alto. Se necesita soporte para MMU, MPT, MFT y TLB.                    |
+| Velocidad          | 🚀 Muy eficiente con TLB y caché, pero costoso sin ellas.                 |
+| Compartición       | ✅ Es posible entre procesos (páginas solo lectura).                      |
 
-| Característica             | Detalle                                                                 |
-|---------------------------|-------------------------------------------------------------------------|
-| Fragmentación             | ✅ Solo interna. Mucho menor que en segmentación. Se fragmenta por pagina|
-| Reasignación              | ✅ Los marcos pueden reutilizarse fácilmente.                           |
-| Hardware requerido        | ❗ Alto. Se necesita soporte para MMU, MPT, MFT y TLB.                   |
-| Velocidad                 | 🚀 Muy eficiente con TLB y caché, pero costoso sin ellas.               |
-| Compartición              | ✅ Es posible entre procesos (páginas solo lectura).                    |
-
-- Tamaño Pagina optima, depende del tamaño de MC:
-  - Paginas chicas = aumenta mucho el tamaño de la tabla de paginas, PCB muy grande y transferencias costosas.
-  - Paginas grandes = Mucha fragmentación interna. Se desperdicia espacio. Ejemplo: si se tiene una pagina de 1MB y el programa ocupa 1KB, se desperdicia casí un MB
+-   Tamaño Pagina optima, depende del tamaño de MC:
+    -   Paginas chicas = aumenta mucho el tamaño de la tabla de paginas, PCB muy grande y transferencias costosas.
+    -   Paginas grandes = Mucha fragmentación interna. Se desperdicia espacio. Ejemplo: si se tiene una pagina de 1MB y el programa ocupa 1KB, se desperdicia casí un MB
 
 #### ⚡️ Optimización: TLB (Translation Lookaside Buffer)
 
 El soporte de hardware es muy costoso, por lo que se utilizan dispositivos extras como el cache y `TLB` (Translation Lookaside Buffer, Buffer de tradución anticipada). Su relación es muy similar a la de cache con el CPU.
 
-- **Direccionamiento con TLB**
+-   **Direccionamiento con TLB**
 
 ![](/imgs/clase-6/Asignacion-Memoria/Estructura%20Paginacion%20TLB.png)
 
@@ -2150,26 +2378,27 @@ TLB es una memoria donde se carga la tabla de paginas, o una parte. Es muy rapid
 
 1. Se genera una dirección lógica (número de página `p`, desplazamiento `d`).
 2. La MMU consulta el TLB con `p`:
-   - Si está, obtiene el marco `f` correspondiente.
-   - Si no está, consulta la MPT para obtener `f`, y puede almacenar esa entrada en el TLB.
+    - Si está, obtiene el marco `f` correspondiente.
+    - Si no está, consulta la MPT para obtener `f`, y puede almacenar esa entrada en el TLB.
 3. Calcula la dirección física: `f + d`.
 
-- **Direccionamiento con TLB y Cache**
+-   **Direccionamiento con TLB y Cache**
 
 La diferencia es que se le suma una cache como otra memoria intermedia. Primero, se busca en TLB, si no se encuentra se va a cache, y si no se encuentra se va a MC
 
 #### Paginación Multinivel
 
-
 La paginación multinivel es una extensión del esquema de paginación tradicional. Se utiliza para **evitar el uso de una única tabla de páginas demasiado grande** en sistemas con direcciones lógicas amplias (como en arquitecturas de 32 o 64 bits). En sistemas con direcciones grandes (por ejemplo, 32 bits), mantener una **tabla de páginas plana** (un nivel) requiere un espacio inmenso:
+
 > Si una página es de 4 KB (2¹² bytes), entonces hay `2²⁰` páginas → tabla con más de **un millón de entradas**.
 
 ![](/imgs/clase-6/Asignacion-Memoria/Paginacion%20Multinivel.png)
 
 En la paginación multinivel se **divide la dirección lógica** en varias partes, que acceden a **múltiples niveles de tablas**:
-- `p₁`: Índice para la **tabla de páginas externas**.
-- `p₂`: Índice para la **tabla de páginas internas** (que apunta a los marcos).
-- `d`: Desplazamiento dentro de la página.
+
+-   `p₁`: Índice para la **tabla de páginas externas**.
+-   `p₂`: Índice para la **tabla de páginas internas** (que apunta a los marcos).
+-   `d`: Desplazamiento dentro de la página.
 
 Se siguen los siguientes pasos:
 
@@ -2185,30 +2414,29 @@ Ejemplo:
 
 #### Memoria Compartida
 
-- **Memoria Compartida Entre Procesos**
+-   **Memoria Compartida Entre Procesos**
 
 ![](/imgs/clase-6/Asignacion-Memoria/Paginacion%20Memoria%20Compartida.png)
 
 En sistemas operativos, la **memoria compartida** permite que varios procesos accedan a las **mismas páginas físicas de memoria**, lo cual mejora la eficiencia al evitar duplicar información redundante. Pero, se deben seguir unas reglas:
-- ✅ Solo se pueden compartir páginas de solo lectura o ejecución, como el código del programa.
-- ❌ Las páginas que contienen datos modificables (como variables) no se comparten, ya que podrían generar inconsistencias entre procesos.
 
-- **`Copy on Write` (Copiar al Escribir)** 
+-   ✅ Solo se pueden compartir páginas de solo lectura o ejecución, como el código del programa.
+-   ❌ Las páginas que contienen datos modificables (como variables) no se comparten, ya que podrían generar inconsistencias entre procesos.
+
+-   **`Copy on Write` (Copiar al Escribir)**
 
 Técnica optimizada usada cuando se crea un proceso hijo con `fork()`. Se siguen los siguientes pasos
 
-
-
-1. Al principio, el proceso padre y el hijo comparten todas las páginas (incluso las de datos), mientras no se modifiquen. 
-   - Ambas tablas de páginas apuntan a los mismos marcos de memoria.
-   - Estas páginas se marcan como solo lectura temporalmente.
+1. Al principio, el proceso padre y el hijo comparten todas las páginas (incluso las de datos), mientras no se modifiquen.
+    - Ambas tablas de páginas apuntan a los mismos marcos de memoria.
+    - Estas páginas se marcan como solo lectura temporalmente.
 
 ![](/imgs/clase-6/Asignacion-Memoria/Paginacion%20Padre%20Hijo%20Parte%201.png)
 
 2. Si uno de los procesos intenta escribir, ocurre lo siguiente:
-   - Se genera una interrupción por intentar escribir en una página de solo lectura.
-   - El sistema operativo crea una copia privada unicamente de la página modificada para ese proceso.
-   - A partir de ese momento, cada proceso tiene su **propia versión modificada** de una misma pagina.
+    - Se genera una interrupción por intentar escribir en una página de solo lectura.
+    - El sistema operativo crea una copia privada unicamente de la página modificada para ese proceso.
+    - A partir de ese momento, cada proceso tiene su **propia versión modificada** de una misma pagina.
 
 ![](/imgs/clase-6/Asignacion-Memoria/Paginacion%20Padre%20Hijo%20Parte%202.png)
 
@@ -2227,34 +2455,38 @@ El contenido de los frames se van cargando poco a poco en el almacenamiento secu
 ![](/imgs/clase-6/Memoria%20Virtual/Swapping.png)
 
 El `swapping` es el intercambio entre memorias de distintos niveles. Se tienen 2 operaciones:
-- **Swap-in** -> Se produce cuando se realiza un envio desde un dispositivo de menor jerarquia a uno mayor. Como del disco duro a MC
-- **Swap-out** -> Lo opuesto
+
+-   **Swap-in** -> Se produce cuando se realiza un envio desde un dispositivo de menor jerarquia a uno mayor. Como del disco duro a MC
+-   **Swap-out** -> Lo opuesto
 
 Políticas de Administración de Memoria Virtual
+
 1. `Fetch (búsqueda)` -> Buscar una pagina para llevarla a MC
 2. `Placement (colocación)` -> A donde debe ubicarse en la MC cuando ya la tenemos
 3. `Replacement (reemplazo)` -> Cual es la página que se va a reemplazar
 
 Algunas consideraciones:
-- ¿Qué pasa si el proceso a suspender tiene una operación de I/O pendiente?
-  - Solo se pueden suspender procesos que no tengan operaciones de entrada/salida pendientes, ya que no pueden gestionarse correctamente fuera de RAM.
-  - En caso de tener I/O pendiente, el sistema puede usar buffers intermedios del S.O. para almacenar temporalmente los datos. Cuando el proceso vuelve a estar activo, los datos se restauran o continúan desde su estado anterior.
-- Swapping excesivo → Hiperpaginación (thrashing)
-  - Cuando el sistema pasa más tiempo intercambiando páginas que ejecutando procesos útiles, se genera un efecto llamado hiperpaginación.
-  - Esto provoca una caída fuerte del rendimiento, ralentizando toda la computadora.
-  - No solo es un problema de velocidad del disco vs RAM, sino también por el overhead de administración del swapping.
-- ¿A dónde van las páginas descargadas?
-  - Las páginas que se descargan de la memoria central van al espacio de intercambio (swap) en el disco.
-- Direcciones virtuales y límite de memoria virtual
-  - El tamaño máximo de la memoria virtual está determinado por la capacidad del espacio de direccionamiento del procesador.
-  - Por ejemplo, si se tiene un CPU de 32 bits, entonces el máximo de direcciones que puede manejar es 2³² = 4GB.
-  - Esto implica que la memoria virtual no puede exceder los 4GB, salvo que se usen extensiones como PAE o se tenga una arquitectura de 64 bits.
+
+-   ¿Qué pasa si el proceso a suspender tiene una operación de I/O pendiente?
+    -   Solo se pueden suspender procesos que no tengan operaciones de entrada/salida pendientes, ya que no pueden gestionarse correctamente fuera de RAM.
+    -   En caso de tener I/O pendiente, el sistema puede usar buffers intermedios del S.O. para almacenar temporalmente los datos. Cuando el proceso vuelve a estar activo, los datos se restauran o continúan desde su estado anterior.
+-   Swapping excesivo → Hiperpaginación (thrashing)
+    -   Cuando el sistema pasa más tiempo intercambiando páginas que ejecutando procesos útiles, se genera un efecto llamado hiperpaginación.
+    -   Esto provoca una caída fuerte del rendimiento, ralentizando toda la computadora.
+    -   No solo es un problema de velocidad del disco vs RAM, sino también por el overhead de administración del swapping.
+-   ¿A dónde van las páginas descargadas?
+    -   Las páginas que se descargan de la memoria central van al espacio de intercambio (swap) en el disco.
+-   Direcciones virtuales y límite de memoria virtual
+    -   El tamaño máximo de la memoria virtual está determinado por la capacidad del espacio de direccionamiento del procesador.
+    -   Por ejemplo, si se tiene un CPU de 32 bits, entonces el máximo de direcciones que puede manejar es 2³² = 4GB.
+    -   Esto implica que la memoria virtual no puede exceder los 4GB, salvo que se usen extensiones como PAE o se tenga una arquitectura de 64 bits.
 
 ### Paginación bajo demanda
 
 La memoria secundaria guarda y trae paginas enteras. Al iniciar un proceso, existen 2 tecnicas para traer las paginas:
-- `Lazy` (flojo/perezoso) -> Solo se cargan las paginas necesarias a medida que se va requiriendo.
-- `Eager` (ansioso/gloton) -> Se carga todo al momento de iniciar
+
+-   `Lazy` (flojo/perezoso) -> Solo se cargan las paginas necesarias a medida que se va requiriendo.
+-   `Eager` (ansioso/gloton) -> Se carga todo al momento de iniciar
 
 ### Protocolo al Tener Fallo de página
 
@@ -2269,14 +2501,14 @@ La memoria secundaria guarda y trae paginas enteras. Al iniciar un proceso, exis
 
 ![](/imgs/clase-6/Memoria%20Virtual/formula%20rendimiento.png)
 
-> - `tₑ` -> Tiempo efectivo de acceso a memoria
-> - `p` -> Probabilidad de fallo de página 
-> - `ta` -> Tiempo de acceso a memoria (entre 10 y 200 ns)
-> - `tf` -> Tiempo que toma atender a un fallo de página (aprox 8ms)
+> -   `tₑ` -> Tiempo efectivo de acceso a memoria
+> -   `p` -> Probabilidad de fallo de página
+> -   `ta` -> Tiempo de acceso a memoria (entre 10 y 200 ns)
+> -   `tf` -> Tiempo que toma atender a un fallo de página (aprox 8ms)
 
 Ejemplo:
 
-Si p = 1/1000 (Un fallo cada 1000 accesos) 
+Si p = 1/1000 (Un fallo cada 1000 accesos)
 
 ![](/imgs/clase-6/Memoria%20Virtual/rendimiento%20ejemplo.png)
 
@@ -2287,27 +2519,27 @@ Debemos elegir que pagina reemplazar para poner la nueva pagina. Para esto, tene
 Una `cadena de referencia` es una secuencia de accesos a páginas de memoria que realiza un proceso durante su ejecución. Cada número en la cadena representa el número de página que el proceso necesita acceder en ese momento. Se utiliza principalmente para simular y analizar el comportamiento de los algoritmos de reemplazo de páginas. Con ella se puede contar cuántos fallos de página ocurren y cuán eficiente es un algoritmo en un escenario dado.
 
 > **Anomalía de Belady**
-> 
+>
 > Si tengo una cantidad de frames para un proceso, al darle mas frames deberia tener menos fallo de pagina. Sin embargo, esto es erronea por la anomaliaal utilizar determinado algoritmo. De echo, da más fallos de pagina.
 
 #### Primero en entrar, primero en salir - FIFO
 
-- Lógica: Se reemplaza la página que fue cargada primero, sin importar si se ha utilizado recientemente.
-- Implementación: Se usa una cola circular; la primera en entrar es la primera en salir.
+-   Lógica: Se reemplaza la página que fue cargada primero, sin importar si se ha utilizado recientemente.
+-   Implementación: Se usa una cola circular; la primera en entrar es la primera en salir.
 
-|✅ **Ventajas**|❌ **Desventajas**|
-|---------------|-------------------|
-|- Facil implementación|- Vulnerable a la anomalía de Belady|
+| ✅ **Ventajas**        | ❌ **Desventajas**                   |
+| ---------------------- | ------------------------------------ |
+| - Facil implementación | - Vulnerable a la anomalía de Belady |
 
 Ejemplo:
 
-- Cantidad de frames disponibles: 3
-- Cadena de referencia: 7, 0, 1, 2, 0, 3, 0, 4, 2, 3, 0, 3, 2, 1, 2, 0, 1, 7, 0, 1
+-   Cantidad de frames disponibles: 3
+-   Cadena de referencia: 7, 0, 1, 2, 0, 3, 0, 4, 2, 3, 0, 3, 2, 1, 2, 0, 1, 7, 0, 1
 
 ![](/imgs/clase-6/Memoria%20Virtual/Algoritmo%20FIFO.png)
 
-| Paso | Página | Estado de los marcos | Acción                |
-| ---- | ------ | -------------------- | --------------------- |
+| Paso | Página | Estado de los marcos | Acción                 |
+| ---- | ------ | -------------------- | ---------------------- |
 | 1    | 7      | 7 \_ \_              | ❌ Fallo (inserta 7)   |
 | 2    | 0      | 7 0 \_               | ❌ Fallo (inserta 0)   |
 | 3    | 1      | 7 0 1                | ❌ Fallo (inserta 1)   |
@@ -2330,8 +2562,9 @@ Ejemplo:
 | 20   | 1      | 7 0 1                | ✅ Hit                 |
 
 Resultado final:
-- Faltas de página: 15
-- Hits: 5
+
+-   Faltas de página: 15
+-   Hits: 5
 
 #### Reemplazo de Páginas óptimo - OPT
 
@@ -2342,24 +2575,25 @@ Al ser un algoritmo futurista, es imposible implementarlo. Por lo que no se util
 #### Menos recientemente utilizado - LRU
 
 Selecciona como víctima la página que no ha sido utilizada hace más tiempo. Busca aproximarse al comportamiento óptimo (OPT), pero utilizando el historial de uso reciente en lugar de predecir el futuro. Requiere soporte de hardware. Sigue la siguiente secuencia:
+
 1. Se lleva un registro del último uso de cada página.
 2. Cuando ocurre un fallo de página, se elige la página que más tiempo lleva sin ser referenciada.
 3. Esa página se reemplaza y se actualiza el estado de acceso.
 
-|✅ **Ventajas**|❌ **Desventajas**|
-|---------------|-------------------|
-|Libre de anomalia de Belady|Requiere más hardware|
-|Se aproxima a OPT(mas rapido que FIFO)|Dificil implementación|
+| ✅ **Ventajas**                        | ❌ **Desventajas**     |
+| -------------------------------------- | ---------------------- |
+| Libre de anomalia de Belady            | Requiere más hardware  |
+| Se aproxima a OPT(mas rapido que FIFO) | Dificil implementación |
 
 Ejemplo:
 
-- Cantidad de frames disponibles: 3
-- Cadena de referencia: 7, 0, 1, 2, 0, 3, 0, 4, 2, 3, 0, 3, 2, 1, 2, 0, 1, 7, 0, 1
+-   Cantidad de frames disponibles: 3
+-   Cadena de referencia: 7, 0, 1, 2, 0, 3, 0, 4, 2, 3, 0, 3, 2, 1, 2, 0, 1, 7, 0, 1
 
 ![](/imgs/clase-6/Memoria%20Virtual/Algoritmo%20LRU.png)
 
-| Paso | Página | Estado de los marcos | Acción                |
-| ---- | ------ | -------------------- | --------------------- |
+| Paso | Página | Estado de los marcos | Acción                 |
+| ---- | ------ | -------------------- | ---------------------- |
 | 1    | 7      | 7 \_ \_              | ❌ Fallo (inserta 7)   |
 | 2    | 0      | 7 0 \_               | ❌ Fallo (inserta 0)   |
 | 3    | 1      | 7 0 1                | ❌ Fallo (inserta 1)   |
@@ -2382,22 +2616,24 @@ Ejemplo:
 | 20   | 1      | 7 0 1                | ✅ Hit                 |
 
 Resultado final:
-- Faltas de página: 12
-- Hits: 8
+
+-   Faltas de página: 12
+-   Hits: 8
 
 #### Más frecuentemente utilizada (MFU) / Menos frecuentemente utilizada (LFU)
 
 Se utiliza como LRU. Pero, en lugar de registrar el tiempo, se registra la cantidad de invocaciones al frame.
 
-|✅ **Ventajas**|❌ **Desventajas**|
-|---------------|-------------------|
-|Libre de anomalia de Belady|Requiere más hardware|
-||Dificil implementación|
-||Bajo rendimiento|
+| ✅ **Ventajas**             | ❌ **Desventajas**     |
+| --------------------------- | ---------------------- |
+| Libre de anomalia de Belady | Requiere más hardware  |
+|                             | Dificil implementación |
+|                             | Bajo rendimiento       |
 
 #### Bit de Referencia
 
 Es un bit asociado a cada página en memoria que indica si la página fue accedida recientemente. Sigue la siguiente secuencia:
+
 1. Cuando inicia la ejecución, el bit esta apagado
 2. Cada vez que se referencia el frame, el bit se enciende
 3. Periodicamente el SO resetea el bit
@@ -2406,31 +2642,34 @@ Es un bit asociado a cada página en memoria que indica si la página fue accedi
 #### Columna de Referencia
 
 Similar a bit, Es un registro de varios bits que refleja el historial reciente de accesos a la página en in intervalo de reseteo. Sigue la siguiente secuencia:
+
 1. Cuando ejecuta el SO el reset, hace un right shift del valor a la siguiente posición y se decsarta el bit menos significativo.
 2. Ante un fallo, se aplcia el FIFO entre los que tengan el valor de la columna mas bajo
 
 #### Segunda Oportunidad
 
 Similar a bit de referencia. Mantiene un apagador del bit. Ante un fallo:
-- bit = 0 => Se reemplaza
-- bit = 1 => Se le da una segunda oporttunidad y no se remplaza. Se pone el bit en 0, se mueve la pagina al final de la cola y se continua con la siguiente pagina
+
+-   bit = 0 => Se reemplaza
+-   bit = 1 => Se le da una segunda oporttunidad y no se remplaza. Se pone el bit en 0, se mueve la pagina al final de la cola y se continua con la siguiente pagina
 
 #### Segunda Oportunidad Mejorada
 
 Cada página ahora tiene 2 bits:
-- Bit de referencia (R): indica si fue usada recientemente.
-- Bit de modificación (M): indica si fue modificada.
+
+-   Bit de referencia (R): indica si fue usada recientemente.
+-   Bit de modificación (M): indica si fue modificada.
 
 Se evalúa en este orden de prioridad al buscar qué página reemplazar:
 
-- R = 0, M = 0 → Página no usada ni modificada → ideal para reemplazo.
-- R = 0, M = 1 → No usada pero modificada → reemplazable, pero requiere escritura a disco.
-- R = 1, M = 0 → Usada pero no modificada → se deja.
-- R = 1, M = 1 → Usada y modificada → también se deja.
+-   R = 0, M = 0 → Página no usada ni modificada → ideal para reemplazo.
+-   R = 0, M = 1 → No usada pero modificada → reemplazable, pero requiere escritura a disco.
+-   R = 1, M = 0 → Usada pero no modificada → se deja.
+-   R = 1, M = 1 → Usada y modificada → también se deja.
 
 Si no se encuentra una página en los primeros grupos, se puede reiniciar los bits de referencia y repetir la búsqueda.
 
-### Como Asignar Frames a los Procesos
+### Como Asignar Frames a los Procesos (completar)
 
 Este tema responde a la pregunta:
 
@@ -2439,24 +2678,25 @@ Este tema responde a la pregunta:
 El número mínimo de marcos que puede necesitar un proceso depende de la arquitectura del sistema y del tipo de instrucciones que ejecuta. Ejemplo:
 
 > Si una instrucción de CPU permite realizar una suma entre dos operandos directos en memoria y almacenar el resultado en otra dirección:
-> - 1 marco para el código
-> - 2 marcos para los operandos
-> - 1 marco para el resultado
-> 
+>
+> -   1 marco para el código
+> -   2 marcos para los operandos
+> -   1 marco para el resultado
+>
 > Total minimo: 4 frames
 
-<!-- 
+<!--
 Se trata del proceso mediante el cual se decide cuántos marcos de memoria (de la RAM) se asignan a cada proceso. Esto puede hacerse:
 - Inicialmente (cuando el proceso comienza).
 - Durante la ejecución, si se permite modificar esa asignación.
 
 > Ejemplo: Supongamos que
-> 
+>
 > - Memoria física total: 1024 KB.
 > - Tamaño de página y marco: 4096 bytes (4 KB) →  256 marcos.
 > - Tamaño del SO: 248 KB → 62 páginas.
 > - Tamaño Restante: 776 KB → 194 páginas.
-> 
+>
 > Cuando los procesos comienzan a ejecutarse, se les van asignando marcos conforme vayan produciendo fallos de página (page faults). Cuando ya no queden marcos libres, el sistema debe utilizar un algoritmo de reemplazo de página.
 -->
 
@@ -2464,36 +2704,41 @@ Se trata del proceso mediante el cual se decide cuántos marcos de memoria (de l
 
 Cuando ocurre un fallo de página, el sistema debe decidir qué página reemplazar. Esta decisión puede tomarse considerando diferentes ámbitos:
 
-- **Reemplazo Local**
-  -  Objetivo: Mantener estable la asignación calculada inicialmente.
-  -  Funcionalidad: Las únicas páginas que se considerarán para su intercambio serán aquellas pertenecientes al mismo proceso que el que causó el fallo.
-- **Reemplazo Global**
-  - Los algoritmos de asignación determinan el espacio asignado a los procesos al ser inicializados. 
+-   **Reemplazo Local**
+    -   Objetivo: Mantener estable la asignación calculada inicialmente.
+    -   Funcionalidad: Las únicas páginas que se considerarán para su intercambio serán aquellas pertenecientes al mismo proceso que el que causó el fallo.
+-   **Reemplazo Global**
 
-- **Reemplazo Global con Prioridad** ->
+    -   Los algoritmos de asignación determinan el espacio asignado a los procesos al ser inicializados.
+
+-   **Reemplazo Global con Prioridad** ->
 
 ### Hiperpaginación
 
 La hiperpaginación sucede cuando la frecuencia de reemplazo de páginas es tan alto que el sistema no puede avanzar, y casi todo el trabajo es realizado con overhead. Se puede dar 2 casos:
-- Local -> Algunos de los procesos tiene pocos frames asignados
-- Global -> Hay demasiados procesos activos y la memoria física es insuficiente para todos.
+
+-   Local -> Algunos de los procesos tiene pocos frames asignados
+-   Global -> Hay demasiados procesos activos y la memoria física es insuficiente para todos.
 
 **⚠️Sintomas:**
-- 📈 Aumento en la tasa de page faults.
-- 🐌 Accesos a memoria más lentos.
-- 🔻 Disminución en la utilización del CPU.
-- ⛔ El sistema no realiza trabajo útil, solo se dedica a paginar.
+
+-   📈 Aumento en la tasa de page faults.
+-   🐌 Accesos a memoria más lentos.
+-   🔻 Disminución en la utilización del CPU.
+-   ⛔ El sistema no realiza trabajo útil, solo se dedica a paginar.
 
 **🛠️ Soluciones**
-- 🔽 Reducir el grado de multiprogramación -> Menos procesos ejecutándose = menos presión sobre la memoria.
-- 💤 Suspender o eliminar procesos -> Liberar recursos para los procesos realmente activos.
-- 🧠 Agregar más memoria física (RAM)
 
-## Sistemas Mixtos (Segmentación con Paginación)
+-   🔽 Reducir el grado de multiprogramación -> Menos procesos ejecutándose = menos presión sobre la memoria.
+-   💤 Suspender o eliminar procesos -> Liberar recursos para los procesos realmente activos.
+-   🧠 Agregar más memoria física (RAM)
+
+## Sistemas Mixtos (Segmentación con Paginación) (completar)
 
 ### Definición
 
 Esta técnica combina lo mejor de dos mundos `Segmentación lógica + Paginación física`. La dirección virtual se divide en tres partes:
+
 1. `s` -> Segmento
 2. `p` -> Página
 3. `o` -> Desplazamiento
@@ -2512,12 +2757,16 @@ No es posible el intercambio de pagina y segmento en el direccionamiento. Porque
 ### Ventajas y Desventajas
 
 ✅ **Ventajas**
-- Permite compartir segmentos entre procesos (como bibliotecas compartidas).
-- No es necesario cargar todo un segmento en memoria; solo las páginas requeridas.
-- Elimina la necesidad de compactación, porque los segmentos se dividen en páginas que se ubican en cualquier parte de la RAM.
+
+-   Permite compartir segmentos entre procesos (como bibliotecas compartidas).
+-   No es necesario cargar todo un segmento en memoria; solo las páginas requeridas.
+-   Elimina la necesidad de compactación, porque los segmentos se dividen en páginas que se ubican en cualquier parte de la RAM.
 
 ❌ **Desventajas**
-- Requiere más hardware para direccionamiento (TLB, tablas jerárquicas, etc).
-- El proceso de traducción de direcciones es más lento (más niveles de acceso).
-- El sistema operativo ocupa más espacio por las múltiples estructuras de control (segmentos + páginas).
-- Aumenta la fragmentación interna, ya que puede sobrar espacio dentro de cada página si el contenido del segmento no la completa.
+
+-   Requiere más hardware para direccionamiento (TLB, tablas jerárquicas, etc).
+-   El proceso de traducción de direcciones es más lento (más niveles de acceso).
+-   El sistema operativo ocupa más espacio por las múltiples estructuras de control (segmentos + páginas).
+-   Aumenta la fragmentación interna, ya que puede sobrar espacio dentro de cada página si el contenido del segmento no la completa.
+
+# Modulo 6: Administración de Entrada/Salida - File System
