@@ -163,7 +163,7 @@
       - [Detectar y Recuperar](#detectar-y-recuperar)
       - [Algoritmo Avestruz (ignorarlo)](#algoritmo-avestruz-ignorarlo)
   - [Practica: Semaforos para los Procesos](#practica-semaforos-para-los-procesos)
-- [🧠 Módulo 5: Administración de Memoria](#-módulo-5-administración-de-memoria)
+- [Módulo 5: Administración de Memoria](#módulo-5-administración-de-memoria)
   - [Funciones y Operaciones](#funciones-y-operaciones)
     - [🔍 Consideraciones Generales](#-consideraciones-generales)
     - [🗺️ Espacio de Direccionamiento](#️-espacio-de-direccionamiento)
@@ -213,7 +213,32 @@
     - [Definición](#definición-11)
     - [Funcionamiento](#funcionamiento)
     - [Ventajas y Desventajas](#ventajas-y-desventajas)
-- [Modulo 6: Administración de Entrada/Salida - File System](#modulo-6-administración-de-entradasalida---file-system)
+- [Modulo 6: Administración de Entrada/Salida](#modulo-6-administración-de-entradasalida)
+  - [🧩 Módulo de Entrada/Salida (E/S)](#-módulo-de-entradasalida-es)
+    - [¿Por qué se necesita un módulo exclusivo?](#por-qué-se-necesita-un-módulo-exclusivo)
+    - [Interfaces](#interfaces)
+    - [Puerto Norte y Sur](#puerto-norte-y-sur)
+    - [Funciones del Modulo](#funciones-del-modulo)
+    - [Drivers](#drivers)
+    - [Tecnicas de E/S](#tecnicas-de-es)
+      - [E/S Programado (Polling)](#es-programado-polling)
+      - [E/S Dirigida por Interrupciones](#es-dirigida-por-interrupciones)
+      - [Acceso Directo a Memoria (DMA)](#acceso-directo-a-memoria-dma)
+        - [Definición](#definición-12)
+        - [Tecnicas de DMA](#tecnicas-de-dma)
+  - [Discos Rigidos](#discos-rigidos)
+    - [Porque estudiar los discos?](#porque-estudiar-los-discos)
+    - [Arquitectura del Disco](#arquitectura-del-disco)
+    - [Tiempos de Acceso a un Sector](#tiempos-de-acceso-a-un-sector)
+    - [Algoritmos de Planificación del Brazo del Disco](#algoritmos-de-planificación-del-brazo-del-disco)
+      - [FCFS o FIFO - Primero en entrar, primero en salir](#fcfs-o-fifo---primero-en-entrar-primero-en-salir)
+      - [SSTF (Shortest Seek Time Fists) - Primero el más corto.](#sstf-shortest-seek-time-fists---primero-el-más-corto)
+      - [SCAN - Recorre el disco de un lado a otro](#scan---recorre-el-disco-de-un-lado-a-otro)
+      - [C-SCAN (scan circular) - Recorre el disco en un solo sentido.](#c-scan-scan-circular---recorre-el-disco-en-un-solo-sentido)
+      - [LOOK-UP](#look-up)
+      - [C-LOOK-UP (LOOK Circular)](#c-look-up-look-circular)
+  - [Dipositivos de Estado Sólido](#dipositivos-de-estado-sólido)
+- [Modulo 7: File System](#modulo-7-file-system)
 
 # Modulo 1: Introducción a los Sistemas Operativos
 
@@ -2056,7 +2081,7 @@ Se crea que la frecuencia de un bloqueo es muy poco comun y no reperctura en el 
 
 ## Practica: Semaforos para los Procesos
 
-# 🧠 Módulo 5: Administración de Memoria
+# Módulo 5: Administración de Memoria
 
 ## Funciones y Operaciones
 
@@ -2769,4 +2794,209 @@ No es posible el intercambio de pagina y segmento en el direccionamiento. Porque
 -   El sistema operativo ocupa más espacio por las múltiples estructuras de control (segmentos + páginas).
 -   Aumenta la fragmentación interna, ya que puede sobrar espacio dentro de cada página si el contenido del segmento no la completa.
 
-# Modulo 6: Administración de Entrada/Salida - File System
+# Modulo 6: Administración de Entrada/Salida
+
+## 🧩 Módulo de Entrada/Salida (E/S)
+
+### ¿Por qué se necesita un módulo exclusivo?
+
+Recordar la arquitectura Harvarnd; se tiene 3 bloques funcionales, uno para el CPU, otro para la memoria principal y otro para I/O, todo conectado por Busses.
+
+Los periféricos no se conectan directamente a los buses del sistema debido a:
+
+-   Su baja velocidad respecto a la memoria principal.
+-   La diferencia en el tamaño de los datos que manejan (los CPUs direccionan en bytes, los dispositivos pueden hacerlo en tamaños arbitrarios).
+
+Solución:
+
+-   Interfaz con CPU y memoria a través del bus del sistema.
+-   Interfaz con los dispositivos externos mediante conexiones especializadas.
+
+### Interfaces
+
+![](/imgs/clase-7/Interfaces.png)
+
+Una interfaz permite la comunicación entre la CPU y dispositivos externos. La unidad de E/S incluye tanto a las interfaces como los dispositivos externos (periféricos, almacenamiento secundario).
+
+![](/imgs/clase-7/modulo%20entrada%20salida.png)
+
+-   **Lado izquierdo**: Interfaz con Busses del Sistema
+
+    -   Comunicación síncrona, a velocidad de CPU/memoria.
+        -   Utiliza una misma señal de sincronismo (comparten clock)
+    -   Del lado del CPU incluye:
+        -   Decodificador del comando
+        -   Datos
+        -   Informe de Estado
+        -   Reconocimiento de direcciones
+
+-   **Lado derecho:** Interfaz con Dispositivos Externos
+
+    -   Comunicación asíncrona, a velocidad del periférico.
+        -   Cada uno tiene su clock. No utiliza bus si no señales de control para indicar transferencias.
+    -   Cada dispositivo externo se conecta con:
+        -   Línea de datos
+        -   Línea de estado
+        -   Línea de control
+
+-   **Entre ambas:** Buffering
+    -   Actúa como intermediario.
+    -   Sincroniza ambos lados (sync <=> async).
+    -   Maneja diferencias de velocidad.
+    -   Ayuda a reducir errores.
+
+### Puerto Norte y Sur
+
+![](/imgs/clase-7/puerto%20norte%20y%20sur.png)
+
+Otro de los mecanismos de administración consta de los chips de Puente Norte y Sur:
+
+🔼 **Puerto Norte**
+
+-   Conexión directa con el CPU.
+-   Gestiona dispositivos de alta velocidad (memoria principal, PCI Express, clock, etc..)
+
+🔽 **Puente Sur**
+
+-   Conectado al puente norte
+-   Administra dispositivos periféricos (ranuras PCI, IDE, placas de audio, sata, etc...)
+
+### Funciones del Modulo
+
+-   Control y Temporizador
+-   Comunicación con el procesador
+-   Comunicación con el dispositivo
+-   buffering: Amortiguar velocidades
+-   Detección de errores. Ejemplo: mal funcionamiento, mecanico o electronico
+-   Manejo de interrupciones a bajo nivel. Ejemplo: informar la finalización de la escritura de un disco
+
+### Drivers
+
+-   Se comporta como una interfaz a nivel de software entre el CPU y E/S
+-   Conviene el flujo de bits en bloques de bytes
+
+Como ya se dijo anteriormente: La diferencia en el tamaño de los datos que manejan (los CPUs direccionan en bytes, los dispositivos pueden hacerlo en tamaños arbitrarios).
+
+### Tecnicas de E/S
+
+Hay 3 maneras, las primeras 2 estan obsoletas:
+
+#### E/S Programado (Polling)
+
+El procesador se ocupa hacer la proxima entrada y salida, es el que se fija todo (si puede transmitir, escribir, etc...). Desperdicia tiempo del CPU al tener que encargarse de todo.
+
+#### E/S Dirigida por Interrupciones
+
+El procesador tranmite a E/S, continua con su ejecución multiprocesador, y es interrumpido por el módulo de E/S cuando finalizo su laburo para chequear si esta en condiciones de transmitir o no.
+
+#### Acceso Directo a Memoria (DMA)
+
+##### Definición
+
+![](/imgs/clase-7/DMA1.png)
+
+![](/imgs/clase-7/DMA2.png)
+
+Esta técnica permite almacenar un contenido de la interfaz directo a memoria, sin tener que pasar por instrucciones o interrupciones de CPU.
+
+DMA Controller (DMAC) permite mover datos entre memoria principal y E/S. Toma el control de los buses y avisa al CPU cuando termina una interrupción.
+
+Cuando el procsador desea leer o escribir, emite un comando al DMA, enviando la siguiente información:
+
+-   Si es lectura o escritura
+-   Dirección E/S
+-   Offset
+-   Cantidad a escribir o leer
+
+##### Tecnicas de DMA
+
+-   **Por Ráfagas**
+
+![](/imgs/clase-7/DMA%20Robo%20ciclos.png)
+
+Aprovechar ciclos de reloj que no utiliza la CPU para transmitir una o más palabras, aprovechando al 100% el bus.
+
+Ralentiza el clock del CPU, le da más tiempo al DMAC, esto porque no utiliza los buses todo el tiempo si no en pequeños ciclos. Se aprovecha los pequeños ciclos que el CPU no utiliza el bus para que lo utiliza el DMAC.
+
+No afecta en gran magnitud el CPU.
+
+-   **Por Robo de Ciclos**
+
+Cuando el DMA toma el control del bus, lo retiene durante un solo ciclo. No tiene una diferencia considerable del uso del CPU.
+
+-   **DMA Transparente**
+
+El DMA solo toma el control del bus, cuando el CPU no lo utiliza. No afecta el CPU
+
+## Discos Rigidos
+
+### Porque estudiar los discos?
+
+-   Son el principal medio de almacenamiento a gran escala desde hace décadas.
+-   Se utilizan como soporte para memoria virtual
+
+### Arquitectura del Disco
+
+![](/imgs/clase-7/Arquitectura%20%20Disco.png)
+
+-   **Plato:** Disco circular donde se almacena la información.
+    -   Puede haber múltiples platos apilados.
+    -   Cada plato tiene dos caras (superior e inferior).
+-   **🧲 Cabezas o Brazo de lectura/escritura:** Lectora por cada plato dentro de la unidad. Se tiene una por cada plato.
+-   **Sectores**: División de cada cara del plato en porciones angulares (como “rebanadas de pizza”).
+-   **Pistas**: Conjuntos de sectores que forman un círculo concéntrico sobre la superficie de un plato.
+-   **Cilindro**: Conjunto de pistas alineadas verticalmente a través de todos los platos, en la misma posición radial.
+
+### Tiempos de Acceso a un Sector
+
+Se tiene varios tiempos en la transferencia de un disco. Pero, vamos agruparlos:
+
+1.  **Tiempo de Busqueda **: Tiempo para mover la cabeza lectora hacia la pista.
+2.  **Tiempo de Latencia Rotacional:** Tiempo que tarda el sector deseado en alinearse con la cabeza lectora.
+3.  **Tiempo de Transferencia:** Cuánto tarda el cabezal en leer la información que está en el sector
+4.  **Tiempo de Acceso o Respuesta Total(TT):** La suma de las anteriores velocidades
+
+El tiempo de transferencia es el unico constante, que se mantiene igual para todos los casos. EEl de busqueda y rotacional no, por lo que se deben planificar y optimizar.
+
+### Algoritmos de Planificación del Brazo del Disco
+
+Como se dijo anteriormente, las velocidades de tiempo de busqueda y latencia son bastantes distribuidas, por lo que hay que encontrar un algoritmo para estos.
+
+#### FCFS o FIFO - Primero en entrar, primero en salir
+
+Atiende las solicitudes en el orden en que llegan.
+
+#### SSTF (Shortest Seek Time Fists) - Primero el más corto.
+
+El tiempo de busqueda mas corto, lo atiendo primero. Tiene gran eficiencia.
+
+Es imposible aplicar en la practica, porque como sabes el tiempo de cada uno.
+
+#### SCAN - Recorre el disco de un lado a otro
+
+Atiende la solicitud más cercana a la posición actual del cabezal.
+
+La cabeza se mueve hasta el extremo y va leyendo los segmentos en el camino. Una vez llegado al extremo, cambia de dirección y se mueve al otro extremo leyendo los segmentos en el camini,
+
+El problema surge cuando le comienzan a llegar mas pedidos en la misma pista, se queda en un bucle constante en la misma y no al resto obsoleto.
+
+#### C-SCAN (scan circular) - Recorre el disco en un solo sentido.
+
+La cabeza se mueve de un extremo a otro del disco, no cambia de dirección (siempre es subida o bajada). Cuando alcanza el extremo inmediatamente retorna al comienzo del disco sin leer o escribir nada en el camino.
+
+Siempre nos movemos en una dirección (subida o bajada).
+
+#### LOOK-UP
+
+Similar a SCAN. La diferencia, es que no va hasta el extremo del disco, si no hasta el segmento mas lejos (o mas cercano del extremo), y a partir de ahí cambia de dirección y va hasta el otro segmento más lejos.
+
+#### C-LOOK-UP (LOOK Circular)
+
+Similar a C-SCAN. La diferencia, va hasta el segmento más lejos (o más cercano del extremo). Una vez ahí llegado ahí, se retorna de inmediato al otro segmento más lejos, sin leer o escribir nada en el camino, repetiendo el ciclo.
+
+## Dipositivos de Estado Sólido
+
+Son dispositivos de almacenamiento que no incluyen piezas móviles. Por lo que, sus velocidades de busqueda y latencia son infimos a diferencia del disco, eso explica su velocidad. Extsen diferentes implementaciones como: SSD, Flash, NVRAM.
+
+# Modulo 7: File System
+
