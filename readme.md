@@ -5,6 +5,11 @@
 > -   🎓 Alumno: Tiago Pujia | 👨‍🏫 Prof: Alexis Villamayor
 > -   🕔 Comisión 3900 [3 = Miercoles, 9 = Turno noche]
 > -   ▶️ [Clases Grabadas](https://www.youtube.com/)
+> -   Fuentes:
+>     -   Clases
+>     -   Presentaciones Powerpoints
+>     -   Libro de Wolf
+>     -   Libro de UTN
 
 ## Indice
 
@@ -163,7 +168,7 @@
       - [Detectar y Recuperar](#detectar-y-recuperar)
       - [Algoritmo Avestruz (ignorarlo)](#algoritmo-avestruz-ignorarlo)
   - [Practica: Semaforos para los Procesos](#practica-semaforos-para-los-procesos)
-- [Módulo 5: Administración de Memoria](#módulo-5-administración-de-memoria)
+- [Modulo 5: Administración de Memoria](#modulo-5-administración-de-memoria)
   - [Funciones y Operaciones](#funciones-y-operaciones)
     - [🔍 Consideraciones Generales](#-consideraciones-generales)
     - [🗺️ Espacio de Direccionamiento](#️-espacio-de-direccionamiento)
@@ -175,24 +180,25 @@
       - [📦 2. En Tiempo de Carga](#-2-en-tiempo-de-carga)
       - [🔁 3. En Tiempo de Ejecución](#-3-en-tiempo-de-ejecución)
   - [Asignación de Memoria Contigua](#asignación-de-memoria-contigua)
+    - [Conceptos Varios: Fragmentación y Compactación](#conceptos-varios-fragmentación-y-compactación)
     - [Sistema Monoprogramado (Unica Partición)](#sistema-monoprogramado-unica-partición)
     - [Particiones Fijas](#particiones-fijas)
     - [Particiones Variables](#particiones-variables)
-    - [📊 Tabla Comparativa de Esquemas de Asignación de Memoria Contigua](#-tabla-comparativa-de-esquemas-de-asignación-de-memoria-contigua)
     - [Segmentación](#segmentación)
       - [Definición](#definición-8)
-      - [📌 Características](#-características)
       - [🛠 ¿Cómo se administra?](#-cómo-se-administra)
       - [✅ Ejemplo práctico](#-ejemplo-práctico)
     - [Paginación](#paginación)
       - [Definición](#definición-9)
       - [⚙️ ¿Cómo funciona?](#️-cómo-funciona)
-      - [Caracteristicas](#caracteristicas-2)
       - [⚡️ Optimización: TLB (Translation Lookaside Buffer)](#️-optimización-tlb-translation-lookaside-buffer)
-      - [Paginación Multinivel](#paginación-multinivel)
       - [Memoria Compartida](#memoria-compartida)
+      - [Paginación Multinivel](#paginación-multinivel)
+    - [Segmentación con Paginación (mixto)](#segmentación-con-paginación-mixto)
+      - [Definición](#definición-10)
+      - [🛠 ¿Cómo se administra?](#-cómo-se-administra-1)
   - [Memoria Virtual](#memoria-virtual)
-    - [Definición](#definición-10)
+    - [Definición](#definición-11)
     - [Swapping](#swapping)
     - [Paginación bajo demanda](#paginación-bajo-demanda)
     - [Protocolo al Tener Fallo de página](#protocolo-al-tener-fallo-de-página)
@@ -206,13 +212,11 @@
       - [Columna de Referencia](#columna-de-referencia)
       - [Segunda Oportunidad](#segunda-oportunidad)
       - [Segunda Oportunidad Mejorada](#segunda-oportunidad-mejorada)
-    - [Como Asignar Frames a los Procesos (completar)](#como-asignar-frames-a-los-procesos-completar)
-      - [Algoritmos de reemplazo de Páginas](#algoritmos-de-reemplazo-de-páginas)
+    - [Asignar Frames a los Procesos (completar)](#asignar-frames-a-los-procesos-completar)
+      - [Mínimo de Marcos](#mínimo-de-marcos)
+      - [Esquemas de Asignación](#esquemas-de-asignación)
+      - [Algoritmos de Reemplazo de Páginas](#algoritmos-de-reemplazo-de-páginas)
     - [Hiperpaginación](#hiperpaginación)
-  - [Sistemas Mixtos (Segmentación con Paginación) (completar)](#sistemas-mixtos-segmentación-con-paginación-completar)
-    - [Definición](#definición-11)
-    - [Funcionamiento](#funcionamiento)
-    - [Ventajas y Desventajas](#ventajas-y-desventajas)
 - [Modulo 6: Administración de Entrada/Salida](#modulo-6-administración-de-entradasalida)
   - [🧩 Módulo de Entrada/Salida (E/S)](#-módulo-de-entradasalida-es)
     - [¿Por qué se necesita un módulo exclusivo?](#por-qué-se-necesita-un-módulo-exclusivo)
@@ -239,6 +243,19 @@
       - [C-LOOK-UP (LOOK Circular)](#c-look-up-look-circular)
   - [Dipositivos de Estado Sólido](#dipositivos-de-estado-sólido)
 - [Modulo 7: File System](#modulo-7-file-system)
+  - [Definición](#definición-13)
+  - [Objetivos y Funciones](#objetivos-y-funciones)
+  - [Administración del Espacio libre](#administración-del-espacio-libre)
+    - [Bit Map o Bit Vector](#bit-map-o-bit-vector)
+    - [Lista Enlazada de Bloques Libres (TDA Lista)](#lista-enlazada-de-bloques-libres-tda-lista)
+    - [Agrupamiento de Bloques de Direcciones Libres](#agrupamiento-de-bloques-de-direcciones-libres)
+    - [Bloques De Direcciones Libres Contiguas](#bloques-de-direcciones-libres-contiguas)
+  - [Métodos de Asignación de Espacio para los archivos](#métodos-de-asignación-de-espacio-para-los-archivos)
+    - [Asignación Contigua](#asignación-contigua)
+    - [Asignación Dinámica](#asignación-dinámica)
+    - [Vinculado/Enlazado/Encadenado (Lista Simplemente Enlazada - Sistema de Nodos)](#vinculadoenlazadoencadenado-lista-simplemente-enlazada---sistema-de-nodos)
+    - [Indexado](#indexado)
+    - [Acceso Secuencial](#acceso-secuencial)
 
 # Modulo 1: Introducción a los Sistemas Operativos
 
@@ -2081,17 +2098,17 @@ Se crea que la frecuencia de un bloqueo es muy poco comun y no reperctura en el 
 
 ## Practica: Semaforos para los Procesos
 
-# Módulo 5: Administración de Memoria
+# Modulo 5: Administración de Memoria
 
 ## Funciones y Operaciones
 
 ### 🔍 Consideraciones Generales
 
-Por diseño, el\*único espacio de memoria que el procesador puede utilizar directamente es la memoria central (MC), también llamada memoria principal (MP) o RAM. No se utilizan otras memorias para ejecutar instrucciones debido a:
+Por diseño, el único espacio de memoria que el procesador puede utilizar directamente es la memoria central (MC), también llamada memoria principal (MP) o RAM. No se utilizan otras memorias para ejecutar instrucciones debido a:
 
 -   **📌 Caché** -> Se usa para mejorar el rendimiento. Solo replica el contenido de la MC para acelerar el acceso. No es direccionable directamente por el procesador.
 
--   **📌 Registros** -> Son muy pocos\*\* y muy pequeños. Se usan para operaciones internas del CPU, no para almacenar programas o datos permanentes.
+-   **📌 Registros** -> Son muy pocos y muy pequeños. Se usan para operaciones internas del CPU, no para almacenar programas o datos permanentes.
 
 -   **📌 Disco (almacenamiento)** -> Aparte de que son muy lentos, no se puede por ser un dispositivo de entrada y salida, no esta conectado directamente a los busses del sistema. Solo sirve para almacenamiento secundario.
 
@@ -2105,13 +2122,15 @@ En los sistemas modernos, los datos se mueven por el bus de datos, y las instruc
 | ------------ | ----------------- | ------------------------------ |
 | 16 bits      | `2^16`            | 65,536 bytes = **64 KB**       |
 | 32 bits      | `2^32`            | 4,294,967,296 bytes = **4 GB** |
-| 64 bits      | `2^64`            | ≈ 1.8 × 10¹⁹ bytes = **16 EB** |
+| 64 bits      | `2^40` a `2^48`   |                                |
+
+A pesar de tener 64 tiras de bits, se utilizan solo entre 40 a 48. Por temas economicos.
 
 Para sistemas de 32 bits que requieren más de 4 GB de RAM, se puede usar **PAE** (_Physical Address Extension_), una tecnología que añade más bits al direccionamiento físico, permitiendo acceder a más memoria aunque el espacio lógico siga siendo de 32 bits.
 
 ### ⚙️ Hardware: MMU (Memory Management Unit)
 
-La **MMU (Unidad de Gestión de Memoria)** es un componente de hardware que se encarga de gestionar el acceso a la memoria central en sistemas con CPU multitarea\*
+La **MMU (Unidad de Gestión de Memoria)** es un componente de hardware que se encarga de gestionar el acceso a la memoria central en sistemas con CPU multitarea.
 
 Cuando múltiples programas se ejecutan al mismo tiempo, el sistema operativo necesita decidir cómo y dónde ubicarlos en la memoria física. La MMU se encarga de hacer cumplir esas decisiones y proteger los espacios de cada proceso.
 
@@ -2124,8 +2143,6 @@ Algunas de sus principales funcionalides:
 -   **Soporte para memoria virtual** _(tema que se verá más adelante)_ -> Permite que un proceso use más memoria de la que físicamente hay disponible, gracias al uso combinado de RAM y disco.
 
 ![](/imgs/clase-6/gestionar%20programas.png)
-
-🔒 La MMU actúa como un "guardia de seguridad" que impide que un proceso interfiera con otro en memoria. Usa **tablas y registros** para mantener este control automáticamente en cada acceso de memoria.
 
 ### ⚙️ Hardware: Caché
 
@@ -2161,9 +2178,9 @@ Cuando se crea un proceso, el sistema operativo le asigna un espacio de memoria 
 
 ### Como se manejan las Direcciones
 
-El manejo de direcciones de memoria depende del hardware y del sistema operativo.
+El compilador sustituye los nombres simbolicos de las variables/funciones, por direcciones en memoria donde se encuentran realmente almacenados.
 
-El compilador reemplaza variables y funciones por direcciones de memoria, pero estas deben ser traducidas a direcciones relativas o dinámicas para poder coexistir con otros procesos sin conflictos. Existen tres enfoques principales, según **cuándo** se realiza la conversión de las direcciones lógicas del programa a direcciones físicas reales en memoria:
+Los sistemas actuales que son multiprogramados, requieren coexistir con otros para poder vivir, por lo que existen diferentes enfoques:
 
 | Estrategia            | Traducción ocurre en...    | Flexible   | Riesgo de conflicto |
 | --------------------- | -------------------------- | ---------- | ------------------- |
@@ -2192,7 +2209,7 @@ El compilador reemplaza variables y funciones por direcciones de memoria, pero e
     -   Una **posición base**
     -   Un **desplazamiento (offset)**
 
--   La traducción la realiza el hardware mediante la **MMU (Unidad de Gestión de Memoria)**.
+-   Requiere hardware especifico (MMU).
 
 > ✅ Es el método más flexible y seguro, ya que permite:
 >
@@ -2202,7 +2219,17 @@ El compilador reemplaza variables y funciones por direcciones de memoria, pero e
 
 ## Asignación de Memoria Contigua
 
-Definimos como utilizar la memoria principal para utilizar los programas. Para esto, se tienen 3 algoritmos.
+Como existen sistemas multitarea, se hizo necesario resolver cómo asignar el espacio en memoria a difernetes procesos. Existen multiples metodos para esto.
+
+### Conceptos Varios: Fragmentación y Compactación
+
+La **fragmentación** Es un fenomeno que se manifiesta cuando los procesos terminan su ejecución, y el sistema operativo libera la memoria. Si los procesos se encontraban en regiones de memoria no contiguas, comienzan a aparecer regiones disponibles, huecos entre sí dificiles de utilizar. Existen 2 tipos de fragmentaciones:
+- **Fragmentación Externa**: Hay muchos bloques libres entre los bloques asignados a procesos.
+- **Fragmentación Interna**: Cantidad de memoria dentro de un bloque que nunca se usará.
+
+La **Compatación** es una operación de compresión. Mueve los bloques de memoria asignados para que esten de manera contigua, eliminando la fragmentación externa. El problema, es que tiene un costo alto de operación.
+
+![](/imgs/clase-6/Asignacion-Memoria/Compactacion.png)
 
 ### Sistema Monoprogramado (Unica Partición)
 
@@ -2221,7 +2248,11 @@ El **registro límite** indica la dirección mínima válida que un proceso pued
 
 ![](/imgs/clase-6/Asignacion-Memoria/Estructura%20particiones%20fijas.png)
 
-En este esquema, la memoria principal se divide en particiones de tamaño fijo, previamente definidas por el sistema operativo. Una vez cargado el Sistema Operativo (SO), el resto de la memoria se divide en bloques (particiones). Cada proceso será cargado en la partición más adecuada según su tamaño\*\*, y la cola de trabajos se recorrerá en busca de un espacio disponible. La cantidad de particiones define cuántos procesos concurrentes se pueden ejecutar. No importa si hay memoria libre entre procesos, no se reutiliza dinámicamente. Se sigue la siguiente secuencia:
+![](/imgs/clase-6/Asignacion-Memoria/Estructura%20particiones%20fijas%202.png)
+
+La memoria principal se divide en particiones de tamaños fijo. Pueden ser todas las particiones del mismo o distinto tamaño, pero en ambos casos fijos. Una vez definidos, no cambian. 
+
+Cada proceso será cargado en la partición más adecuada según su tamaño, y la cola de trabajos se recorrerá en busca de un espacio disponible. La cantidad de particiones define cuántos procesos concurrentes se pueden ejecutar. No importa si hay memoria libre entre procesos, no se reutiliza dinámicamente. Se sigue la siguiente secuencia:
 
 1. El SO se carga primero en una región protegida de memoria.
 2. El resto se divide en particiones: Partición 1, Partición 2, Partición 3, etc...
@@ -2236,49 +2267,41 @@ Si un programa necesita `X` bytes y tengo una partición de `Y` bytes...
 | `X = Y`     | ✅ Se ejecuta normalmente, sin desperdicio.                           |
 | `X < Y`     | ⚠️ Se ejecuta, pero queda espacio sin usar → _Fragmentación interna_. |
 
-Este modelo **puede combinarse con memoria virtual**. Cuando no hay suficiente memoria física disponible, se puede usar **espacio en disco (swap)** para simular memoria adicional.
+✅ **Ventajas**
+- Sencillo
+- Puede utilizar memoria virtual
+
+❌ **Desventajas**
+- Fragmentación Externa e Interna
 
 ### Particiones Variables
 
 ![](/imgs/clase-6/Asignacion-Memoria/Estructura%20particiones%20Variables.png)
 
-En este modelo, la memoria se asigna dinámicamente en función del tamaño del proceso a ubicar. Es decir, no hay bloques fijos como en las particiones estáticas: el sistema crea particiones del tamaño exacto necesario en el momento. Sigue la siguiente secuencia:
+Las particiones no están predefinidas. Se van creando a demanda que los procesos necesiten. Tampoco hay un numero fijo de particiones, si no, tantas como se necesiten. Sigue la siguiente secuencia:
 
 1. El sistema operativo se carga primero en la memoria.
 2. Los procesos se ubican en las regiones de memoria libres y adecuadas según su tamaño.
 3. Al finalizar un proceso, su bloque queda disponible y puede ser reutilizado por otros.
-4. Con el tiempo, puede generarse fragmentación externa.
 
 ¿Dónde ubicar un nuevo proceso si hay varios huecos (holes) de distintos tamaños? Para eso se siguen diferentes algoritmos:
 
 | Algoritmo     | Descripción                                                                  | Peso Computacional |
 | ------------- | ---------------------------------------------------------------------------- | ------------------ |
-| **First Fit** | Asigna el proceso al **primer hueco** suficientemente grande que encuentra.  | ⚡ Rápido (ligero) |
-| **Best Fit**  | Busca el **bloque más justo posible**, donde sobre menos memoria.            | 🐢 Lento (pesado)  |
-| **Worst Fit** | Busca el **hueco más grande**, para evitar fragmentación en espacios chicos. | 🐢 Lento (pesado)  |
+| **Primer Ajuste** | Asigna el proceso al **primer hueco** suficientemente grande que encuentra.  | ⚡ Rápido (ligero) |
+| **Mejor Ajuste**  | Busca el **bloque más justo posible**, donde sobre menos memoria.            | 🐢 Lento (pesado)  |
+| **Peor Ajuste** | Busca el **hueco más grande**, para evitar fragmentación en espacios chicos. | 🐢 Lento (pesado)  |
+
+El problema  de los otros 2 es que deben recorrer demasiado.
 
 Puede usarse memoria virtual.
 
-![](/imgs/clase-6/Asignacion-Memoria/Compactacion.png)
+✅ **Ventajas**
+- Cantidad de multitarea ilimitada
+- No existe fragmentación interna
 
-A medida que los procesos se crean y terminan, la memoria libre queda dividida en huecos dispersos (**fragmentación externa**).  
-Esto dificulta la asignación de nuevos procesos aunque haya suficiente memoria total disponible.
-
-Para solucionar esto, se utiliza la **compactación**. Es una operación costosa que reubica todos los procesos en memoria contigua para consolidar el espacio libre en un solo bloque.
-
-### 📊 Tabla Comparativa de Esquemas de Asignación de Memoria Contigua
-
-| Característica                 | 🟦 Monoprogramado (Única partición) | 🟩 Particiones Fijas                          | 🟨 Particiones Variables                  |
-| ------------------------------ | ----------------------------------- | --------------------------------------------- | ----------------------------------------- |
-| 🔢 Nº de procesos concurrentes | 1 solo                              | Igual al número de particiones                | Ilimitado (según memoria disponible)      |
-| ⚒️ Asignación de memoria       | Estática y única                    | Estática, dividida en bloques predeterminados | Dinámica (ajustada al tamaño del proceso) |
-| 💥 Fragmentación               | No                                  | Interna                                       | Externa                                   |
-| 🧹 Solución a la fragmentación | No necesaria                        | No se suele resolver                          | Compactación (costosa)                    |
-| 🔁 Reutilización de memoria    | No aplica                           | Solo si se libera toda la partición           | Sí, con gestión dinámica                  |
-| ⚙️ Algoritmos de asignación    | No aplica                           | No aplica                                     | First Fit, Best Fit, Worst Fit            |
-| 📦 Flexibilidad                | Nula                                | Baja                                          | Alta                                      |
-| 💾 Soporte de Memoria Virtual  | ❌ No                               | ✅ Posible                                    | ✅ Posible                                |
-| ⏳ Coste de administración     | Muy bajo                            | Bajo                                          | Medio - Alto                              |
+❌ **Desventajas**
+- Existe fragmentación externa
 
 ### Segmentación
 
@@ -2286,8 +2309,7 @@ Para solucionar esto, se utiliza la **compactación**. Es una operación costosa
 
 ![](/imgs/clase-6/Asignacion-Memoria/Estructura%20Segmentacion.png)
 
-La segmentación es una técnica de administración de memoria que divide la memoria lógica de un programa en segmentos de tamaño variable.  
-Cada segmento representa una unidad lógica o funcional del programa, como:
+La idea consta de dividir a un proceso en varios segmentos. Es decir, se puede guardar un proceso en diferentes lugares de la memoria. Cada segmento representa una unidad lógica o funcional del programa, como:
 
 -   Código (read only, execution)
 -   Tabla de Símbolos
@@ -2295,8 +2317,19 @@ Cada segmento representa una unidad lógica o funcional del programa, como:
 -   Heap
 -   Bibliotecas compartidas (shared libraries)
 
-Estos segmentos pueden tener **diferentes tipos de acceso**: solo lectura, escritura o ejecución. Además, pueden **compartirse entre procesos**, como ocurre con las bibliotecas dinámicas.
+Estos segmentos pueden tener **diferentes tipos de acceso**: lectura, escritura o ejecución.
 
+✅ **Ventajas**
+- No existe fragmentación interna
+- Puede utilizar memoria virtual
+- Se pueden compartir segmentos entre procesos
+- Se puede asignar permisos a los procesos
+
+❌ **Desventajas**
+- Existe fragmentación externa
+- Requiere hardware (proximo cap)
+
+<!-- 
 #### 📌 Características
 
 -   ✅ **Tamaño variable**: A diferencia de la paginación, que usa bloques fijos, los segmentos pueden ser de cualquier tamaño.
@@ -2306,8 +2339,11 @@ Estos segmentos pueden tener **diferentes tipos de acceso**: solo lectura, escri
 -   🔁 **Gestión similar a particiones variables**: El espacio libre se fragmenta de forma externa y puede ser compactado.
 -   ⚠️ **Fragmentación externa**: Aunque puede compactarse, esto implica overhead (costo de CPU).
 -   🧰 **Requiere soporte de hardware**: Se necesita una **MMU** (Unidad de Gestión de Memoria) con soporte de segmentación.
+-->
 
 #### 🛠 ¿Cómo se administra?
+
+Se utilizan tablas SMT (Segment Memory Table) para gestionar los procesos de manera eficiente. El proceso para transformar las direcciones logicas(indicar N° segmento) a fisicas (dirección real en memoria):
 
 ![](/imgs/clase-6/Asignacion-Memoria/Estructura%20Segmentacion%20Administracion.png)
 
@@ -2343,13 +2379,26 @@ Si el programa quiere acceder a la dirección `1:100`, entonces:
 
 ![](/imgs/clase-6/Asignacion-Memoria/Estructura%20Paginacion.png)
 
-La paginación es una técnica de administración de memoria que divide tanto la memoria lógica (programa) como la memoria física (RAM) en bloques del mismo tamaño. Para comprender mejor los conceptos:
+El proceso se divide en porciones llamadas `páginas`, todos en tamaños iguales. La memoria, se divide en `frames` (marcos), de igual tamaño que las págijas. Para comprender mejor los conceptos:
 
 -   🔹 **Página (page)**: Unidad de división de la **memoria lógica** del proceso (programa).
 -   🔹 **Marco (frame)**: Unidad de división de la **memoria física** del sistema.
 -   📐 **Tamaño**: Las páginas y marcos tienen igual tamaño (potencias de 2, ej. 4KB, 8KB...).
 
+En este caso, los componentes de los procesos requieren estar todos contiguos, en un mismo orden.
+
+✅ **Ventajas**
+- No existe fragmentación externa
+- Puede utilizar memoria virtual
+- Se pueden compartir frames entre procesos
+
+❌ **Desventajas**
+- requiere hardware
+- Al tener paginas de tamaño fijo, tiene fragmentación interna
+
 #### ⚙️ ¿Cómo funciona?
+
+En este caso, tambien se necesita una `tabla de páginas` (una por cada proceso) que me indica en qué posición real de la memoria uniqué a cada pagina
 
 ![](/imgs/clase-6/Asignacion-Memoria/Estructura%20Paginacion%20Bus.png)
 
@@ -2373,27 +2422,17 @@ El bus de direcciones se parte en 2:
     - `Dirección Lógica = Página (p) + Desplazamiento (d)`
     - `Dirección Física = Dirección Base del Marco + d`
 
-Para indicar si un frame esta ocupado o libre, se utiliza el `MFT` (Memory Frame Table) con un valor booleano.
-
-#### Caracteristicas
-
-<!-- Fragmentación -> Se fragmenta por pagina y se reduce la externa. Esta dado por los tamaños a los frames y paginas, dado por la formula: [tamaño] - 1byte(Unidad minima para poner en la pagina) por frame -->
-
-| Característica     | Detalle                                                                   |
-| ------------------ | ------------------------------------------------------------------------- |
-| Fragmentación      | ✅ Solo interna. Mucho menor que en segmentación. Se fragmenta por pagina |
-| Reasignación       | ✅ Los marcos pueden reutilizarse fácilmente.                             |
-| Hardware requerido | ❗ Alto. Se necesita soporte para MMU, MPT, MFT y TLB.                    |
-| Velocidad          | 🚀 Muy eficiente con TLB y caché, pero costoso sin ellas.                 |
-| Compartición       | ✅ Es posible entre procesos (páginas solo lectura).                      |
+Para indicar si un frame esta ocupado o libre, se utiliza el `MFT` (Memory Frame Table) con un valor booleano. Ejemplo: 1 = ocupado, 0 = libre.
 
 -   Tamaño Pagina optima, depende del tamaño de MC:
     -   Paginas chicas = aumenta mucho el tamaño de la tabla de paginas, PCB muy grande y transferencias costosas.
     -   Paginas grandes = Mucha fragmentación interna. Se desperdicia espacio. Ejemplo: si se tiene una pagina de 1MB y el programa ocupa 1KB, se desperdicia casí un MB
 
+Usualmente las paginas son de 4 a 8 KB.
+
 #### ⚡️ Optimización: TLB (Translation Lookaside Buffer)
 
-El soporte de hardware es muy costoso, por lo que se utilizan dispositivos extras como el cache y `TLB` (Translation Lookaside Buffer, Buffer de tradución anticipada). Su relación es muy similar a la de cache con el CPU.
+El soporte de hardware es muy costoso, por lo que se utilizan dispositivos extras como el cache y `TLB` (Translation Lookaside Buffer, Buffer de tradución anticipada). Su relación es muy similar a la de cache con el CPU. 
 
 -   **Direccionamiento con TLB**
 
@@ -2407,35 +2446,14 @@ TLB es una memoria donde se carga la tabla de paginas, o una parte. Es muy rapid
     - Si no está, consulta la MPT para obtener `f`, y puede almacenar esa entrada en el TLB.
 3. Calcula la dirección física: `f + d`.
 
+Dado que TLB es una tabla de tamaño limitado, se debe elegir una pagina victima para eliminarlo de TLB. Existen diferentes metodos:
+- FIFO
+- LRU (menos reciente utilizado)
+- Azar
+
 -   **Direccionamiento con TLB y Cache**
 
 La diferencia es que se le suma una cache como otra memoria intermedia. Primero, se busca en TLB, si no se encuentra se va a cache, y si no se encuentra se va a MC
-
-#### Paginación Multinivel
-
-La paginación multinivel es una extensión del esquema de paginación tradicional. Se utiliza para **evitar el uso de una única tabla de páginas demasiado grande** en sistemas con direcciones lógicas amplias (como en arquitecturas de 32 o 64 bits). En sistemas con direcciones grandes (por ejemplo, 32 bits), mantener una **tabla de páginas plana** (un nivel) requiere un espacio inmenso:
-
-> Si una página es de 4 KB (2¹² bytes), entonces hay `2²⁰` páginas → tabla con más de **un millón de entradas**.
-
-![](/imgs/clase-6/Asignacion-Memoria/Paginacion%20Multinivel.png)
-
-En la paginación multinivel se **divide la dirección lógica** en varias partes, que acceden a **múltiples niveles de tablas**:
-
--   `p₁`: Índice para la **tabla de páginas externas**.
--   `p₂`: Índice para la **tabla de páginas internas** (que apunta a los marcos).
--   `d`: Desplazamiento dentro de la página.
-
-Se siguen los siguientes pasos:
-
-1. Se recibe la **dirección lógica** dividida como `p₁ | p₂ | d`.
-2. Con `p₁` se accede a la **tabla de páginas externas**.
-3. Esta tabla apunta a una **tabla de páginas internas**.
-4. Con `p₂` se accede a la página interna que contiene el número de **marco físico**.
-5. Finalmente, se suma el **offset `d`** al marco para obtener la **dirección física en RAM**.
-
-Ejemplo:
-
-![](/imgs/clase-6/Asignacion-Memoria/Paginacion%20Multinivel%20Ejemplo.png)
 
 #### Memoria Compartida
 
@@ -2465,15 +2483,86 @@ Técnica optimizada usada cuando se crea un proceso hijo con `fork()`. Se siguen
 
 ![](/imgs/clase-6/Asignacion-Memoria/Paginacion%20Padre%20Hijo%20Parte%202.png)
 
+#### Paginación Multinivel
+
+La paginación multinivel es una extensión del esquema de paginación tradicional. Se utiliza para **evitar el uso de una única tabla de páginas demasiado grande** en sistemas con direcciones lógicas amplias (como en arquitecturas de 32 o 64 bits). En sistemas con direcciones grandes (por ejemplo, 32 bits), mantener una **tabla de páginas plana** (un nivel) requiere un espacio inmenso:
+
+> Si una página es de 4 KB (2¹² bytes), entonces hay `2²⁰` páginas → tabla con más de **un millón de entradas**.
+
+![](/imgs/clase-6/Asignacion-Memoria/Paginacion%20Multinivel.png)
+
+En la paginación multinivel se **divide la dirección lógica** en varias partes, que acceden a **múltiples niveles de tablas**:
+
+-   `p₁`: Índice para la **tabla de páginas externas**.
+-   `p₂`: Índice para la **tabla de páginas internas** (que apunta a los marcos).
+-   `d`: Desplazamiento dentro de la página.
+
+Se siguen los siguientes pasos:
+
+1. Se recibe la **dirección lógica** dividida como `p₁ | p₂ | d`.
+2. Con `p₁` se accede a la **tabla de páginas externas**.
+3. Esta tabla apunta a una **tabla de páginas internas**.
+4. Con `p₂` se accede a la página interna que contiene el número de **marco físico**.
+5. Finalmente, se suma el **offset `d`** al marco para obtener la **dirección física en RAM**.
+
+Ejemplo:
+
+![](/imgs/clase-6/Asignacion-Memoria/Paginacion%20Multinivel%20Ejemplo.png)
+
+
+### Segmentación con Paginación (mixto)
+
+#### Definición
+
+![](/imgs/clase-6/Asignacion-Memoria/mixto.png)
+
+Los segmentos se dividen en páginas.
+
+El proceso primero se divide en segmentos, y después cada segmento se divide en páginas. La memoria está dividida en frames, entonces puedo guardar cada página donde quiera.
+
+✅ **Ventajas**
+- No existe fragmentación externa
+- Puede utilizar memoria virtual
+- Se pueden compartir segmentos y paginas entre procesos
+- Se puede asignar permisos a los procesos
+
+❌ **Desventajas**
+- Existe fragmentación interna
+- Requiere hardware
+- Requiere más espacio
+
+#### 🛠 ¿Cómo se administra?
+
+La dirección virtual se divide en tres partes:
+1. `s` -> Segmento
+2. `p` -> Página
+3. `o` -> Desplazamiento
+
+![](/imgs/clase-6/Segmentación%20y%20Paginación.png)
+
+1. El espacio lógico del programa se divide en segmentos (porciones funcionales como código, datos, stack, etc.).
+2. Cada segmento se divide en páginas del mismo tamaño que los marcos de la memoria física.
+3. Cada proceso tiene una Tabla de Segmentos, y cada segmento apunta a su propia Tabla de Páginas.
+4. Solo se cargan en memoria las páginas necesarias de los segmentos que estén en uso (paginación por demanda).
+
 ## Memoria Virtual
 
 ### Definición
 
 ![](/imgs/clase-6/Memoria%20Virtual/Memoria%20Virtual.png)
 
-La idea consiste en utilizar almacenamiento secundario como si fuera la principal en caso de dar la capacidad maxima del sistema. La memoria virtual es gestionada y generada por el sistema operativo, transparente por el usuario.
+La idea consiste en utilizar almacenamiento secundario como si fuera la principal en caso de dar la capacidad maxima del sistema. La memoria virtual es gestionada y generada por el sistema operativo, transparente por el usuario, debido a que direccionamos como si fuese memoria principal.
 
 El contenido de los frames se van cargando poco a poco en el almacenamiento secundario.
+
+✅ **Ventajas**
+- Correr procesos mas grandes
+- Aumenta el grado de multiprogramación
+- El programador no se preocupa por la falta de memoria
+
+❌ **Desventajas**
+- Las peticiones de archivos pueden ser muy lentos
+- Requiere hardware y sistemas
 
 ### Swapping
 
@@ -2545,7 +2634,7 @@ Una `cadena de referencia` es una secuencia de accesos a páginas de memoria que
 
 > **Anomalía de Belady**
 >
-> Si tengo una cantidad de frames para un proceso, al darle mas frames deberia tener menos fallo de pagina. Sin embargo, esto es erronea por la anomaliaal utilizar determinado algoritmo. De echo, da más fallos de pagina.
+> Si tengo una cantidad de frames para un proceso, al darle mas frames deberia tener menos fallo de pagina. Sin embargo, esto es erronea, de echo, da más fallos de pagina.
 
 #### Primero en entrar, primero en salir - FIFO
 
@@ -2694,11 +2783,58 @@ Se evalúa en este orden de prioridad al buscar qué página reemplazar:
 
 Si no se encuentra una página en los primeros grupos, se puede reiniciar los bits de referencia y repetir la búsqueda.
 
-### Como Asignar Frames a los Procesos (completar)
+### Asignar Frames a los Procesos (completar)
 
-Este tema responde a la pregunta:
+La asignación de marcos se refiere a cómo el sistema operativo reparte la memoria física (dividida en marcos) entre los distintos procesos que la requieren para ejecutar. Determinar cuántos marcos recibe cada proceso. 
 
-> ¿Cómo se asignan los marcos (frames) de memoria física a los procesos del sistema?
+Ejemplo:
+- Sistema con 1024 KB de memoria → 256 páginas de 4 KB.
+- El S.O. usa 248 KB → se reservan 62 páginas.
+- Quedan 194 páginas disponibles para los procesos.
+
+#### Mínimo de Marcos
+
+Cada proceso necesita un número mínimo de marcos de memoria física para funcionar correctamente. Dependiendo de la arquitectura del sistema, se le agrega marcos para:
+
+- **Acceso directo**: se necesitan al menos 2 marcos (uno para la instrucción y otro para el dato).
+- **Referencias indirectas**: pueden requerir 3 o más marcos.
+- **Operaciones complejas**: en arquitecturas CISC, puede requerirse 4 o más marcos (instrucción, operandos, resultado).
+
+> ⚠️ Si se asignan menos marcos de los necesarios al inicio, se generan múltiples fallos de página por instrucción, degradando el rendimiento.
+
+#### Esquemas de Asignación
+
+- 🟨 Igualitaria -> Divide la memoria física disponible en partes iguales entre los procesos activos.
+    - ✔️ Simple
+    - ❌ Injusto: puede asignar demasiado a procesos pequeños y muy poco a procesos grandes.
+    - Ejemplo: con 4 procesos y 194 marcos → dos reciben 48 y dos reciben 49.
+
+- 🟩 Asignación Proporcional -> Se asigna memoria en proporción al uso de memoria virtual de cada proceso.
+    - > Fórmula: marcos = (VP / VT) × total_marcos
+    - ✔️ Más justa según el tamaño
+    - ❌ Requiere recalcular al entrar o salir procesos.
+    - ❌ Puede desperdiciar memoria en procesos ociosos.
+
+- ⚙️ Asignación por Demanda (Implícito) -> Se asignan marcos cuando ocurren fallos de página, hasta que la memoria se llena. Luego se aplica reemplazo de página.
+    - ✔️ Simple y adaptativo
+    - ❌ Alto costo inicial: muchos fallos de página.
+
+#### Algoritmos de Reemplazo de Páginas
+
+Cada vez que un proceso genere un fallo de página, se le asigna un marco disponible. Cuando no hay más disponibles, se usa un algoritmo de reemplazo de páginas:
+
+- 🔒 **Reemplazo Local** -> Un proceso solo puede reemplazar sus propias páginas.
+    - ✔️ Predecible
+    - ❌ Rígido, no aprovecha procesos inactivos
+- 🌐 **Reemplazo Global** -> El sistema puede reemplazar cualquier página, de cualquier proceso.
+    - ✔️ Mejora uso general de memoria
+    - ❌ Inestable: procesos pueden tener rendimiento inconsistente
+-🌐⬆️ **Global con Prioridad** -> Un proceso solo reemplaza páginas de procesos con menor prioridad.
+    - ✔️ Alineado con políticas de planificación por prioridad
+
+
+
+
 
 El número mínimo de marcos que puede necesitar un proceso depende de la arquitectura del sistema y del tipo de instrucciones que ejecuta. Ejemplo:
 
@@ -2725,31 +2861,19 @@ Se trata del proceso mediante el cual se decide cuántos marcos de memoria (de l
 > Cuando los procesos comienzan a ejecutarse, se les van asignando marcos conforme vayan produciendo fallos de página (page faults). Cuando ya no queden marcos libres, el sistema debe utilizar un algoritmo de reemplazo de página.
 -->
 
-#### Algoritmos de reemplazo de Páginas
-
-Cuando ocurre un fallo de página, el sistema debe decidir qué página reemplazar. Esta decisión puede tomarse considerando diferentes ámbitos:
-
--   **Reemplazo Local**
-    -   Objetivo: Mantener estable la asignación calculada inicialmente.
-    -   Funcionalidad: Las únicas páginas que se considerarán para su intercambio serán aquellas pertenecientes al mismo proceso que el que causó el fallo.
--   **Reemplazo Global**
-
-    -   Los algoritmos de asignación determinan el espacio asignado a los procesos al ser inicializados.
-
--   **Reemplazo Global con Prioridad** ->
-
 ### Hiperpaginación
 
-La hiperpaginación sucede cuando la frecuencia de reemplazo de páginas es tan alto que el sistema no puede avanzar, y casi todo el trabajo es realizado con overhead. Se puede dar 2 casos:
+Ocurre cuando un proceso pasa más tiempo intercambiando páginas entre memoria principal y disco (swapping), que ejecutando instrucciones útiles, produciendo overhead. Se puede dar 2 casos:
 
 -   Local -> Algunos de los procesos tiene pocos frames asignados
 -   Global -> Hay demasiados procesos activos y la memoria física es insuficiente para todos.
 
 **⚠️Sintomas:**
 
--   📈 Aumento en la tasa de page faults.
+-   📈 Aumenta la tasa de fallas de pagina
 -   🐌 Accesos a memoria más lentos.
 -   🔻 Disminución en la utilización del CPU.
+-   Disco saturado
 -   ⛔ El sistema no realiza trabajo útil, solo se dedica a paginar.
 
 **🛠️ Soluciones**
@@ -2757,42 +2881,6 @@ La hiperpaginación sucede cuando la frecuencia de reemplazo de páginas es tan 
 -   🔽 Reducir el grado de multiprogramación -> Menos procesos ejecutándose = menos presión sobre la memoria.
 -   💤 Suspender o eliminar procesos -> Liberar recursos para los procesos realmente activos.
 -   🧠 Agregar más memoria física (RAM)
-
-## Sistemas Mixtos (Segmentación con Paginación) (completar)
-
-### Definición
-
-Esta técnica combina lo mejor de dos mundos `Segmentación lógica + Paginación física`. La dirección virtual se divide en tres partes:
-
-1. `s` -> Segmento
-2. `p` -> Página
-3. `o` -> Desplazamiento
-
-No es posible el intercambio de pagina y segmento en el direccionamiento. Porque los segmentos pueden tener paginas y que las paginas tengan distintos segmentos, no tiene sentido.
-
-### Funcionamiento
-
-![](/imgs/clase-6/Segmentación%20y%20Paginación.png)
-
-1. El espacio lógico del programa se divide en segmentos (porciones funcionales como código, datos, stack, etc.).
-2. Cada segmento se divide en páginas del mismo tamaño que los marcos de la memoria física.
-3. Cada proceso tiene una Tabla de Segmentos, y cada segmento apunta a su propia Tabla de Páginas.
-4. Solo se cargan en memoria las páginas necesarias de los segmentos que estén en uso (paginación por demanda).
-
-### Ventajas y Desventajas
-
-✅ **Ventajas**
-
--   Permite compartir segmentos entre procesos (como bibliotecas compartidas).
--   No es necesario cargar todo un segmento en memoria; solo las páginas requeridas.
--   Elimina la necesidad de compactación, porque los segmentos se dividen en páginas que se ubican en cualquier parte de la RAM.
-
-❌ **Desventajas**
-
--   Requiere más hardware para direccionamiento (TLB, tablas jerárquicas, etc).
--   El proceso de traducción de direcciones es más lento (más niveles de acceso).
--   El sistema operativo ocupa más espacio por las múltiples estructuras de control (segmentos + páginas).
--   Aumenta la fragmentación interna, ya que puede sobrar espacio dentro de cada página si el contenido del segmento no la completa.
 
 # Modulo 6: Administración de Entrada/Salida
 
@@ -2941,17 +3029,20 @@ El DMA solo toma el control del bus, cuando el CPU no lo utiliza. No afecta el C
 
 -   **Plato:** Disco circular donde se almacena la información.
     -   Puede haber múltiples platos apilados.
-    -   Cada plato tiene dos caras (superior e inferior).
+    -   Cada plato tiene dos caras (superior e inferior) para guardar información.
 -   **🧲 Cabezas o Brazo de lectura/escritura:** Lectora por cada plato dentro de la unidad. Se tiene una por cada plato.
--   **Sectores**: División de cada cara del plato en porciones angulares (como “rebanadas de pizza”).
--   **Pistas**: Conjuntos de sectores que forman un círculo concéntrico sobre la superficie de un plato.
+-   **Sectores**: División de cada cara del plato en porciones angulares (como “rebanadas de pizza”). Es la mas pequeña unidad de información que puede ser leida o escrita. Varían entre 512 bytes a 1024.
+-   **Pistas**: Conjuntos de sectores que forman un círculo concéntrico sobre la superficie de un plato. Puede tener 9 a 65 sectores. Y un plato puede tener de 75 a 3000 pistas.
+-   **Cúster**: Conjunto de sectores que no llegan a formar una pista.
 -   **Cilindro**: Conjunto de pistas alineadas verticalmente a través de todos los platos, en la misma posición radial.
+
+Para acceder a un sector se debe especificar la pista, el plato, la cara y el sector.
 
 ### Tiempos de Acceso a un Sector
 
 Se tiene varios tiempos en la transferencia de un disco. Pero, vamos agruparlos:
 
-1.  **Tiempo de Busqueda **: Tiempo para mover la cabeza lectora hacia la pista.
+1.  **Tiempo de Busqueda**: Tiempo para mover la cabeza lectora hacia la pista.
 2.  **Tiempo de Latencia Rotacional:** Tiempo que tarda el sector deseado en alinearse con la cabeza lectora.
 3.  **Tiempo de Transferencia:** Cuánto tarda el cabezal en leer la información que está en el sector
 4.  **Tiempo de Acceso o Respuesta Total(TT):** La suma de las anteriores velocidades
@@ -3000,3 +3091,179 @@ Son dispositivos de almacenamiento que no incluyen piezas móviles. Por lo que, 
 
 # Modulo 7: File System
 
+## Definición
+
+-   **Archivo**: Conjunto de bytes que utilizamos para alojar información
+-   **File System**: Conjunto de estructuras y funciones (syscalls) que nos van a permitir realizar operaciones con archivos (leer, escribir, borrar, etc...).
+
+Las computadoras pueden almacenar información en diferentes soportes físicos: disco, cintas, etc. Cada uno de estos dispositivos tiene su propia característica y organización física
+
+## Objetivos y Funciones
+
+El file system tiene los siguientes objetivos:
+
+-   Administrar espacio del almacenamiento secundario (libre, ocupado y estructura de directorios)
+<!-- - Almacenar datos y operar con ellos -->
+-   Gestionar permisos sobre usuarios sin acceso
+-   Evitar perdida de información
+-   Soporte para distintos dispositivos
+-   Maximizar desempeño
+
+Tambien, tiene las siguientes funciones sobre archivos:
+
+-   Crear
+-   Abrir
+-   Cerrar
+-   Leer
+-   Borrar
+-   Escribir
+-   Renombrar
+-   Reposicionar (valor valor puntero fseek)
+-   Truncar (modificar tamaño de un archivo)
+
+## Administración del Espacio libre
+
+Hay varias maneras de manejar espacios libres:
+
+### Bit Map o Bit Vector
+
+-   Cada sector del disco se representa con un bit
+-   Si un bloque esta libre, se le asigna un '0'. Caso contrario, se le indica con un '1'
+
+**✅ Ventajas:**
+
+-   Sencillo
+-   Poco espacio
+
+**❌ Desventajas:**
+
+-   Pocas
+
+### Lista Enlazada de Bloques Libres (TDA Lista)
+
+![](/imgs/clase-7/Lista%20Enlazada%20de%20Bloques%20Libres.jpg)
+
+Todos los bloques disponibles (no asignados) se vinculan entre sí formando una lista enlazada.
+
+-   Cada bloque libre contiene un puntero al siguiente bloque libre.
+-   El primer bloque de la lista es apuntado por el sistema operativo a través de una variable llamada FSLH (Free Space List Head)
+
+**✅ Ventajas:**
+
+-   Poco espacio
+
+**❌ Desventajas:**
+
+-   Ineficiente al recorrer: Debemos leer cada bloque
+
+### Agrupamiento de Bloques de Direcciones Libres
+
+![](/imgs/clase-7/Bloques%20de%20Direcciones%20Libres.jpg)
+
+Se almacenan explícitamente las direcciones de los bloques libres dentro de bloques especiales llamados bloques de direcciones.
+
+-   Cada bloque de direcciones contiene una lista de N direcciones de bloques libres.
+-   Cuando se agotan las direcciones en un bloque, se accede al siguiente bloque de direcciones, el cual también contiene más direcciones libres (más un puntero al siguiente bloque de direcciones).
+
+> 📌 Este método es un punto intermedio entre la lista enlazada de bloques libres y el bitmap. Es más rápido que la lista, pero menos compacto que el mapa de bits.
+
+**✅ Ventajas:**
+
+-   Veloz
+-   Mientras más espacio ocupado, menos espacio utiliza este bloque
+
+**❌ Desventajas:**
+
+-   Mientras más espacio libre, más espacio utiliza este bloque
+
+### Bloques De Direcciones Libres Contiguas
+
+No se almacenan las direcciones de todos los bloques libres individualmente, sino que se almacenan rangos contiguos de bloques disponibles. Se registra:
+
+-   Direccion inicial del bloque libre
+-   Cantidad de bloques contiguos disponibles desde ahí
+
+Se guarda esta lista en una tabla (como una Free Table) en memoria o en un bloque especial.
+
+```
+Ejemplo:
+[Inicio: 1000 | Cantidad: 5] → Bloques 1000 a 1004
+[Inicio: 2010 | Cantidad: 3] → Bloques 2010 a 2012
+```
+
+**✅ Ventajas:**
+
+-   Poco espacio
+-   Rápido de procesar
+
+**❌ Desventajas:**
+
+-   Difícil de mantener si los bloques libres están muy fragmentados.
+-   Requiere compactación
+
+## Métodos de Asignación de Espacio para los archivos
+
+Los archivos son partidos en varios bloques de tamaño fijo, y una ves así se guardan en el disco.
+
+Se usan tres métodos de asignación de espacio en disco:
+
+![](/imgs/clase-7/Asignar%20Memoria.png)
+
+Se utiliza una `tabla de directorios` o `tabla de i-nodos` (creado en el mismo disco) para gestionar los archivos del usuario. Segun el metodo, se definen las columnas. `FAT` determina la cantidad de bits que tengo en la tabla, si fuera de 32 de bits, se tiene 32 bits para direccionar.
+
+### Asignación Contigua
+
+La posición del archivo en el disco, queda definida por la dirección del primer bloque y su longitud. Se guardan los bloques en el disco uno detras del otro (contiguo o consecutivo). Si se agrega un nuevo archivo, se agregara al siguiente de este.
+
+**✅ Ventajas:**
+
+-   Optimo para el acceso secuencial y acceso directo, la cabecera no debe viajar mucho
+-   Si se quiere leer un bloque especifico del archivo, simplemente se realiza la cuenta para saber donde esta
+
+**❌ Desventajas:**
+
+-   Fragmentación externa (si se libera un bloque, se desperdicia espacio)
+-   No permite agrandar el archivo
+-   Cuando un archivo se crea, generalmente no se sabe cuantos bloques va a ocupar
+
+### Asignación Dinámica
+
+**✅ Ventajas:**
+
+**❌ Desventajas:**
+
+### Vinculado/Enlazado/Encadenado (Lista Simplemente Enlazada - Sistema de Nodos)
+
+Los bloques pueden estar en cualquier lugar del disco (no solo contiguo). Cada bloque tiene un puntero al bloque siguiente, y se debe especificar cual es el inicial y el final.
+
+**✅ Ventajas:**
+
+-   No hay fragmentación externa
+-   Un archivo puede continuar creciendo
+-   No es necesario declarar la longitud al crearlo
+
+**❌ Desventajas:**
+
+-   Los punteros ocupan espacio extra
+-   Ineficiente para acceso directo a un bloque: Si se quiere un bloque especifico, debemos comenzar a recorrer los bloques
+-   Si se pierde un loque, se pierden todos los bloques siguientes
+
+### Indexado
+
+Por cada archivo, se tiene una tabla que indica cuáles son los bloques que contiene. Por cada bloque, se tiene una fila nueva en la tabla.
+
+**✅ Ventajas:**
+
+-   No hay fragmentación externa
+-   Un archivo puede continuar creciendo
+-   No es necesario declarar la longitud al crearlo
+-   Se tiene acceso directo a los bloques
+-   Si se pierde un bloque, solo se pierde ese
+
+**❌ Desventajas:**
+
+-   Si se pierde la tabla, se pierde todo el archivo
+-   Metodo que más espacio ocupa
+-   Ineficiente para archivos grandes
+
+### Acceso Secuencial
