@@ -15,7 +15,7 @@
 
 - [📘 Introducción](#-introducción)
   - [Indice](#indice)
-- [Modulo 1: Introducción a los Sistemas Operativos](#modulo-1-introducción-a-los-sistemas-operativos)
+- [Introducción a los Sistemas Operativos](#introducción-a-los-sistemas-operativos)
   - [¿Que es un sistema operativo?](#que-es-un-sistema-operativo)
     - [¿Por qué estudiar los sistemas operatiovs?](#por-qué-estudiar-los-sistemas-operatiovs)
   - [Funciones y Objetivos](#funciones-y-objetivos)
@@ -39,7 +39,7 @@
     - [Funciones y Objetivos](#funciones-y-objetivos-1)
   - [Modos de Ejecucion de los Procesos](#modos-de-ejecucion-de-los-procesos)
   - [Definiciones Computo Distribuido](#definiciones-computo-distribuido)
-- [Modulo 2: De Programas a Procesos](#modulo-2-de-programas-a-procesos)
+- [De Programas a Procesos](#de-programas-a-procesos)
   - [Conceptos Basicos](#conceptos-basicos)
   - [Entidad Pasiva y Activa](#entidad-pasiva-y-activa)
   - [Compilación y Carga de un Proceso](#compilación-y-carga-de-un-proceso)
@@ -76,7 +76,7 @@
     - [Definición](#definición-2)
     - [Caracteristicas](#caracteristicas-1)
     - [Ventajas](#ventajas)
-- [Modulo 3: Planificación de Procesos](#modulo-3-planificación-de-procesos)
+- [Planificación de Procesos](#planificación-de-procesos)
   - [Definición](#definición-3)
   - [Objetivos](#objetivos)
   - [Tipos de Planificación](#tipos-de-planificación)
@@ -121,7 +121,7 @@
     - [Ejercicio 3](#ejercicio-3)
       - [Consigna](#consigna-2)
       - [Solución Final](#solución-final-2)
-- [Modulo 4: Sincronización y Comunicación entre procesos](#modulo-4-sincronización-y-comunicación-entre-procesos)
+- [Sincronización y Comunicación entre procesos](#sincronización-y-comunicación-entre-procesos)
   - [¿Porque?](#porque)
   - [Concurrencia](#concurrencia)
   - [Algunos Conceptos](#algunos-conceptos)
@@ -168,7 +168,7 @@
       - [Detectar y Recuperar](#detectar-y-recuperar)
       - [Algoritmo Avestruz (ignorarlo)](#algoritmo-avestruz-ignorarlo)
   - [Practica: Semaforos para los Procesos](#practica-semaforos-para-los-procesos)
-- [Modulo 5: Administración de Memoria](#modulo-5-administración-de-memoria)
+- [Administración de Memoria Principal](#administración-de-memoria-principal)
   - [Funciones y Operaciones](#funciones-y-operaciones)
     - [🔍 Consideraciones Generales](#-consideraciones-generales)
     - [🗺️ Espacio de Direccionamiento](#️-espacio-de-direccionamiento)
@@ -217,7 +217,7 @@
       - [Esquemas de Asignación](#esquemas-de-asignación)
       - [Algoritmos de Reemplazo de Páginas](#algoritmos-de-reemplazo-de-páginas)
     - [Hiperpaginación](#hiperpaginación)
-- [Modulo 6: Administración de Entrada/Salida](#modulo-6-administración-de-entradasalida)
+- [Administración de Entrada/Salida](#administración-de-entradasalida)
   - [🧩 Módulo de Entrada/Salida (E/S)](#-módulo-de-entradasalida-es)
     - [¿Por qué se necesita un módulo exclusivo?](#por-qué-se-necesita-un-módulo-exclusivo)
     - [Interfaces](#interfaces)
@@ -242,22 +242,51 @@
       - [LOOK-UP](#look-up)
       - [C-LOOK-UP (LOOK Circular)](#c-look-up-look-circular)
   - [Dipositivos de Estado Sólido](#dipositivos-de-estado-sólido)
-- [Modulo 7: File System](#modulo-7-file-system)
-  - [Definición](#definición-13)
+- [Organización de los Archivos](#organización-de-los-archivos)
+  - [Concepto de Archivos](#concepto-de-archivos)
+    - [Definición](#definición-13)
+    - [Interfaz de Operaciones con archivos](#interfaz-de-operaciones-con-archivos)
+    - [Información Sobre Archivos Abiertos](#información-sobre-archivos-abiertos)
+    - [Bloqueos para Multitarea](#bloqueos-para-multitarea)
+    - [Protección y Control de Acceso](#protección-y-control-de-acceso)
+    - [Tipos de Archivos y Formas de Identificarlos](#tipos-de-archivos-y-formas-de-identificarlos)
+    - [Formas de Acceder a un Archivo](#formas-de-acceder-a-un-archivo)
+  - [Directorios](#directorios)
+    - [Definición](#definición-14)
+    - [Evolución de los Directorios](#evolución-de-los-directorios)
+    - [Interfaz de Operaciones con Directorios](#interfaz-de-operaciones-con-directorios)
+    - [Montaje de Directorios](#montaje-de-directorios)
+- [Sistema de Archivos o File System](#sistema-de-archivos-o-file-system)
+  - [Definición](#definición-15)
   - [Objetivos y Funciones](#objetivos-y-funciones)
   - [Administración del Espacio libre](#administración-del-espacio-libre)
     - [Bit Map o Bit Vector](#bit-map-o-bit-vector)
     - [Lista Enlazada de Bloques Libres (TDA Lista)](#lista-enlazada-de-bloques-libres-tda-lista)
     - [Agrupamiento de Bloques de Direcciones Libres](#agrupamiento-de-bloques-de-direcciones-libres)
     - [Bloques De Direcciones Libres Contiguas](#bloques-de-direcciones-libres-contiguas)
-  - [Métodos de Asignación de Espacio para los archivos](#métodos-de-asignación-de-espacio-para-los-archivos)
+  - [Administración del Espacio para los archivos](#administración-del-espacio-para-los-archivos)
     - [Asignación Contigua](#asignación-contigua)
     - [Asignación Dinámica](#asignación-dinámica)
-    - [Vinculado/Enlazado/Encadenado (Lista Simplemente Enlazada - Sistema de Nodos)](#vinculadoenlazadoencadenado-lista-simplemente-enlazada---sistema-de-nodos)
-    - [Indexado](#indexado)
-    - [Acceso Secuencial](#acceso-secuencial)
+    - [Vinculado/Enlazado/Encadenado](#vinculadoenlazadoencadenado)
+    - [Tabla FAT](#tabla-fat)
+    - [Asignación Indexada (i-nodos)](#asignación-indexada-i-nodos)
+      - [Definición](#definición-16)
+      - [Punteros](#punteros)
+      - [Soft Link y Hard Link](#soft-link-y-hard-link)
+  - [Analisis de Algunos File Sytems](#analisis-de-algunos-file-sytems)
+    - [FAT](#fat)
+      - [Definición](#definición-17)
+      - [Estructura en Volumen](#estructura-en-volumen)
+      - [Estructura Archivos](#estructura-archivos)
+      - [Versiones de FAT](#versiones-de-fat)
+    - [UFS (Unix File System) / EXT](#ufs-unix-file-system--ext)
+      - [Definición](#definición-18)
+      - [Estructura en Volumen](#estructura-en-volumen-1)
+    - [NTFS (New Technology File System)](#ntfs-new-technology-file-system)
+      - [Definición](#definición-19)
+      - [Estructura en Volumen](#estructura-en-volumen-2)
 
-# Modulo 1: Introducción a los Sistemas Operativos
+# Introducción a los Sistemas Operativos
 
 ## ¿Que es un sistema operativo?
 
@@ -457,7 +486,7 @@ Proceso de cómputo realizado entre computadoras independientes, o tambien dicho
     -   Plataforma como Servicio
     -   Infraestructura como Servicio
 
-# Modulo 2: De Programas a Procesos
+# De Programas a Procesos
 
 ## Conceptos Basicos
 
@@ -812,7 +841,7 @@ Una **fibra** es una unidad de ejecución que debe ser **agendada manualmente** 
 -   En general, **una fibra no presenta ventajas** sobre una aplicación multi-hilo bien diseñada.
 -   El uso de fibras puede **hacer más flexible** a aplicaciones que fueron pensadas para **agendar sus propios hilos** de ejecución.
 
-# Modulo 3: Planificación de Procesos
+# Planificación de Procesos
 
 ## Definición
 
@@ -1341,7 +1370,7 @@ Las prioridades se evalúan con cada transición entrante a la cola de Listos. O
 
 ![](/imgs/clase-4/Ejercicio3/Completo.png)
 
-# Modulo 4: Sincronización y Comunicación entre procesos
+# Sincronización y Comunicación entre procesos
 
 ## ¿Porque?
 
@@ -2098,7 +2127,7 @@ Se crea que la frecuencia de un bloqueo es muy poco comun y no reperctura en el 
 
 ## Practica: Semaforos para los Procesos
 
-# Modulo 5: Administración de Memoria
+# Administración de Memoria Principal
 
 ## Funciones y Operaciones
 
@@ -2224,8 +2253,9 @@ Como existen sistemas multitarea, se hizo necesario resolver cómo asignar el es
 ### Conceptos Varios: Fragmentación y Compactación
 
 La **fragmentación** Es un fenomeno que se manifiesta cuando los procesos terminan su ejecución, y el sistema operativo libera la memoria. Si los procesos se encontraban en regiones de memoria no contiguas, comienzan a aparecer regiones disponibles, huecos entre sí dificiles de utilizar. Existen 2 tipos de fragmentaciones:
-- **Fragmentación Externa**: Hay muchos bloques libres entre los bloques asignados a procesos.
-- **Fragmentación Interna**: Cantidad de memoria dentro de un bloque que nunca se usará.
+
+-   **Fragmentación Externa**: Hay muchos bloques libres entre los bloques asignados a procesos.
+-   **Fragmentación Interna**: Cantidad de memoria dentro de un bloque que nunca se usará.
 
 La **Compatación** es una operación de compresión. Mueve los bloques de memoria asignados para que esten de manera contigua, eliminando la fragmentación externa. El problema, es que tiene un costo alto de operación.
 
@@ -2250,7 +2280,7 @@ El **registro límite** indica la dirección mínima válida que un proceso pued
 
 ![](/imgs/clase-6/Asignacion-Memoria/Estructura%20particiones%20fijas%202.png)
 
-La memoria principal se divide en particiones de tamaños fijo. Pueden ser todas las particiones del mismo o distinto tamaño, pero en ambos casos fijos. Una vez definidos, no cambian. 
+La memoria principal se divide en particiones de tamaños fijo. Pueden ser todas las particiones del mismo o distinto tamaño, pero en ambos casos fijos. Una vez definidos, no cambian.
 
 Cada proceso será cargado en la partición más adecuada según su tamaño, y la cola de trabajos se recorrerá en busca de un espacio disponible. La cantidad de particiones define cuántos procesos concurrentes se pueden ejecutar. No importa si hay memoria libre entre procesos, no se reutiliza dinámicamente. Se sigue la siguiente secuencia:
 
@@ -2268,11 +2298,13 @@ Si un programa necesita `X` bytes y tengo una partición de `Y` bytes...
 | `X < Y`     | ⚠️ Se ejecuta, pero queda espacio sin usar → _Fragmentación interna_. |
 
 ✅ **Ventajas**
-- Sencillo
-- Puede utilizar memoria virtual
+
+-   Sencillo
+-   Puede utilizar memoria virtual
 
 ❌ **Desventajas**
-- Fragmentación Externa e Interna
+
+-   Fragmentación Externa e Interna
 
 ### Particiones Variables
 
@@ -2286,22 +2318,24 @@ Las particiones no están predefinidas. Se van creando a demanda que los proceso
 
 ¿Dónde ubicar un nuevo proceso si hay varios huecos (holes) de distintos tamaños? Para eso se siguen diferentes algoritmos:
 
-| Algoritmo     | Descripción                                                                  | Peso Computacional |
-| ------------- | ---------------------------------------------------------------------------- | ------------------ |
+| Algoritmo         | Descripción                                                                  | Peso Computacional |
+| ----------------- | ---------------------------------------------------------------------------- | ------------------ |
 | **Primer Ajuste** | Asigna el proceso al **primer hueco** suficientemente grande que encuentra.  | ⚡ Rápido (ligero) |
 | **Mejor Ajuste**  | Busca el **bloque más justo posible**, donde sobre menos memoria.            | 🐢 Lento (pesado)  |
-| **Peor Ajuste** | Busca el **hueco más grande**, para evitar fragmentación en espacios chicos. | 🐢 Lento (pesado)  |
+| **Peor Ajuste**   | Busca el **hueco más grande**, para evitar fragmentación en espacios chicos. | 🐢 Lento (pesado)  |
 
-El problema  de los otros 2 es que deben recorrer demasiado.
+El problema de los otros 2 es que deben recorrer demasiado.
 
 Puede usarse memoria virtual.
 
 ✅ **Ventajas**
-- Cantidad de multitarea ilimitada
-- No existe fragmentación interna
+
+-   Cantidad de multitarea ilimitada
+-   No existe fragmentación interna
 
 ❌ **Desventajas**
-- Existe fragmentación externa
+
+-   Existe fragmentación externa
 
 ### Segmentación
 
@@ -2320,16 +2354,18 @@ La idea consta de dividir a un proceso en varios segmentos. Es decir, se puede g
 Estos segmentos pueden tener **diferentes tipos de acceso**: lectura, escritura o ejecución.
 
 ✅ **Ventajas**
-- No existe fragmentación interna
-- Puede utilizar memoria virtual
-- Se pueden compartir segmentos entre procesos
-- Se puede asignar permisos a los procesos
+
+-   No existe fragmentación interna
+-   Puede utilizar memoria virtual
+-   Se pueden compartir segmentos entre procesos
+-   Se puede asignar permisos a los procesos
 
 ❌ **Desventajas**
-- Existe fragmentación externa
-- Requiere hardware (proximo cap)
 
-<!-- 
+-   Existe fragmentación externa
+-   Requiere hardware (proximo cap)
+
+<!--
 #### 📌 Características
 
 -   ✅ **Tamaño variable**: A diferencia de la paginación, que usa bloques fijos, los segmentos pueden ser de cualquier tamaño.
@@ -2388,13 +2424,15 @@ El proceso se divide en porciones llamadas `páginas`, todos en tamaños iguales
 En este caso, los componentes de los procesos requieren estar todos contiguos, en un mismo orden.
 
 ✅ **Ventajas**
-- No existe fragmentación externa
-- Puede utilizar memoria virtual
-- Se pueden compartir frames entre procesos
+
+-   No existe fragmentación externa
+-   Puede utilizar memoria virtual
+-   Se pueden compartir frames entre procesos
 
 ❌ **Desventajas**
-- requiere hardware
-- Al tener paginas de tamaño fijo, tiene fragmentación interna
+
+-   requiere hardware
+-   Al tener paginas de tamaño fijo, tiene fragmentación interna
 
 #### ⚙️ ¿Cómo funciona?
 
@@ -2432,7 +2470,7 @@ Usualmente las paginas son de 4 a 8 KB.
 
 #### ⚡️ Optimización: TLB (Translation Lookaside Buffer)
 
-El soporte de hardware es muy costoso, por lo que se utilizan dispositivos extras como el cache y `TLB` (Translation Lookaside Buffer, Buffer de tradución anticipada). Su relación es muy similar a la de cache con el CPU. 
+El soporte de hardware es muy costoso, por lo que se utilizan dispositivos extras como el cache y `TLB` (Translation Lookaside Buffer, Buffer de tradución anticipada). Su relación es muy similar a la de cache con el CPU.
 
 -   **Direccionamiento con TLB**
 
@@ -2447,9 +2485,10 @@ TLB es una memoria donde se carga la tabla de paginas, o una parte. Es muy rapid
 3. Calcula la dirección física: `f + d`.
 
 Dado que TLB es una tabla de tamaño limitado, se debe elegir una pagina victima para eliminarlo de TLB. Existen diferentes metodos:
-- FIFO
-- LRU (menos reciente utilizado)
-- Azar
+
+-   FIFO
+-   LRU (menos reciente utilizado)
+-   Azar
 
 -   **Direccionamiento con TLB y Cache**
 
@@ -2509,7 +2548,6 @@ Ejemplo:
 
 ![](/imgs/clase-6/Asignacion-Memoria/Paginacion%20Multinivel%20Ejemplo.png)
 
-
 ### Segmentación con Paginación (mixto)
 
 #### Definición
@@ -2521,19 +2559,22 @@ Los segmentos se dividen en páginas.
 El proceso primero se divide en segmentos, y después cada segmento se divide en páginas. La memoria está dividida en frames, entonces puedo guardar cada página donde quiera.
 
 ✅ **Ventajas**
-- No existe fragmentación externa
-- Puede utilizar memoria virtual
-- Se pueden compartir segmentos y paginas entre procesos
-- Se puede asignar permisos a los procesos
+
+-   No existe fragmentación externa
+-   Puede utilizar memoria virtual
+-   Se pueden compartir segmentos y paginas entre procesos
+-   Se puede asignar permisos a los procesos
 
 ❌ **Desventajas**
-- Existe fragmentación interna
-- Requiere hardware
-- Requiere más espacio
+
+-   Existe fragmentación interna
+-   Requiere hardware
+-   Requiere más espacio
 
 #### 🛠 ¿Cómo se administra?
 
 La dirección virtual se divide en tres partes:
+
 1. `s` -> Segmento
 2. `p` -> Página
 3. `o` -> Desplazamiento
@@ -2556,13 +2597,15 @@ La idea consiste en utilizar almacenamiento secundario como si fuera la principa
 El contenido de los frames se van cargando poco a poco en el almacenamiento secundario.
 
 ✅ **Ventajas**
-- Correr procesos mas grandes
-- Aumenta el grado de multiprogramación
-- El programador no se preocupa por la falta de memoria
+
+-   Correr procesos mas grandes
+-   Aumenta el grado de multiprogramación
+-   El programador no se preocupa por la falta de memoria
 
 ❌ **Desventajas**
-- Las peticiones de archivos pueden ser muy lentos
-- Requiere hardware y sistemas
+
+-   Las peticiones de archivos pueden ser muy lentos
+-   Requiere hardware y sistemas
 
 ### Swapping
 
@@ -2785,56 +2828,52 @@ Si no se encuentra una página en los primeros grupos, se puede reiniciar los bi
 
 ### Asignar Frames a los Procesos (completar)
 
-La asignación de marcos se refiere a cómo el sistema operativo reparte la memoria física (dividida en marcos) entre los distintos procesos que la requieren para ejecutar. Determinar cuántos marcos recibe cada proceso. 
+La asignación de marcos se refiere a cómo el sistema operativo reparte la memoria física (dividida en marcos) entre los distintos procesos que la requieren para ejecutar. Determinar cuántos marcos recibe cada proceso.
 
 Ejemplo:
-- Sistema con 1024 KB de memoria → 256 páginas de 4 KB.
-- El S.O. usa 248 KB → se reservan 62 páginas.
-- Quedan 194 páginas disponibles para los procesos.
+
+-   Sistema con 1024 KB de memoria → 256 páginas de 4 KB.
+-   El S.O. usa 248 KB → se reservan 62 páginas.
+-   Quedan 194 páginas disponibles para los procesos.
 
 #### Mínimo de Marcos
 
 Cada proceso necesita un número mínimo de marcos de memoria física para funcionar correctamente. Dependiendo de la arquitectura del sistema, se le agrega marcos para:
 
-- **Acceso directo**: se necesitan al menos 2 marcos (uno para la instrucción y otro para el dato).
-- **Referencias indirectas**: pueden requerir 3 o más marcos.
-- **Operaciones complejas**: en arquitecturas CISC, puede requerirse 4 o más marcos (instrucción, operandos, resultado).
+-   **Acceso directo**: se necesitan al menos 2 marcos (uno para la instrucción y otro para el dato).
+-   **Referencias indirectas**: pueden requerir 3 o más marcos.
+-   **Operaciones complejas**: en arquitecturas CISC, puede requerirse 4 o más marcos (instrucción, operandos, resultado).
 
 > ⚠️ Si se asignan menos marcos de los necesarios al inicio, se generan múltiples fallos de página por instrucción, degradando el rendimiento.
 
 #### Esquemas de Asignación
 
-- 🟨 Igualitaria -> Divide la memoria física disponible en partes iguales entre los procesos activos.
-    - ✔️ Simple
-    - ❌ Injusto: puede asignar demasiado a procesos pequeños y muy poco a procesos grandes.
-    - Ejemplo: con 4 procesos y 194 marcos → dos reciben 48 y dos reciben 49.
+-   🟨 Igualitaria -> Divide la memoria física disponible en partes iguales entre los procesos activos.
 
-- 🟩 Asignación Proporcional -> Se asigna memoria en proporción al uso de memoria virtual de cada proceso.
-    - > Fórmula: marcos = (VP / VT) × total_marcos
-    - ✔️ Más justa según el tamaño
-    - ❌ Requiere recalcular al entrar o salir procesos.
-    - ❌ Puede desperdiciar memoria en procesos ociosos.
+    -   ✔️ Simple
+    -   ❌ Injusto: puede asignar demasiado a procesos pequeños y muy poco a procesos grandes.
+    -   Ejemplo: con 4 procesos y 194 marcos → dos reciben 48 y dos reciben 49.
 
-- ⚙️ Asignación por Demanda (Implícito) -> Se asignan marcos cuando ocurren fallos de página, hasta que la memoria se llena. Luego se aplica reemplazo de página.
-    - ✔️ Simple y adaptativo
-    - ❌ Alto costo inicial: muchos fallos de página.
+-   🟩 Asignación Proporcional -> Se asigna memoria en proporción al uso de memoria virtual de cada proceso.
+
+    -   > Fórmula: marcos = (VP / VT) × total_marcos
+    -   ✔️ Más justa según el tamaño
+    -   ❌ Requiere recalcular al entrar o salir procesos.
+    -   ❌ Puede desperdiciar memoria en procesos ociosos.
+
+-   ⚙️ Asignación por Demanda (Implícito) -> Se asignan marcos cuando ocurren fallos de página, hasta que la memoria se llena. Luego se aplica reemplazo de página.
+    -   ✔️ Simple y adaptativo
+    -   ❌ Alto costo inicial: muchos fallos de página.
 
 #### Algoritmos de Reemplazo de Páginas
 
 Cada vez que un proceso genere un fallo de página, se le asigna un marco disponible. Cuando no hay más disponibles, se usa un algoritmo de reemplazo de páginas:
 
-- 🔒 **Reemplazo Local** -> Un proceso solo puede reemplazar sus propias páginas.
-    - ✔️ Predecible
-    - ❌ Rígido, no aprovecha procesos inactivos
-- 🌐 **Reemplazo Global** -> El sistema puede reemplazar cualquier página, de cualquier proceso.
-    - ✔️ Mejora uso general de memoria
-    - ❌ Inestable: procesos pueden tener rendimiento inconsistente
--🌐⬆️ **Global con Prioridad** -> Un proceso solo reemplaza páginas de procesos con menor prioridad.
-    - ✔️ Alineado con políticas de planificación por prioridad
-
-
-
-
+-   🔒 **Reemplazo Local** -> Un proceso solo puede reemplazar sus propias páginas.
+    -   ✔️ Predecible
+    -   ❌ Rígido, no aprovecha procesos inactivos
+-   🌐 **Reemplazo Global** -> El sistema puede reemplazar cualquier página, de cualquier proceso. - ✔️ Mejora uso general de memoria - ❌ Inestable: procesos pueden tener rendimiento inconsistente
+    -🌐⬆️ **Global con Prioridad** -> Un proceso solo reemplaza páginas de procesos con menor prioridad. - ✔️ Alineado con políticas de planificación por prioridad
 
 El número mínimo de marcos que puede necesitar un proceso depende de la arquitectura del sistema y del tipo de instrucciones que ejecuta. Ejemplo:
 
@@ -2882,7 +2921,7 @@ Ocurre cuando un proceso pasa más tiempo intercambiando páginas entre memoria 
 -   💤 Suspender o eliminar procesos -> Liberar recursos para los procesos realmente activos.
 -   🧠 Agregar más memoria física (RAM)
 
-# Modulo 6: Administración de Entrada/Salida
+# Administración de Entrada/Salida
 
 ## 🧩 Módulo de Entrada/Salida (E/S)
 
@@ -3038,6 +3077,14 @@ El DMA solo toma el control del bus, cuando el CPU no lo utiliza. No afecta el C
 
 Para acceder a un sector se debe especificar la pista, el plato, la cara y el sector.
 
+Tambien, se debe tener en cuenta los siguientes conceptos:
+
+-   **Partición**: División física o lógica de un disco duro en secciones independientes. Cada partición funciona como un "disco virtual" dentro del mismo dispositivo físico. Se utiliza metodos como MBR o GPT.
+-   **Volumen**: Espacio de almacenamiento lógico que puede abarcar uno o más discos/particiones. Puede ser creado mediante software o hardware. Algunos ejemplos:
+    -   Voluemn simple: Una sola partición
+    -   Volumen Distribuido (RAID 0): Combina espacio de varios discos para aumentar velocidad
+    -   Volumen Reflejado (RAID 1): Duplica datos en otro disco por seguridad
+
 ### Tiempos de Acceso a un Sector
 
 Se tiene varios tiempos en la transferencia de un disco. Pero, vamos agruparlos:
@@ -3089,14 +3136,146 @@ Similar a C-SCAN. La diferencia, va hasta el segmento más lejos (o más cercano
 
 Son dispositivos de almacenamiento que no incluyen piezas móviles. Por lo que, sus velocidades de busqueda y latencia son infimos a diferencia del disco, eso explica su velocidad. Extsen diferentes implementaciones como: SSD, Flash, NVRAM.
 
-# Modulo 7: File System
+# Organización de los Archivos
+
+## Concepto de Archivos
+
+### Definición
+
+Un archivo es un conjunto relacionado de bytes, utilizado para alojar cualquier tipo de información.
+
+### Interfaz de Operaciones con archivos
+
+Se dice que un archivo es un tipo de dato abstracto (TDA) por su interfaz de operaciones orientada a objetos.
+
+-   Crear
+-   Abrir
+-   Cerrar
+-   Leer
+-   Borrar
+-   Escribir
+-   Renombrar
+-   Reposicionar (valor valor puntero fseek)
+-   Truncar (modificar tamaño de un archivo)
+
+### Información Sobre Archivos Abiertos
+
+Estas tablas mantienen información acerca de los archivos actualmente abiertos. Esto debido a que en un sistema multitarea, más de un proceso podría abrir y operar el mismo archivo. El sistema por cada archivo, necesita:
+
+-   Conteo de usuarios del archivo
+-   Modos de acceso
+-   Permisos
+-   Ubicación en disco
+-   Información de bloqueo
+-   Descriptor de archivo
+
+### Bloqueos para Multitarea
+
+Aca, los bloqueos son como los semaforos para procesos; permiten al usuario bloquear porciones de un archivo, para que no pueda ser accedido por otro proceso. Hay distintos tipos:
+
+-   **Compartido/Exclusivo**
+    -   Exclusivo: Sólo puede acceder un proceso a la vez
+    -   Compartido: Se permite que otros procesos accedan al archivo para leerlo
+-   **Obligatorio/Sugerido**
+    -   Obligatorio: Una vez abierto, el SO importe las restricciones correspondientes de acceso
+    -   Sugerido: Manejado cooperativamente entre los procesos involucrados. El programador gestiona el acceso a varios archivos.
+
+### Protección y Control de Acceso
+
+El control de acceso es un mecanismo que regula quién puede acceder a qué recursos y bajo qué condiciones.
+
+Tenemos 3 tipos de **protección de archivos**:
+
+-   **Acceso total**: Sin protección
+-   **Acceso restringido**: Sólo el propietario tiene acceso
+-   **Acceso Controlado**: Se agregan restricciones sobre varios usuarios
+
+Tenemos 3 formas de gestionar el **acceso controlado**:
+
+-   **FAT**: No soporta permisos a los usuarios, solo atributos básicos:
+    -   Ocultar archivos
+    -   Archivos de sólo lectura
+    -   Sistema
+    -   Archivado
+-   **Modelo Tradicional Unix**:
+    -   Los permisos se otorgan a 3 categorias de usuarios:
+        -   Usuario propietario
+        -   Grupo de usuario (1 solo)
+        -   usuario (1 solo)
+    -   Tiene 3 tipos de permisos:
+        -   Lectura
+        -   Escritura
+        -   Ejecución
+-   **Listra de Control de Acceso**: Extensión del modelo tradicional. Solo que se puede asignar varios grupos y usuarios sueltos.
+-   **Contraseña**: Protege a los archivos con contraseña
+
+### Tipos de Archivos y Formas de Identificarlos
+
+Existen diferentes tipos de archivos:
+
+-   **Objetos del sistema de archivos** (tema proximo)
+-   **Archivos Regulares:** Guardan información de los usuarios
+-   **Archivos ejectuables:** Contiene instrucciones asm. Ejemplo: .exe
+-   **Dispositivos:** Permiten acceso direccto a un dispositivo externo
+-   **Comunicación entre procesos**: Mecanismo que permite el intercambio de información entre procesos
+
+El sistema operativo debe reconocer el tipo de archivo, para saber como operar con el. Existen 3 metodos para esto:
+
+-   **Extensión del Punto**: Se basa en el sufijo del nombre de archivo, como `.txt`, `.exe`, `.jpg`
+-   **Números Mágicos**: En lugar de confiar en el nombre, examina los primeros bytes del archivo (encabezado), que indica el tipo real del archivo
+-   **Metadatos Externos**: Cada archivo está asociado a un tipo de dato registrado en el sistema de archivos. Se guarda como atributo del archivo
+
+### Formas de Acceder a un Archivo
+
+-   **Acceso Secuencial**: Ir avanzando consecutivamente byte a byte hasta llegar al final
+-   **Acceso Directo o Aleatorio**: Se sabe que todos los registros son de un mismo tamaño, y se quiere acceder al 4° registro. Tan solo se realiza la operación: `dirección_base + tamaño_registro * 4`
+-   **Acceso Relativo a índice**: Se utilizan I-nodos (tema proximo), pero en resumen almacena los atributos del archivo y punteros a bloques de datos, como si se tratara del indice de un libro. Cada archivo contiene un indice que con las direcciones fisicas de los bloques del archivo, para acceder, se envia el n° de bloque que es traducido por el i-nodo a la dirección real.
+
+## Directorios
+
+### Definición
+
+Un directorio o carpeta, es un tipo de archivo, utilizado para gestionar los demas archivos.
+
+Todos los directorios se encuentran bajo un `directorios raíz`, que es el punto donde se desprenden los demás directorios en forma de arbol. El sistema operativo siempre conoce de antemano esta dirección.
+
+### Evolución de los Directorios
+
+1. **Directorio Plano** -> Todos los archivos estan en un unico nivel jerarquico. No existen subdirectorios.
+2. **Directorio por Usuario** -> Cada usuario tiene su propia directorio plano.
+3. **Estructura Jerárquica** -> Introducción de los subdirectorios. Formando árboles.
+4. **Directorios Dinámicos Multiusuario** -> Se mantiene una estructura dinámica
+    1. **Master File Directory (MFD)** -> Raíz del sistema
+    2. **User File Directory (UFD)** -> Espacio especifico para cada usuario
+5. **Directorios Especializados y Extendidos** -> Incorpora metadaos adicionales (propietario, permisos, fechas, etc...)
+
+### Interfaz de Operaciones con Directorios
+
+-   Abrir y cerrar
+-   Listado de archivos
+-   Buscar un elemento
+-   Crear, eliminar o renombrar un elemento
+-   Recorrer los directorios
+
+### Montaje de Directorios
+
+-   **Definición**
+
+Proceso mediante el cual un sistema operativo hace accesible un sistema de archivos alojado en un dispositivo de almacenamiento (como un disco o partición), integrándolo en el árbol jerárquico de directorios.
+
+-   **Funcionamiento**
+
+Cada sistema de archivos tiene un punto de entrada (raíz). El SO permite incrustar un nuevo sistema de archivos en una carpeta existente (llamada punto de montaje). A partir de ese momento, los archivos de ese dispositivo pueden accederse como si fueran parte del mismo sistema jerárquico.
+
+-   **Ejemplo**
+
+Supongamos que el directorio /home/usuario/usb es el punto de montaje. Si montamos un pendrive allí, todos los archivos del pendrive se verán dentro de esa carpeta, aunque físicamente estén en otro dispositivo.
+
+# Sistema de Archivos o File System
 
 ## Definición
 
--   **Archivo**: Conjunto de bytes que utilizamos para alojar información
--   **File System**: Conjunto de estructuras y funciones (syscalls) que nos van a permitir realizar operaciones con archivos (leer, escribir, borrar, etc...).
-
-Las computadoras pueden almacenar información en diferentes soportes físicos: disco, cintas, etc. Cada uno de estos dispositivos tiene su propia característica y organización física
+Conjunto de estructuras y funciones (syscalls) que nos van a permitir realizar operaciones con archivos (leer, escribir, borrar, etc...). Algunos sistemas de ejemplo: FAT, NTFS, EXT, entre otros...
 
 ## Objetivos y Funciones
 
@@ -3108,18 +3287,6 @@ El file system tiene los siguientes objetivos:
 -   Evitar perdida de información
 -   Soporte para distintos dispositivos
 -   Maximizar desempeño
-
-Tambien, tiene las siguientes funciones sobre archivos:
-
--   Crear
--   Abrir
--   Cerrar
--   Leer
--   Borrar
--   Escribir
--   Renombrar
--   Reposicionar (valor valor puntero fseek)
--   Truncar (modificar tamaño de un archivo)
 
 ## Administración del Espacio libre
 
@@ -3194,14 +3361,14 @@ Ejemplo:
 **✅ Ventajas:**
 
 -   Poco espacio
--   Rápido de procesar
+-   Rápido de procesar para almacenamiento continuo
 
 **❌ Desventajas:**
 
 -   Difícil de mantener si los bloques libres están muy fragmentados.
 -   Requiere compactación
 
-## Métodos de Asignación de Espacio para los archivos
+## Administración del Espacio para los archivos
 
 Los archivos son partidos en varios bloques de tamaño fijo, y una ves así se guardan en el disco.
 
@@ -3209,7 +3376,7 @@ Se usan tres métodos de asignación de espacio en disco:
 
 ![](/imgs/clase-7/Asignar%20Memoria.png)
 
-Se utiliza una `tabla de directorios` o `tabla de i-nodos` (creado en el mismo disco) para gestionar los archivos del usuario. Segun el metodo, se definen las columnas. `FAT` determina la cantidad de bits que tengo en la tabla, si fuera de 32 de bits, se tiene 32 bits para direccionar.
+<!-- Se utiliza una `tabla de directorios` o `tabla de i-nodos` (creado en el mismo disco) para gestionar los archivos del usuario. Segun el metodo, se definen las columnas. `FAT` determina la cantidad de bits que tengo en la tabla, si fuera de 32 de bits, se tiene 32 bits para direccionar. -->
 
 ### Asignación Contigua
 
@@ -3219,6 +3386,7 @@ La posición del archivo en el disco, queda definida por la dirección del prime
 
 -   Optimo para el acceso secuencial y acceso directo, la cabecera no debe viajar mucho
 -   Si se quiere leer un bloque especifico del archivo, simplemente se realiza la cuenta para saber donde esta
+-   Metadatos simples
 
 **❌ Desventajas:**
 
@@ -3226,13 +3394,30 @@ La posición del archivo en el disco, queda definida por la dirección del prime
 -   No permite agrandar el archivo
 -   Cuando un archivo se crea, generalmente no se sabe cuantos bloques va a ocupar
 
+Ejemplo: Cintas, CD-ROM
+
 ### Asignación Dinámica
+
+Se maneja como una colección de segmentos libres (huecos). Al crear un archivo, se elige el hueco mas conveniente. Existen 3 estrategias ya vistas para elegir el hueco:
+
+| Algoritmo         | Descripción                                                                  | Peso Computacional |
+| ----------------- | ---------------------------------------------------------------------------- | ------------------ |
+| **Primer Ajuste** | Asigna el proceso al **primer hueco** suficientemente grande que encuentra.  | ⚡ Rápido (ligero) |
+| **Mejor Ajuste**  | Busca el **bloque más justo posible**, donde sobre menos memoria.            | 🐢 Lento (pesado)  |
+| **Peor Ajuste**   | Busca el **hueco más grande**, para evitar fragmentación en espacios chicos. | 🐢 Lento (pesado)  |
 
 **✅ Ventajas:**
 
+-   Permite aumentar el tamaño de los archivos moviendolos
+-   Permite manejar archivos de tamaño variable
+
 **❌ Desventajas:**
 
-### Vinculado/Enlazado/Encadenado (Lista Simplemente Enlazada - Sistema de Nodos)
+-   Fragmentación externa
+-   Requiere búsqueda
+-   Requiere compactación
+
+### Vinculado/Enlazado/Encadenado
 
 Los bloques pueden estar en cualquier lugar del disco (no solo contiguo). Cada bloque tiene un puntero al bloque siguiente, y se debe especificar cual es el inicial y el final.
 
@@ -3244,13 +3429,18 @@ Los bloques pueden estar en cualquier lugar del disco (no solo contiguo). Cada b
 
 **❌ Desventajas:**
 
--   Los punteros ocupan espacio extra
+-   Los punteros ocupan espacio extra; overhead
 -   Ineficiente para acceso directo a un bloque: Si se quiere un bloque especifico, debemos comenzar a recorrer los bloques
 -   Si se pierde un loque, se pierden todos los bloques siguientes
 
-### Indexado
+Ejemplo: FAT
 
-Por cada archivo, se tiene una tabla que indica cuáles son los bloques que contiene. Por cada bloque, se tiene una fila nueva en la tabla.
+### Tabla FAT
+
+Tabla centralizada que almacena la secuencia de bloques de todos los archivos en el disco. Por cada fila en la tabla, se tiene: 
+
+- Puntero al siguiente bloque del archivo
+- Estado del bloque (libre, ocupado, dañado).
 
 **✅ Ventajas:**
 
@@ -3259,11 +3449,170 @@ Por cada archivo, se tiene una tabla que indica cuáles son los bloques que cont
 -   No es necesario declarar la longitud al crearlo
 -   Se tiene acceso directo a los bloques
 -   Si se pierde un bloque, solo se pierde ese
+-   Compatibilidad universal
 
 **❌ Desventajas:**
 
 -   Si se pierde la tabla, se pierde todo el archivo
--   Metodo que más espacio ocupa
--   Ineficiente para archivos grandes
+-   Metodo que más espacio ocupa, produciendo overhead
+-   Ineficiente para archivos grandes al tener que limitarlo
 
-### Acceso Secuencial
+Ejemplo: Pendrives, tarjetas SD, sistemas embebidos
+
+### Asignación Indexada (i-nodos)
+
+#### Definición
+
+![](/imgs/clase-7/Asignación%20indexada.png)
+
+Por cada archivo, se tiene un FCB/I-Nodo en donde se guardan todos los atributos del archivo (id, propietario, grupo, tamaño), junto con una serie de punteros que se dirigen a los bloques donde se encuentra el archivo.
+
+Un i-nodo incluye 39 bytes de información de direcciones:
+– 10 punteros a bloques de datos
+– 1 indirección simple
+– 1 indirección doble
+– 1 indirección triple
+
+Un i-nodo se guardar dentro de una `tabla de inodos` para gestionarlos
+
+#### Punteros
+
+Tenemos varios tipos:
+- **Punteros Directos**: Apunta a un bloque de datos
+- **Punteros Indirectos**: Apuntan a un bloque de punteros. Tenemos varias categorias:
+  - Simples: Apunta a un bloque de punteros
+  - Dobles: Punteros que apuntan a bloques de punteros
+  - Triples: Un nivel más que los dobles
+
+Cada bloque puede contener 256 punteros a bloque. Por lo tanto el tamaño máximo de un archivo es:
+> (10 + 256 + 256^2 + 256^3) x 1kb ≈ 16 Gb
+
+#### Soft Link y Hard Link
+
+- **Soft Link**(acceso directo)
+
+Crea un nuevo archivo que apunta a otro archivo, no a su información. Funciona como un acceso directo que puede apuntar a archivos en otras carpetas o discos.
+
+Si borras el archivo original, el enlace queda como roto.
+
+- **Hard Link**
+
+A diferencia del anterior, en este caso apuntamos al contenido de otro archivo. Por lo que si se borra el archivo original, aun hay otro que lo contiene.
+
+Todos los hard links comparten el mismo contenido, pero pueden tener nombres distintos.
+
+## Analisis de Algunos File Sytems
+
+### FAT
+
+#### Definición
+
+FAT (File Allocation Table) es un sistema de archivos sencillo que sigue siendo usado en dispositivos de almacenamiento portátiles como pendrives. 
+
+Sus principales características son:
+- **Tabla centralizada**: Almacena la secuencia de bloques de todos los archivos
+- **Estructura Simple**: Cada fila de la tabla contiene:
+    - Puntero al siguiente bloque del archivo
+    - Estado del bloque (libre, ocupado, dañado).
+
+Como punto negativo, no puede utilizar i-nodos o accesos directos.
+
+#### Estructura en Volumen
+
+![](/imgs/clase-7/Volumen%20FAT.png)
+
+- **Sector de arranque (Boot)**: Contiene metadatos del sistema de archivos
+- **Tabla FAT**: Puede haber copias para redundancia
+- **Directorio raíz**: Donde comienza la estructura de directorios
+
+#### Estructura Archivos
+
+![](/imgs/clase-7/Archivos%20FAT.png)
+
+#### Versiones de FAT
+
+Las versiones vigentes son:
+- **FAT 12**: Punteros de 12 bits. Direccionar 2^12 bloques/clusters
+- **FAT 16**: Punteros de 16 bits. Direccionar 2^16 bloques/clusters
+- **FAT 32**: Punteros de 32 bits. Direccionar 2^28 bloques/clusters. Los bits faltantes se usan para otras cosas.
+
+Teniendo esto en cuenta, se tienen 3 tamaños:
+- **Tamaño maximo real**: Capacidad física del disco.
+- **Tamaño maximo teorico**: Cantidad de bloques que podemos direccionar. Se calcula como `tamaño_fat x tamaño_bloque`.
+- **Numero maximo de archivos**: Tamaño del puntero
+- **Tamaño maximo de un archivo**: `Tamaño_del_puntero - 1`
+
+<!-- 
+#### Ejemplo
+
+Parametros:
+- **Tipo de FAT**: FAT32 (punteros de 28 bits = 268,435,456)
+- **Tamaño Bloque:** 4 KiB (12 bits)
+- **Tamaño del Disco (tamaño maximo real)**: 1 TB (931 GiB)
+
+Calculos:
+- Tamaño maximo teorico: 268,435,456 x 4KiB = 1,073,741,824 KiB = 1,048,576 MiB = 1024 GiB = 1 TiB
+- Tamaño máximo por archivo: 4 GiB - 1 Byte
+
+El disco es de 931 GiB, que es menor que el límite teórico de FAT32 (1024 GiB). Por lo que no se desperdicia espacio del disco.
+-->
+
+### UFS (Unix File System) / EXT
+
+#### Definición
+
+Actualmente utilizando en sistemas Linux/MAC. Se caracteriza por:
+- Estructura basada en I-Nodos
+- División del volumen en bloques
+- Los directorios no son estructuras mágicas, sino archivos especiales que contienen pares nombre–número de i-nodo
+
+UFS y EXT no son lo mismo. UFS queria ser implementado para linux pero no fue posible por problemas de licencia, por lo que se creo uno muy similar con mejoras llamado EXT.
+
+#### Estructura en Volumen
+
+Inicialmente tenemos un bloque de arranque y después vemos que tenemos N grupos de bloques. Todos los bloques tienen el mismo diseño.
+
+![](/imgs/clase-7/Volumen%20UFS.png)
+
+1. **Super bloque**: Metadatos globales del File System
+    - Nombre filesystem
+    - Tipo filesystem
+    - Tamaño de los bloques
+    - Cantidad de bloques libres
+    - Cantidad de I-Nodos Libres
+2. **Descriptor de Grupos**: Metadatos específicos del grupo
+3. **Bitmap de Bloqueos**: Mapa de bits donde cada bit representa un bloque libre/ocupado
+4. **Bitmap de Inodos**: Mapa de bits para inodos libres/ocupados
+5. **Tabla de Inodos**: Asocia los i-nodos con los archivos
+6. **Bloqueos de Datos**: Almacenan contenido real de archivos
+
+El unico componente que se queda estatico en todos los bloques, es el super bloque. Todo el resto, es unico por bloque.
+
+### NTFS (New Technology File System)
+
+#### Definición
+
+NTFS es el sistema de archivos moderno de Windows, diseñado por Microsoft para reemplazar a FAT. Ofrece:
+
+| Característica                 | Descripción                                                                                                            |
+| ------------------------------ | ---------------------------------------------------------------------------------------------------------------------- |
+| 📏 Soporte de archivos grandes | Hasta 16 Exabyte                                                     |
+| 🔐 Permisos de archivos        | Usa un sistema llamado **ACL** (*Access Control List*) para definir quién puede leer, escribir, ejecutar, etc.         |
+| 🧾 Journaling                  | Guarda un registro de cambios antes de hacerlos, para protegerse ante apagones o errores.                              |
+| 🏷️ Metadatos organizados      | Usa una estructura llamada **MFT** (*Master File Table*) para guardar toda la información de los archivos.             |
+| 🧩 Compresión y cifrado        | Soporta compresión de archivos y cifrado con **EFS** (*Encrypting File System*).                                       |
+| 📂 Soporte para enlaces        | Tiene **reparse points** que permiten usar **symlinks, junctions, hard links** (aunque con diferencias frente a Unix). |
+| 🔁 Cuotas de disco             | Permite limitar el espacio que puede usar cada usuario.                                                                |
+
+#### Estructura en Volumen
+
+1. **Sector de Arranque**
+2. **Master File Table(MFT)**
+3. **Área de Datos**
+
+Cada archivo/carpeta en NTFS tiene una entrada en la MFT que contiene:
+- Metadatos: Nombre, tamaño, fechas
+- Arributos Extendidos
+  - Datos del archivo: si es pequeño se guarda en la MFT
+  - Lista de bloques: para archivos grandes
+  - Lista de permisos
